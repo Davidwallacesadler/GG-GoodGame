@@ -13,6 +13,10 @@
 		63B27C1B233A853F006D5B03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63B27C19233A853F006D5B03 /* Main.storyboard */; };
 		63B27C1D233A8543006D5B03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63B27C1C233A8543006D5B03 /* Assets.xcassets */; };
 		63B27C20233A8543006D5B03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63B27C1E233A8543006D5B03 /* LaunchScreen.storyboard */; };
+		63B27C2E233A8B4E006D5B03 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C2D233A8B4E006D5B03 /* NetworkController.swift */; };
+		63B27C30233A9728006D5B03 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C2F233A9728006D5B03 /* Keys.swift */; };
+		63B27C32233A97A5006D5B03 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C31233A97A5006D5B03 /* Game.swift */; };
+		63B27C34233B3710006D5B03 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C33233B3710006D5B03 /* GameController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		63B27C1C233A8543006D5B03 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63B27C1F233A8543006D5B03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63B27C21233A8543006D5B03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63B27C2D233A8B4E006D5B03 /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		63B27C2F233A9728006D5B03 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		63B27C31233A97A5006D5B03 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		63B27C33233B3710006D5B03 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +80,7 @@
 		63B27C27233A88CC006D5B03 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				63B27C31233A97A5006D5B03 /* Game.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -79,6 +88,8 @@
 		63B27C28233A88D7006D5B03 /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				63B27C2D233A8B4E006D5B03 /* NetworkController.swift */,
+				63B27C33233B3710006D5B03 /* GameController.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -103,6 +114,7 @@
 		63B27C2B233A88FE006D5B03 /* Helper Files */ = {
 			isa = PBXGroup;
 			children = (
+				63B27C2F233A9728006D5B03 /* Keys.swift */,
 			);
 			path = "Helper Files";
 			sourceTree = "<group>";
@@ -186,9 +198,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63B27C2E233A8B4E006D5B03 /* NetworkController.swift in Sources */,
+				63B27C32233A97A5006D5B03 /* Game.swift in Sources */,
 				63B27C18233A853F006D5B03 /* ViewController.swift in Sources */,
 				63B27C14233A853F006D5B03 /* AppDelegate.swift in Sources */,
 				63B27C16233A853F006D5B03 /* SceneDelegate.swift in Sources */,
+				63B27C30233A9728006D5B03 /* Keys.swift in Sources */,
+				63B27C34233B3710006D5B03 /* GameController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
