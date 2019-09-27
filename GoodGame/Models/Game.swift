@@ -8,16 +8,16 @@
 
 import Foundation
 
+// Made up of all the id's of associated types:
 struct Game: Codable {
-    let name: String
     let id: Int
-    let cover: Artwork
-    let alternative_names: [AlternativeName]
-    let artworks: [Artwork]
-    let genres: [Genre]
-    let multiplayer_modes: [MultiplayerModes]
-    let platforms: [Platform]
-    let summary: String
+    let alternative_names: [Int]?
+    let cover: Int?
+    let genres: [Int]?
+    let multiplayer_modes: [Int]?
+    let name: String
+    let platforms: [Int]?
+    let summary: String?
     let url: String
 }
 
@@ -59,8 +59,6 @@ struct AlternativeName: Codable {
 }
 
 struct Artwork: Codable {
-    let game: Int // ID for the game
-    let height: Int // height in pixels
-    let width: Int // width in pixels
-    let url: String // url of the
+    let id: Int?
+    let url: String?
 }
