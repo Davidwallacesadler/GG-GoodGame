@@ -1,0 +1,16 @@
+PODS:
+  - TagList (0.3.0)
+
+DEPENDENCIES:
+  - TagList
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - TagList
+
+SPEC CHECKSUMS:
+  TagList: 3b1c8d9a2821027ec3a861e8cf7cdb30f7a6dec5
+
+PODFILE CHECKSUM: b6960b5bb0110e559009af4424da04e20a7eb1f3
+
+COCOAPODS: 1.5.3

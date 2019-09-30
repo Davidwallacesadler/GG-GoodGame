@@ -60,7 +60,8 @@ class GameDetailViewController: UIViewController {
                 }
             }
         }
-       var game: Game? {
+        // GAME:
+        var game: Game? {
            didSet {
             GameController.shared.getCoverImageByGameId(gameId!) { (image) in
                 guard let coverImage = image else { return }

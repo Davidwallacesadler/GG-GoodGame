@@ -18,9 +18,11 @@
 		63B27C32233A97A5006D5B03 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C31233A97A5006D5B03 /* Game.swift */; };
 		63B27C34233B3710006D5B03 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C33233B3710006D5B03 /* GameController.swift */; };
 		63B27C36233DA3FD006D5B03 /* GameDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C35233DA3FD006D5B03 /* GameDetailViewController.swift */; };
+		9FE7639313DE1C045D25AA10 /* Pods_GoodGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1F701D79B34A624057CE0F /* Pods_GoodGame.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		55FC50D3EB961DD77F1523F8 /* Pods-GoodGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodGame.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoodGame/Pods-GoodGame.debug.xcconfig"; sourceTree = "<group>"; };
 		63B27C10233A853F006D5B03 /* GoodGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B27C13233A853F006D5B03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63B27C15233A853F006D5B03 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -34,6 +36,8 @@
 		63B27C31233A97A5006D5B03 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		63B27C33233B3710006D5B03 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		63B27C35233DA3FD006D5B03 /* GameDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailViewController.swift; sourceTree = "<group>"; };
+		DA1F701D79B34A624057CE0F /* Pods_GoodGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE8E9DE83B7ED993918AC9A3 /* Pods-GoodGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoodGame/Pods-GoodGame.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FE7639313DE1C045D25AA10 /* Pods_GoodGame.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +57,8 @@
 			children = (
 				63B27C12233A853F006D5B03 /* GoodGame */,
 				63B27C11233A853F006D5B03 /* Products */,
+				CBE4FEFAFF546E9262449877 /* Pods */,
+				A125E98F2FB682ED2FD808D3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,6 +137,23 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		A125E98F2FB682ED2FD808D3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DA1F701D79B34A624057CE0F /* Pods_GoodGame.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CBE4FEFAFF546E9262449877 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				55FC50D3EB961DD77F1523F8 /* Pods-GoodGame.debug.xcconfig */,
+				DE8E9DE83B7ED993918AC9A3 /* Pods-GoodGame.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -137,9 +161,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63B27C24233A8543006D5B03 /* Build configuration list for PBXNativeTarget "GoodGame" */;
 			buildPhases = (
+				334381B77F99472908953009 /* [CP] Check Pods Manifest.lock */,
 				63B27C0C233A853F006D5B03 /* Sources */,
 				63B27C0D233A853F006D5B03 /* Frameworks */,
 				63B27C0E233A853F006D5B03 /* Resources */,
+				7094378CBB6A487FB84F1081 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -195,6 +221,53 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		334381B77F99472908953009 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GoodGame-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7094378CBB6A487FB84F1081 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-GoodGame/Pods-GoodGame-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/TagList/TagList.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TagList.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoodGame/Pods-GoodGame-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		63B27C0C233A853F006D5B03 /* Sources */ = {
@@ -350,6 +423,7 @@
 		};
 		63B27C25233A8543006D5B03 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55FC50D3EB961DD77F1523F8 /* Pods-GoodGame.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -368,6 +442,7 @@
 		};
 		63B27C26233A8543006D5B03 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE8E9DE83B7ED993918AC9A3 /* Pods-GoodGame.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
