@@ -14,11 +14,11 @@ struct GameController {
     
     static let shared = GameController()
     
-    // MARK: - Networking Methods
+    // MARK: -  Search By Game Name
     
     func searchByGameName(_ gameName: String,
                           completion: @escaping(_ Games: [Game]) -> Void) {
-        let requestBodyString = "search " + #""\#(gameName)""# + "; fields name, id, cover, alternative_names, genres, multiplayer_modes, platforms, summary, url;"
+        let requestBodyString = "search " + #""\#(gameName)""# + "; fields name, id, cover, alternative_names, genres, game_modes, platforms, summary, url;"
         guard let requestURL = URL(string: Keys.baseURL + "games"),  let requestBody = requestBodyString.data(using: .utf8, allowLossyConversion: false) else { return }
         NetworkController.performRequest(for: requestURL,
                                          httpMethod: .post,
@@ -44,6 +44,8 @@ struct GameController {
             }
         }
     }
+    
+    // MARK: - Get Cover Art Data
     
     func getCoverArtworkByGameId(_ gameId: Int,
                                  completion: @escaping(_ artwork: [Artwork]) -> Void) {
@@ -92,6 +94,109 @@ struct GameController {
                         return
                     }
                     completion(UIImage(data: recievedData as Data))
+                }
+            }
+        }
+    }
+    
+    // MARK: - Get Genre Data
+    
+    func getGenreByGenreId(_ genreId: Int,
+                          completion: @escaping(_ genres: [Genre]) -> Void) {
+        let requestBodyString = "fields name; where id = \(genreId);"
+        guard let requestUrl = URL(string: Keys.baseURL + "genres"), let requestBody = requestBodyString.data(using: .utf8, allowLossyConversion: false) else { return }
+        NetworkController.performRequest(for: requestUrl,
+                                         httpMethod: .post,
+                                         urlParameters: nil,
+                                         body: requestBody) { (data, error) in
+            if error != nil {
+                print(error, error?.localizedDescription)
+                completion([])
+                return
+            } else {
+                guard let recievedData = data else {
+                    completion([])
+                    return
+                }
+                let decoder = JSONDecoder()
+                do {
+                    let genres = try decoder.decode([Genre].self, from: recievedData)
+                    completion(genres)
+                    return
+                } catch {
+                    print("Error parsing data into genre object", error, error.localizedDescription)
+                    completion([])
+                    return
+                }
+            }
+        }
+        
+    }
+    
+    // MARK: - Get Platform Data
+    
+    func getPlatformByPlatformId(_ platformId: Int,
+                             completion: @escaping(_ platforms: [Platform]) -> Void) {
+        let requestBodyString = "fields *; exclude created_at, product_family, slug, summary, updated_at, versions, websites; where id = \(platformId);"
+        guard let requestUrl = URL(string: Keys.baseURL + "platforms"), let requestBody = requestBodyString.data(using: .utf8, allowLossyConversion: false) else { return }
+        NetworkController.performRequest(for: requestUrl,
+                                         httpMethod: .post,
+                                         urlParameters: nil,
+                                         body: requestBody) { (data, error) in
+            if error != nil {
+                print(error, error?.localizedDescription)
+                completion([])
+                return
+            }
+            guard let retreivedData = data else { return }
+            let decoder = JSONDecoder()
+            do {
+                let platforms = try decoder.decode([Platform].self, from: retreivedData)
+                completion(platforms)
+                return
+            } catch {
+                print("Error Parsing Platform into Object", error, error.localizedDescription)
+                completion([])
+                return
+            }
+        }
+    }
+    
+    // MARK: - Get Muliplayer Mode Data
+    
+    func getMultiplayerModesByModeId(_ multiPlayermodeId: Int,
+                                     completion: @escaping(_ mModes: [MultiplayerModes]) -> Void) {
+        
+    }
+    
+    // MARK: - Get Game Mode Data
+    
+    func getGameModesByModeId(_ gameModeId: Int,
+                              completion: @escaping(_ gameModes: [GameMode]) -> Void) {
+        let requestBodyString = "fields name; where id = \(gameModeId);"
+        guard let requestUrl = URL(string: Keys.baseURL + "game_modes"), let requestBody = requestBodyString.data(using: .utf8, allowLossyConversion: false) else { return }
+        NetworkController.performRequest(for: requestUrl,
+                                         httpMethod: .post,
+                                         urlParameters: nil,
+                                         body: requestBody) { (data, error) in
+            if error != nil {
+                print(error,error?.localizedDescription)
+                completion([])
+                return
+            } else {
+                guard let recievedData = data else {
+                    completion([])
+                    return
+                }
+                let decoder = JSONDecoder()
+                do {
+                    let gameModes = try decoder.decode([GameMode].self, from: recievedData)
+                    completion(gameModes)
+                    return
+                } catch {
+                    print("error parsing data into gameMode object", error, error.localizedDescription)
+                    completion([])
+                    return
                 }
             }
         }

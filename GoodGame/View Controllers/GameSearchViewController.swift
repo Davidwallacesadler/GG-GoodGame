@@ -19,6 +19,7 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
         GameController.shared.searchByGameName(searchText) { (games) in
             self.retreivedGames = games
         }
+        searchBar.resignFirstResponder()
     }
     
     
@@ -46,7 +47,6 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let games = retreivedGames else { return }
         let selectedGame = games[indexPath.row]
-        print(selectedGame.cover)
         selectedVideoGame = selectedGame
         self.performSegue(withIdentifier: "toShowGame", sender: self)
     }
@@ -93,6 +93,9 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
         if segue.identifier == "toShowGame" {
             guard let detailVC = segue.destination as? GameDetailViewController, let game = selectedVideoGame else { return }
             detailVC.gameId = game.id
+            detailVC.gamePlaftormIds = game.platforms
+            detailVC.genreIds = game.genres
+            detailVC.gameModeIds = game.game_modes
             detailVC.game = game
         }
     }
