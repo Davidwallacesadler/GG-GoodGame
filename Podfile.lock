@@ -1,16 +1,20 @@
 PODS:
   - TagList (0.3.0)
+  - WSTagsField (4.0.0)
 
 DEPENDENCIES:
   - TagList
+  - WSTagsField
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - TagList
+    - WSTagsField
 
 SPEC CHECKSUMS:
   TagList: 3b1c8d9a2821027ec3a861e8cf7cdb30f7a6dec5
+  WSTagsField: 3a10b75c304999ead6fb2251ddc2844266e7d9f2
 
-PODFILE CHECKSUM: b6960b5bb0110e559009af4424da04e20a7eb1f3
+PODFILE CHECKSUM: 77cefa3a83cc6b8b3a879c3ed4e63d80f2efd358
 
 COCOAPODS: 1.5.3

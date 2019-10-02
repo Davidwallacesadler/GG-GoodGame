@@ -7,107 +7,160 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		195AD9F8093DDC1B4F702DE074B6DE37 /* Resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D54DB5348CC6D8871CA5B43C6B20C9C2 /* Resources.bundle */; };
-		2FBA7E14DA711A57EC13F94D61AB6E93 /* TagList-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 949004892344693AACD926FCFED4E2BF /* TagList-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		465D7C25D71886E06F02406FDCF04196 /* Pods-GoodGame-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 570210D123B929DBD21D0253DFA58612 /* Pods-GoodGame-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		50869B924CC415A25AA0104808AA18FC /* TagWrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D991EA4C30A74AEE5618BF3CC744E50F /* TagWrappers.swift */; };
-		57CEB25E546F91E11AB590C71405DA2E /* Pods-GoodGame-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D176CA93C7F9EBDD56001AB2D6C36402 /* Pods-GoodGame-dummy.m */; };
-		8762740B493AB9367785F73B13D1F187 /* SeparatorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449F05F4885FA442627DB2E50D385885 /* SeparatorWrapper.swift */; };
-		8FDA3D32F813E576D0C31F5989FEAD41 /* TagContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29EA91E1D27F00C166E3F79B702D6B8 /* TagContents.swift */; };
-		95F5F4A98CCC70CF38D418B9198AC3B0 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740EB3BC3B00BE630637CE0EF68EB815 /* TagList.swift */; };
-		9622219C7B5337F5ED2C5E741C5A4A52 /* TagList-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB87F6028E6F2193C4B65F04867BD15 /* TagList-dummy.m */; };
-		A5AB562DD70D09B6DF8AC4AE7CEFCC51 /* SwiftTagList.h in Headers */ = {isa = PBXBuildFile; fileRef = E25FDA54C21B8F38AB9024F94EECD1C3 /* SwiftTagList.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C4135F3694E0744D96D5AF66798CD4C2 /* TagContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71600556F243028E6CC7BE9079E158F /* TagContent.swift */; };
-		C747038AC1954FB8973B688C91C803EC /* TagPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45A5EE5CA157DC9914FAD64838A3095 /* TagPresentable.swift */; };
-		D412E1BEBAEB13C56DA7F40B5AA1B98E /* TagWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90EFF6AF2F61BD6BA026A21326092DA3 /* TagWrapper.swift */; };
-		E53608935FF89C71FC287CD9C41FD07E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EFB40531CB700ADF867FEEE78561E78 /* Foundation.framework */; };
-		E6CBDD3CD851CE147114A360F71193BA /* TagPresentables.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33881FA1A8ADF97B42C01644DFE47C5 /* TagPresentables.swift */; };
-		EAAC0734C8C8B0982AFED22797D95F4E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74E404AA6957590324067E330E0EC533 /* UIKit.framework */; };
-		F338FE956F0F11F6A9A5E4652EF6F270 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8244B6F32D4751F8B6BE66B0688B08DF /* Tag.swift */; };
-		F7449A568FB61DE4E9BDEFDDE69F1363 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EFB40531CB700ADF867FEEE78561E78 /* Foundation.framework */; };
+		00CE3E9173D9B96DC74BE1CA788807AC /* WSTagsField-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B655C4D39168644A4BB93D705E1D501A /* WSTagsField-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		02F7A1F0F0DF41D5F208B33B6AA33064 /* WSTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = D406BCF7C2D6872F6BCF95BDAEE07656 /* WSTag.swift */; };
+		09367A3693668EFD3DC5E655DFF628FD /* SwiftTagList.h in Headers */ = {isa = PBXBuildFile; fileRef = A48707F5214EB8536B82400059AAB98B /* SwiftTagList.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		194ADF4C16141193CC8EABF7E93FB4FA /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8C23A4628C73B1F1457D4D155577F /* Tag.swift */; };
+		1F55372089653C5E2D09736EC41ADDE3 /* WSTagsField-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A3186413CC49B9FD4E84E453A3761B /* WSTagsField-dummy.m */; };
+		2737D86D30A2C6679BA771F1BDD3198A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA14F3E458952C1F0CEDDA54CB5CAAB6 /* Constants.swift */; };
+		284DE5169E4232B68FD5D92F0828E2DE /* WSTagsField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE1955CF72303B896C799EEF8DDEDF /* WSTagsField.swift */; };
+		2C16B4B8EC160CA773B6BFBA33309AC3 /* TagContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D6CB6BD1670C3A9449B3C437EE2101 /* TagContent.swift */; };
+		2D7339AD7B5FD9EA21CF207E9EF2C090 /* TagPresentables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AB694C461864DCB5AD9C45D1FA56B3 /* TagPresentables.swift */; };
+		43B5A3760BD50FF6B006FD5CD565C443 /* Pods-GoodGame-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D176CA93C7F9EBDD56001AB2D6C36402 /* Pods-GoodGame-dummy.m */; };
+		48AB4BFF1C89D828B4BB93391428082B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EFB40531CB700ADF867FEEE78561E78 /* Foundation.framework */; };
+		5FB8F69C9F3A320E459BCAD97C4309C8 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5776C47B2C3FD80A15944324C5967DA /* TagList.swift */; };
+		60AE426C561730747DE5F541AB9B8345 /* BackspaceDetectingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8685F75E25134E72C26C40D8E32118F /* BackspaceDetectingTextField.swift */; };
+		6446B0C96D06398EADDFD1343A6F1111 /* Resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A540A9F256FC8449317D7ED7277F1B63 /* Resources.bundle */; };
+		665F2F2E0D2D9328672A2F7E060DD5DF /* WSTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5188573E9EF56604F2353359228C48 /* WSTagView.swift */; };
+		7765E3EDAED58B72696C3DAC45CA7F1A /* TagPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB77BA5B1DDD9DCDD4CE6D393AC0313 /* TagPresentable.swift */; };
+		A10F221CDDD4EF6090672E1A73CDD4D1 /* SeparatorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413E5C1749A4FDB06DAF92E4736C2D8 /* SeparatorWrapper.swift */; };
+		AF2570B8ABC45A56D3753E46DD8B6263 /* TagList-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 516AA5AD86802371F1E774BD20BB0CBD /* TagList-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C83DCE4F31B91F873149AB90B026CF23 /* WSTagsField.h in Headers */ = {isa = PBXBuildFile; fileRef = F660B2859FB12F9E25D47DF7C156F6F3 /* WSTagsField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D85FF1963DACC15BF1CCF7700D347B6E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EFB40531CB700ADF867FEEE78561E78 /* Foundation.framework */; };
+		D89F6E4D0FE4EE66B8A569C0264CEF80 /* TagContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C32AC4DD9FE5B5038B17E5C3ED79CEE /* TagContents.swift */; };
+		E11585524BA8ADCF228E63030B2EADAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EFB40531CB700ADF867FEEE78561E78 /* Foundation.framework */; };
+		F3A4F1A2087DBF8591C7199B362D759E /* TagWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91195A203EE73C4D785CC6A09A51DAF8 /* TagWrapper.swift */; };
+		F7AEB05F9C5F96B1C6B5C984401EBCBC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74E404AA6957590324067E330E0EC533 /* UIKit.framework */; };
+		F97033F18FF9E9D219BA52CF141B3A5A /* Pods-GoodGame-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 570210D123B929DBD21D0253DFA58612 /* Pods-GoodGame-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FBF61FDBE8156DBA484FB849C8B9B1BE /* TagList-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F2354551505BAC35BCF21517C27F8763 /* TagList-dummy.m */; };
+		FC05C8058744FACCD8B1934108C46047 /* TagWrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EB270EEF29B033279AD0C99CAD0F30 /* TagWrappers.swift */; };
+		FEF766C355BD31B60640EFEAD3784A3B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74E404AA6957590324067E330E0EC533 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0FCA2E2E0C8C94D1280D77E1F86131AF /* PBXContainerItemProxy */ = {
+		3BDE4FDA4C7319910F348EF74C581429 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B38EAB18A483AEA208B73C6FA9AF859B;
-			remoteInfo = "TagList-Resources";
+			remoteGlobalIDString = A4C750464F7EF1E897364D1370A858EB;
+			remoteInfo = WSTagsField;
 		};
-		E0675B0239D004AAFF7887003AF8390B /* PBXContainerItemProxy */ = {
+		72B614EC6C82D5F9871E655118ECC9CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8320D72E04CC588EC783C17856F353F4;
+			remoteGlobalIDString = DA9A39D5A345D6C53B20A9AE124A2B2F;
 			remoteInfo = TagList;
+		};
+		890E234C58D8713E78009DEE6A6C516E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F53EC862308904725E9A1C6134EC5BCB;
+			remoteInfo = "TagList-Resources";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		036770DA540CD8489997FE713AE8C375 /* TagList-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TagList-prefix.pch"; sourceTree = "<group>"; };
+		0413E5C1749A4FDB06DAF92E4736C2D8 /* SeparatorWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SeparatorWrapper.swift; path = Framework/SwiftTagList/SeparatorWrapper.swift; sourceTree = "<group>"; };
 		056999D49B0CE8FC60EE646DA7CBEBD1 /* Pods-GoodGame-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-GoodGame-frameworks.sh"; sourceTree = "<group>"; };
-		194C2ECC67BCABAA7AC29B3B741D40CE /* TagList-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TagList-prefix.pch"; sourceTree = "<group>"; };
+		17AB694C461864DCB5AD9C45D1FA56B3 /* TagPresentables.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TagPresentables.swift; path = Framework/SwiftTagList/TagPresentables.swift; sourceTree = "<group>"; };
+		1EA60409B00CB12B321F73E2DE82FFFD /* WSTagsField.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = WSTagsField.modulemap; sourceTree = "<group>"; };
+		22A3186413CC49B9FD4E84E453A3761B /* WSTagsField-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "WSTagsField-dummy.m"; sourceTree = "<group>"; };
+		234ABBDE0AFCF803970C6BB4F176ABA2 /* WSTagsField.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = WSTagsField.xcconfig; sourceTree = "<group>"; };
+		2BAE1955CF72303B896C799EEF8DDEDF /* WSTagsField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WSTagsField.swift; path = Source/WSTagsField.swift; sourceTree = "<group>"; };
 		2EFB40531CB700ADF867FEEE78561E78 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		2F3089D62728F5B948474019698FBBC4 /* Pods-GoodGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-GoodGame.release.xcconfig"; sourceTree = "<group>"; };
-		449F05F4885FA442627DB2E50D385885 /* SeparatorWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SeparatorWrapper.swift; path = Framework/SwiftTagList/SeparatorWrapper.swift; sourceTree = "<group>"; };
+		33628854466D954E644006AA8D6CD962 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38E8C23A4628C73B1F1457D4D155577F /* Tag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Tag.swift; path = Framework/SwiftTagList/Tag.swift; sourceTree = "<group>"; };
 		4A151F8C2123421A8E0B326F7FB04511 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		516AA5AD86802371F1E774BD20BB0CBD /* TagList-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TagList-umbrella.h"; sourceTree = "<group>"; };
 		570210D123B929DBD21D0253DFA58612 /* Pods-GoodGame-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-GoodGame-umbrella.h"; sourceTree = "<group>"; };
 		57E26525DB2BA07B28E8C7438ABAB237 /* Pods-GoodGame.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-GoodGame.modulemap"; sourceTree = "<group>"; };
-		722952AE37D6535C693F5DEFBDB61EC1 /* TagList.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TagList.xcconfig; sourceTree = "<group>"; };
-		740EB3BC3B00BE630637CE0EF68EB815 /* TagList.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TagList.swift; path = Framework/SwiftTagList/TagList.swift; sourceTree = "<group>"; };
+		5C32AC4DD9FE5B5038B17E5C3ED79CEE /* TagContents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TagContents.swift; path = Framework/SwiftTagList/TagContents.swift; sourceTree = "<group>"; };
 		74E404AA6957590324067E330E0EC533 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		7AB87F6028E6F2193C4B65F04867BD15 /* TagList-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TagList-dummy.m"; sourceTree = "<group>"; };
 		7C7FF4B3FA1E00D567A8B399EDDE7888 /* Pods-GoodGame-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-GoodGame-resources.sh"; sourceTree = "<group>"; };
-		8244B6F32D4751F8B6BE66B0688B08DF /* Tag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Tag.swift; path = Framework/SwiftTagList/Tag.swift; sourceTree = "<group>"; };
-		90EFF6AF2F61BD6BA026A21326092DA3 /* TagWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TagWrapper.swift; path = Framework/SwiftTagList/TagWrapper.swift; sourceTree = "<group>"; };
+		7E9F056505D4670C9FD64A1E3B6E53F1 /* WSTagsField.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = WSTagsField.framework; path = WSTagsField.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		89D6CB6BD1670C3A9449B3C437EE2101 /* TagContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TagContent.swift; path = Framework/SwiftTagList/TagContent.swift; sourceTree = "<group>"; };
+		8C59E4476B81C89A523697FBE371886F /* WSTagsField-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WSTagsField-prefix.pch"; sourceTree = "<group>"; };
+		8EF50955978B10416AF988EEF8186CC0 /* TagList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TagList.framework; path = TagList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		90AFFE15FA0F4E8DE10255613AEF4946 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91195A203EE73C4D785CC6A09A51DAF8 /* TagWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TagWrapper.swift; path = Framework/SwiftTagList/TagWrapper.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		949004892344693AACD926FCFED4E2BF /* TagList-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TagList-umbrella.h"; sourceTree = "<group>"; };
-		A33881FA1A8ADF97B42C01644DFE47C5 /* TagPresentables.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TagPresentables.swift; path = Framework/SwiftTagList/TagPresentables.swift; sourceTree = "<group>"; };
-		A8717D094D3F8530D3F4F0C64860569F /* Pods_GoodGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_GoodGame.framework; path = "Pods-GoodGame.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		986C720C2E3D3623317A22F7D6734AC5 /* Pods_GoodGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_GoodGame.framework; path = "Pods-GoodGame.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A48707F5214EB8536B82400059AAB98B /* SwiftTagList.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SwiftTagList.h; path = Framework/SwiftTagList/SwiftTagList.h; sourceTree = "<group>"; };
+		A540A9F256FC8449317D7ED7277F1B63 /* Resources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = Resources.bundle; path = "TagList-Resources.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA9471F8B82AC1DF4BABCCFAC4D606ED /* Pods-GoodGame-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-GoodGame-acknowledgements.plist"; sourceTree = "<group>"; };
-		B29EA91E1D27F00C166E3F79B702D6B8 /* TagContents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TagContents.swift; path = Framework/SwiftTagList/TagContents.swift; sourceTree = "<group>"; };
-		BFD45249C6F9EECD02CB00F5B8578EB4 /* ResourceBundle-Resources-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-Resources-Info.plist"; sourceTree = "<group>"; };
-		C71600556F243028E6CC7BE9079E158F /* TagContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TagContent.swift; path = Framework/SwiftTagList/TagContent.swift; sourceTree = "<group>"; };
+		B5776C47B2C3FD80A15944324C5967DA /* TagList.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TagList.swift; path = Framework/SwiftTagList/TagList.swift; sourceTree = "<group>"; };
+		B655C4D39168644A4BB93D705E1D501A /* WSTagsField-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WSTagsField-umbrella.h"; sourceTree = "<group>"; };
+		BA14F3E458952C1F0CEDDA54CB5CAAB6 /* Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Source/Constants.swift; sourceTree = "<group>"; };
+		BF805E70C4F18E9831406221C3434723 /* ResourceBundle-Resources-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-Resources-Info.plist"; sourceTree = "<group>"; };
+		CC5188573E9EF56604F2353359228C48 /* WSTagView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WSTagView.swift; path = Source/WSTagView.swift; sourceTree = "<group>"; };
 		D10186A2F29E6FD54AA4FDD6F81081CD /* Pods-GoodGame-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-GoodGame-acknowledgements.markdown"; sourceTree = "<group>"; };
 		D176CA93C7F9EBDD56001AB2D6C36402 /* Pods-GoodGame-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-GoodGame-dummy.m"; sourceTree = "<group>"; };
-		D54DB5348CC6D8871CA5B43C6B20C9C2 /* Resources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = Resources.bundle; path = "TagList-Resources.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D642D056C3A210D37DF1A7FA0D54468C /* TagList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TagList.framework; path = TagList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D991EA4C30A74AEE5618BF3CC744E50F /* TagWrappers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TagWrappers.swift; path = Framework/SwiftTagList/TagWrappers.swift; sourceTree = "<group>"; };
+		D406BCF7C2D6872F6BCF95BDAEE07656 /* WSTag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WSTag.swift; path = Source/WSTag.swift; sourceTree = "<group>"; };
+		D8685F75E25134E72C26C40D8E32118F /* BackspaceDetectingTextField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BackspaceDetectingTextField.swift; path = Source/BackspaceDetectingTextField.swift; sourceTree = "<group>"; };
 		DC7B7E3D7E34258367F89E60008400AA /* Pods-GoodGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-GoodGame.debug.xcconfig"; sourceTree = "<group>"; };
-		DEEDA72D310BAAB7AFF996CF8623C7A8 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E237EB746C367C8F24A9CDB8683A745F /* TagList.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = TagList.modulemap; sourceTree = "<group>"; };
-		E25FDA54C21B8F38AB9024F94EECD1C3 /* SwiftTagList.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SwiftTagList.h; path = Framework/SwiftTagList/SwiftTagList.h; sourceTree = "<group>"; };
-		F45A5EE5CA157DC9914FAD64838A3095 /* TagPresentable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TagPresentable.swift; path = Framework/SwiftTagList/TagPresentable.swift; sourceTree = "<group>"; };
+		E9EB270EEF29B033279AD0C99CAD0F30 /* TagWrappers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TagWrappers.swift; path = Framework/SwiftTagList/TagWrappers.swift; sourceTree = "<group>"; };
+		EE873176C7B3D1FDFBBFF6C04550255D /* TagList.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = TagList.modulemap; sourceTree = "<group>"; };
+		F2354551505BAC35BCF21517C27F8763 /* TagList-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TagList-dummy.m"; sourceTree = "<group>"; };
+		F34CB7A6783E34AE80A55C20BCC30B8F /* TagList.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TagList.xcconfig; sourceTree = "<group>"; };
+		F660B2859FB12F9E25D47DF7C156F6F3 /* WSTagsField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WSTagsField.h; path = WSTagsField/WSTagsField.h; sourceTree = "<group>"; };
+		FFB77BA5B1DDD9DCDD4CE6D393AC0313 /* TagPresentable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TagPresentable.swift; path = Framework/SwiftTagList/TagPresentable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4736E3E2DD30D1A532C07C3A53741D64 /* Frameworks */ = {
+		28D70FF2B22AB79CD76A5F0EAC6F6AF5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E11585524BA8ADCF228E63030B2EADAF /* Foundation.framework in Frameworks */,
+				FEF766C355BD31B60640EFEAD3784A3B /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BEA9B8E5CBDCAF822449468107F17EC1 /* Frameworks */ = {
+		2DC8FCB5B8B352C1FAD37CD8679C70C1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7449A568FB61DE4E9BDEFDDE69F1363 /* Foundation.framework in Frameworks */,
-				EAAC0734C8C8B0982AFED22797D95F4E /* UIKit.framework in Frameworks */,
+				48AB4BFF1C89D828B4BB93391428082B /* Foundation.framework in Frameworks */,
+				F7AEB05F9C5F96B1C6B5C984401EBCBC /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D3C22AAEF7CCFF18513DF647E11319F6 /* Frameworks */ = {
+		3633415DF6155FDE5F9CB18A63DFBE73 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E53608935FF89C71FC287CD9C41FD07E /* Foundation.framework in Frameworks */,
+				D85FF1963DACC15BF1CCF7700D347B6E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F66ACF7570FDF223A359876A6793884A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04F22E20B7D91B8624B11D9786497C68 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				33628854466D954E644006AA8D6CD962 /* Info.plist */,
+				1EA60409B00CB12B321F73E2DE82FFFD /* WSTagsField.modulemap */,
+				234ABBDE0AFCF803970C6BB4F176ABA2 /* WSTagsField.xcconfig */,
+				22A3186413CC49B9FD4E84E453A3761B /* WSTagsField-dummy.m */,
+				8C59E4476B81C89A523697FBE371886F /* WSTagsField-prefix.pch */,
+				B655C4D39168644A4BB93D705E1D501A /* WSTagsField-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/WSTagsField";
+			sourceTree = "<group>";
+		};
 		06CDD10DE71306278CF89108B3036DFD /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,21 +188,6 @@
 			path = "Target Support Files/Pods-GoodGame";
 			sourceTree = "<group>";
 		};
-		3520660E954AEF88CF5707A62063C2A3 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				DEEDA72D310BAAB7AFF996CF8623C7A8 /* Info.plist */,
-				BFD45249C6F9EECD02CB00F5B8578EB4 /* ResourceBundle-Resources-Info.plist */,
-				E237EB746C367C8F24A9CDB8683A745F /* TagList.modulemap */,
-				722952AE37D6535C693F5DEFBDB61EC1 /* TagList.xcconfig */,
-				7AB87F6028E6F2193C4B65F04867BD15 /* TagList-dummy.m */,
-				194C2ECC67BCABAA7AC29B3B741D40CE /* TagList-prefix.pch */,
-				949004892344693AACD926FCFED4E2BF /* TagList-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/TagList";
-			sourceTree = "<group>";
-		};
 		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,23 +196,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5A366665C6A0A11481466EAA00DB0043 /* TagList */ = {
+		50F477FF85B7B070AD1950BACA296328 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				449F05F4885FA442627DB2E50D385885 /* SeparatorWrapper.swift */,
-				E25FDA54C21B8F38AB9024F94EECD1C3 /* SwiftTagList.h */,
-				8244B6F32D4751F8B6BE66B0688B08DF /* Tag.swift */,
-				C71600556F243028E6CC7BE9079E158F /* TagContent.swift */,
-				B29EA91E1D27F00C166E3F79B702D6B8 /* TagContents.swift */,
-				740EB3BC3B00BE630637CE0EF68EB815 /* TagList.swift */,
-				F45A5EE5CA157DC9914FAD64838A3095 /* TagPresentable.swift */,
-				A33881FA1A8ADF97B42C01644DFE47C5 /* TagPresentables.swift */,
-				90EFF6AF2F61BD6BA026A21326092DA3 /* TagWrapper.swift */,
-				D991EA4C30A74AEE5618BF3CC744E50F /* TagWrappers.swift */,
-				3520660E954AEF88CF5707A62063C2A3 /* Support Files */,
+				BE42C89A596BF83B1635F7FF92E4E9F1 /* TagList */,
+				A7ADBD4A76DE44F2996F18C1A6730761 /* WSTagsField */,
 			);
-			name = TagList;
-			path = TagList;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		6C764992359A3C9C8DB4C70B93D74EFE /* Targets Support Files */ = {
@@ -190,79 +218,168 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
-				8D37F308C88C717F71ECC0C5F50A449F /* Pods */,
-				B2D6CF0D61749E10BE1EF79C0A04ACBB /* Products */,
+				50F477FF85B7B070AD1950BACA296328 /* Pods */,
+				A52992CC669474A7C09EAC9BE2348EA4 /* Products */,
 				6C764992359A3C9C8DB4C70B93D74EFE /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		8D37F308C88C717F71ECC0C5F50A449F /* Pods */ = {
+		A52992CC669474A7C09EAC9BE2348EA4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5A366665C6A0A11481466EAA00DB0043 /* TagList */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		B2D6CF0D61749E10BE1EF79C0A04ACBB /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A8717D094D3F8530D3F4F0C64860569F /* Pods_GoodGame.framework */,
-				D54DB5348CC6D8871CA5B43C6B20C9C2 /* Resources.bundle */,
-				D642D056C3A210D37DF1A7FA0D54468C /* TagList.framework */,
+				986C720C2E3D3623317A22F7D6734AC5 /* Pods_GoodGame.framework */,
+				A540A9F256FC8449317D7ED7277F1B63 /* Resources.bundle */,
+				8EF50955978B10416AF988EEF8186CC0 /* TagList.framework */,
+				7E9F056505D4670C9FD64A1E3B6E53F1 /* WSTagsField.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A7ADBD4A76DE44F2996F18C1A6730761 /* WSTagsField */ = {
+			isa = PBXGroup;
+			children = (
+				D8685F75E25134E72C26C40D8E32118F /* BackspaceDetectingTextField.swift */,
+				BA14F3E458952C1F0CEDDA54CB5CAAB6 /* Constants.swift */,
+				D406BCF7C2D6872F6BCF95BDAEE07656 /* WSTag.swift */,
+				F660B2859FB12F9E25D47DF7C156F6F3 /* WSTagsField.h */,
+				2BAE1955CF72303B896C799EEF8DDEDF /* WSTagsField.swift */,
+				CC5188573E9EF56604F2353359228C48 /* WSTagView.swift */,
+				04F22E20B7D91B8624B11D9786497C68 /* Support Files */,
+			);
+			name = WSTagsField;
+			path = WSTagsField;
+			sourceTree = "<group>";
+		};
+		B5A05676A68AC6D07833D64A13452D43 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				90AFFE15FA0F4E8DE10255613AEF4946 /* Info.plist */,
+				BF805E70C4F18E9831406221C3434723 /* ResourceBundle-Resources-Info.plist */,
+				EE873176C7B3D1FDFBBFF6C04550255D /* TagList.modulemap */,
+				F34CB7A6783E34AE80A55C20BCC30B8F /* TagList.xcconfig */,
+				F2354551505BAC35BCF21517C27F8763 /* TagList-dummy.m */,
+				036770DA540CD8489997FE713AE8C375 /* TagList-prefix.pch */,
+				516AA5AD86802371F1E774BD20BB0CBD /* TagList-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/TagList";
+			sourceTree = "<group>";
+		};
+		BE42C89A596BF83B1635F7FF92E4E9F1 /* TagList */ = {
+			isa = PBXGroup;
+			children = (
+				0413E5C1749A4FDB06DAF92E4736C2D8 /* SeparatorWrapper.swift */,
+				A48707F5214EB8536B82400059AAB98B /* SwiftTagList.h */,
+				38E8C23A4628C73B1F1457D4D155577F /* Tag.swift */,
+				89D6CB6BD1670C3A9449B3C437EE2101 /* TagContent.swift */,
+				5C32AC4DD9FE5B5038B17E5C3ED79CEE /* TagContents.swift */,
+				B5776C47B2C3FD80A15944324C5967DA /* TagList.swift */,
+				FFB77BA5B1DDD9DCDD4CE6D393AC0313 /* TagPresentable.swift */,
+				17AB694C461864DCB5AD9C45D1FA56B3 /* TagPresentables.swift */,
+				91195A203EE73C4D785CC6A09A51DAF8 /* TagWrapper.swift */,
+				E9EB270EEF29B033279AD0C99CAD0F30 /* TagWrappers.swift */,
+				B5A05676A68AC6D07833D64A13452D43 /* Support Files */,
+			);
+			name = TagList;
+			path = TagList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		21414941389FAA9CEBE2FA6F6636E7BE /* Headers */ = {
+		8B6260ABA3AE9CE8640D87D592C7C978 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5AB562DD70D09B6DF8AC4AE7CEFCC51 /* SwiftTagList.h in Headers */,
-				2FBA7E14DA711A57EC13F94D61AB6E93 /* TagList-umbrella.h in Headers */,
+				F97033F18FF9E9D219BA52CF141B3A5A /* Pods-GoodGame-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B85ABACE7CEFCBE6334EB8A2465FE4F0 /* Headers */ = {
+		AE3243090EB740F111A30FBE8CDB7308 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				465D7C25D71886E06F02406FDCF04196 /* Pods-GoodGame-umbrella.h in Headers */,
+				09367A3693668EFD3DC5E655DFF628FD /* SwiftTagList.h in Headers */,
+				AF2570B8ABC45A56D3753E46DD8B6263 /* TagList-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F64B441403CC4803E58544A27A694A9F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00CE3E9173D9B96DC74BE1CA788807AC /* WSTagsField-umbrella.h in Headers */,
+				C83DCE4F31B91F873149AB90B026CF23 /* WSTagsField.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8320D72E04CC588EC783C17856F353F4 /* TagList */ = {
+		0B55EFA7AEC0B062804B0F9F1F55078E /* Pods-GoodGame */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 46BA995A72DF67174B7A931CD5DAEB32 /* Build configuration list for PBXNativeTarget "TagList" */;
+			buildConfigurationList = A2F38FFB4A6E7BDD901DFE6ADA7804B6 /* Build configuration list for PBXNativeTarget "Pods-GoodGame" */;
 			buildPhases = (
-				21414941389FAA9CEBE2FA6F6636E7BE /* Headers */,
-				8961F02A1A6FE4B45D91FB1AD2423664 /* Sources */,
-				BEA9B8E5CBDCAF822449468107F17EC1 /* Frameworks */,
-				6BFD7B22E66983C33B38A28406E5079E /* Resources */,
+				8B6260ABA3AE9CE8640D87D592C7C978 /* Headers */,
+				6B28B8A8CD1DBFD577017470E3F13B53 /* Sources */,
+				3633415DF6155FDE5F9CB18A63DFBE73 /* Frameworks */,
+				FCC1AABBCAEB85C51D81EDF5CAB5A0D8 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E69E0F8A719A6E1FFF7CCEFDE7BD77FF /* PBXTargetDependency */,
+				0387754E9D73EFC41ACC9DA4913C03D1 /* PBXTargetDependency */,
+				8A17B44658F3E38F31B9D9563C393518 /* PBXTargetDependency */,
+			);
+			name = "Pods-GoodGame";
+			productName = "Pods-GoodGame";
+			productReference = 986C720C2E3D3623317A22F7D6734AC5 /* Pods_GoodGame.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A4C750464F7EF1E897364D1370A858EB /* WSTagsField */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC2305D13F24DB60401EC76792B93150 /* Build configuration list for PBXNativeTarget "WSTagsField" */;
+			buildPhases = (
+				F64B441403CC4803E58544A27A694A9F /* Headers */,
+				EB6CF3ED649CA179E67A5C476024F197 /* Sources */,
+				2DC8FCB5B8B352C1FAD37CD8679C70C1 /* Frameworks */,
+				3432C7BF986C9F77ACAD99B8B5616970 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WSTagsField;
+			productName = WSTagsField;
+			productReference = 7E9F056505D4670C9FD64A1E3B6E53F1 /* WSTagsField.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		DA9A39D5A345D6C53B20A9AE124A2B2F /* TagList */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 540277DF2AD0903B0550B537F3AAA1AB /* Build configuration list for PBXNativeTarget "TagList" */;
+			buildPhases = (
+				AE3243090EB740F111A30FBE8CDB7308 /* Headers */,
+				2CDD3D0BC535EAFF5EED2947B3BD6C15 /* Sources */,
+				28D70FF2B22AB79CD76A5F0EAC6F6AF5 /* Frameworks */,
+				23EBDC84BDC8A995983C2BCB899CB8B0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C9314D41EDB6B68144259B47D08D2F0B /* PBXTargetDependency */,
 			);
 			name = TagList;
 			productName = TagList;
-			productReference = D642D056C3A210D37DF1A7FA0D54468C /* TagList.framework */;
+			productReference = 8EF50955978B10416AF988EEF8186CC0 /* TagList.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		B38EAB18A483AEA208B73C6FA9AF859B /* TagList-Resources */ = {
+		F53EC862308904725E9A1C6134EC5BCB /* TagList-Resources */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1257246D1B68EB4CBE2E6E84EEEF7B35 /* Build configuration list for PBXNativeTarget "TagList-Resources" */;
+			buildConfigurationList = 9E44EA3D8E2CB760B6AD7D3436642302 /* Build configuration list for PBXNativeTarget "TagList-Resources" */;
 			buildPhases = (
-				7F587E0FC8F9CF147C3FBA9750D80B3A /* Sources */,
-				4736E3E2DD30D1A532C07C3A53741D64 /* Frameworks */,
-				DB4F74536A817EF568E40A3659E83B9B /* Resources */,
+				52CEFF962A3ECF3EE5DDDE462037FFDA /* Sources */,
+				F66ACF7570FDF223A359876A6793884A /* Frameworks */,
+				40DDC6C4E1897E0EB229112D9A5AEE52 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -270,27 +387,8 @@
 			);
 			name = "TagList-Resources";
 			productName = "TagList-Resources";
-			productReference = D54DB5348CC6D8871CA5B43C6B20C9C2 /* Resources.bundle */;
+			productReference = A540A9F256FC8449317D7ED7277F1B63 /* Resources.bundle */;
 			productType = "com.apple.product-type.bundle";
-		};
-		B8C3D503425215A0425730FBFCDB6CE8 /* Pods-GoodGame */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FB47F2E3419AB5BF7272B4DA3BFC91BE /* Build configuration list for PBXNativeTarget "Pods-GoodGame" */;
-			buildPhases = (
-				B85ABACE7CEFCBE6334EB8A2465FE4F0 /* Headers */,
-				3F3DF8161462478C02C689054E84215E /* Sources */,
-				D3C22AAEF7CCFF18513DF647E11319F6 /* Frameworks */,
-				536264C64209A375CE4DAE482737E808 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DA18DA09BA88F8B635369D6CB0755D31 /* PBXTargetDependency */,
-			);
-			name = "Pods-GoodGame";
-			productName = "Pods-GoodGame";
-			productReference = A8717D094D3F8530D3F4F0C64860569F /* Pods_GoodGame.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -309,34 +407,42 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = B2D6CF0D61749E10BE1EF79C0A04ACBB /* Products */;
+			productRefGroup = A52992CC669474A7C09EAC9BE2348EA4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B8C3D503425215A0425730FBFCDB6CE8 /* Pods-GoodGame */,
-				8320D72E04CC588EC783C17856F353F4 /* TagList */,
-				B38EAB18A483AEA208B73C6FA9AF859B /* TagList-Resources */,
+				0B55EFA7AEC0B062804B0F9F1F55078E /* Pods-GoodGame */,
+				DA9A39D5A345D6C53B20A9AE124A2B2F /* TagList */,
+				F53EC862308904725E9A1C6134EC5BCB /* TagList-Resources */,
+				A4C750464F7EF1E897364D1370A858EB /* WSTagsField */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		536264C64209A375CE4DAE482737E808 /* Resources */ = {
+		23EBDC84BDC8A995983C2BCB899CB8B0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6446B0C96D06398EADDFD1343A6F1111 /* Resources.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3432C7BF986C9F77ACAD99B8B5616970 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6BFD7B22E66983C33B38A28406E5079E /* Resources */ = {
+		40DDC6C4E1897E0EB229112D9A5AEE52 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				195AD9F8093DDC1B4F702DE074B6DE37 /* Resources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DB4F74536A817EF568E40A3659E83B9B /* Resources */ = {
+		FCC1AABBCAEB85C51D81EDF5CAB5A0D8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -346,93 +452,76 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3F3DF8161462478C02C689054E84215E /* Sources */ = {
+		2CDD3D0BC535EAFF5EED2947B3BD6C15 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57CEB25E546F91E11AB590C71405DA2E /* Pods-GoodGame-dummy.m in Sources */,
+				A10F221CDDD4EF6090672E1A73CDD4D1 /* SeparatorWrapper.swift in Sources */,
+				194ADF4C16141193CC8EABF7E93FB4FA /* Tag.swift in Sources */,
+				2C16B4B8EC160CA773B6BFBA33309AC3 /* TagContent.swift in Sources */,
+				D89F6E4D0FE4EE66B8A569C0264CEF80 /* TagContents.swift in Sources */,
+				FBF61FDBE8156DBA484FB849C8B9B1BE /* TagList-dummy.m in Sources */,
+				5FB8F69C9F3A320E459BCAD97C4309C8 /* TagList.swift in Sources */,
+				7765E3EDAED58B72696C3DAC45CA7F1A /* TagPresentable.swift in Sources */,
+				2D7339AD7B5FD9EA21CF207E9EF2C090 /* TagPresentables.swift in Sources */,
+				F3A4F1A2087DBF8591C7199B362D759E /* TagWrapper.swift in Sources */,
+				FC05C8058744FACCD8B1934108C46047 /* TagWrappers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7F587E0FC8F9CF147C3FBA9750D80B3A /* Sources */ = {
+		52CEFF962A3ECF3EE5DDDE462037FFDA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8961F02A1A6FE4B45D91FB1AD2423664 /* Sources */ = {
+		6B28B8A8CD1DBFD577017470E3F13B53 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8762740B493AB9367785F73B13D1F187 /* SeparatorWrapper.swift in Sources */,
-				F338FE956F0F11F6A9A5E4652EF6F270 /* Tag.swift in Sources */,
-				C4135F3694E0744D96D5AF66798CD4C2 /* TagContent.swift in Sources */,
-				8FDA3D32F813E576D0C31F5989FEAD41 /* TagContents.swift in Sources */,
-				9622219C7B5337F5ED2C5E741C5A4A52 /* TagList-dummy.m in Sources */,
-				95F5F4A98CCC70CF38D418B9198AC3B0 /* TagList.swift in Sources */,
-				C747038AC1954FB8973B688C91C803EC /* TagPresentable.swift in Sources */,
-				E6CBDD3CD851CE147114A360F71193BA /* TagPresentables.swift in Sources */,
-				D412E1BEBAEB13C56DA7F40B5AA1B98E /* TagWrapper.swift in Sources */,
-				50869B924CC415A25AA0104808AA18FC /* TagWrappers.swift in Sources */,
+				43B5A3760BD50FF6B006FD5CD565C443 /* Pods-GoodGame-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EB6CF3ED649CA179E67A5C476024F197 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60AE426C561730747DE5F541AB9B8345 /* BackspaceDetectingTextField.swift in Sources */,
+				2737D86D30A2C6679BA771F1BDD3198A /* Constants.swift in Sources */,
+				02F7A1F0F0DF41D5F208B33B6AA33064 /* WSTag.swift in Sources */,
+				1F55372089653C5E2D09736EC41ADDE3 /* WSTagsField-dummy.m in Sources */,
+				284DE5169E4232B68FD5D92F0828E2DE /* WSTagsField.swift in Sources */,
+				665F2F2E0D2D9328672A2F7E060DD5DF /* WSTagView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		DA18DA09BA88F8B635369D6CB0755D31 /* PBXTargetDependency */ = {
+		0387754E9D73EFC41ACC9DA4913C03D1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = TagList;
-			target = 8320D72E04CC588EC783C17856F353F4 /* TagList */;
-			targetProxy = E0675B0239D004AAFF7887003AF8390B /* PBXContainerItemProxy */;
+			target = DA9A39D5A345D6C53B20A9AE124A2B2F /* TagList */;
+			targetProxy = 72B614EC6C82D5F9871E655118ECC9CC /* PBXContainerItemProxy */;
 		};
-		E69E0F8A719A6E1FFF7CCEFDE7BD77FF /* PBXTargetDependency */ = {
+		8A17B44658F3E38F31B9D9563C393518 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = WSTagsField;
+			target = A4C750464F7EF1E897364D1370A858EB /* WSTagsField */;
+			targetProxy = 3BDE4FDA4C7319910F348EF74C581429 /* PBXContainerItemProxy */;
+		};
+		C9314D41EDB6B68144259B47D08D2F0B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "TagList-Resources";
-			target = B38EAB18A483AEA208B73C6FA9AF859B /* TagList-Resources */;
-			targetProxy = 0FCA2E2E0C8C94D1280D77E1F86131AF /* PBXContainerItemProxy */;
+			target = F53EC862308904725E9A1C6134EC5BCB /* TagList-Resources */;
+			targetProxy = 890E234C58D8713E78009DEE6A6C516E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		1087A417AA4F45DDECCF52BCB35D66F3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 722952AE37D6535C693F5DEFBDB61EC1 /* TagList.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/TagList/TagList-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/TagList/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/TagList/TagList.modulemap";
-				PRODUCT_MODULE_NAME = TagList;
-				PRODUCT_NAME = TagList;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		3E0F5DF7C5DE2D2DBF4560C7216A7C56 /* Release */ = {
+		110F2F433979D1E4B3F077EA0852F732 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F3089D62728F5B948474019698FBBC4 /* Pods-GoodGame.release.xcconfig */;
 			buildSettings = {
@@ -471,9 +560,96 @@
 			};
 			name = Release;
 		};
-		40EB3B75B0C505EDE30A4C02C279D3EA /* Release */ = {
+		2A5FA11B0557B37D3B3058844EBF6085 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 722952AE37D6535C693F5DEFBDB61EC1 /* TagList.xcconfig */;
+			baseConfigurationReference = F34CB7A6783E34AE80A55C20BCC30B8F /* TagList.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/TagList/TagList-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/TagList/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/TagList/TagList.modulemap";
+				PRODUCT_MODULE_NAME = TagList;
+				PRODUCT_NAME = TagList;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		5D7DA6C611A247ABFD6C226C98E43AF8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F34CB7A6783E34AE80A55C20BCC30B8F /* TagList.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/TagList/TagList-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/TagList/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/TagList/TagList.modulemap";
+				PRODUCT_MODULE_NAME = TagList;
+				PRODUCT_NAME = TagList;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		6F619079792DFD1D9A4572F3796B4DA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F34CB7A6783E34AE80A55C20BCC30B8F /* TagList.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/TagList";
+				INFOPLIST_FILE = "Target Support Files/TagList/ResourceBundle-Resources-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = Resources;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		70C15687DA57DCCE5046468D46DDDFB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F34CB7A6783E34AE80A55C20BCC30B8F /* TagList.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/TagList";
@@ -487,7 +663,7 @@
 			};
 			name = Release;
 		};
-		8A9537C93704CC5333EF7E2EBE9CAB69 /* Debug */ = {
+		821AB95F753046D4999D628011D3D715 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC7B7E3D7E34258367F89E60008400AA /* Pods-GoodGame.debug.xcconfig */;
 			buildSettings = {
@@ -522,57 +698,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		AB95CED953DC373163F075478D7E0C42 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 722952AE37D6535C693F5DEFBDB61EC1 /* TagList.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/TagList/TagList-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/TagList/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/TagList/TagList.modulemap";
-				PRODUCT_MODULE_NAME = TagList;
-				PRODUCT_NAME = TagList;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		B5DAD2B9A25B634A3898AA5D1633BD17 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 722952AE37D6535C693F5DEFBDB61EC1 /* TagList.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/TagList";
-				INFOPLIST_FILE = "Target Support Files/TagList/ResourceBundle-Resources-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_NAME = Resources;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
 		};
@@ -635,6 +760,77 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		BEA6EB9C006149542762D56D8F5B048C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 234ABBDE0AFCF803970C6BB4F176ABA2 /* WSTagsField.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/WSTagsField/WSTagsField-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/WSTagsField/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/WSTagsField/WSTagsField.modulemap";
+				PRODUCT_MODULE_NAME = WSTagsField;
+				PRODUCT_NAME = WSTagsField;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C0B4A43FC21AAD75EDCB83C597EE6B4A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 234ABBDE0AFCF803970C6BB4F176ABA2 /* WSTagsField.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/WSTagsField/WSTagsField-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/WSTagsField/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/WSTagsField/WSTagsField.modulemap";
+				PRODUCT_MODULE_NAME = WSTagsField;
+				PRODUCT_NAME = WSTagsField;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -707,15 +903,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1257246D1B68EB4CBE2E6E84EEEF7B35 /* Build configuration list for PBXNativeTarget "TagList-Resources" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B5DAD2B9A25B634A3898AA5D1633BD17 /* Debug */,
-				40EB3B75B0C505EDE30A4C02C279D3EA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -725,20 +912,38 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		46BA995A72DF67174B7A931CD5DAEB32 /* Build configuration list for PBXNativeTarget "TagList" */ = {
+		540277DF2AD0903B0550B537F3AAA1AB /* Build configuration list for PBXNativeTarget "TagList" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AB95CED953DC373163F075478D7E0C42 /* Debug */,
-				1087A417AA4F45DDECCF52BCB35D66F3 /* Release */,
+				5D7DA6C611A247ABFD6C226C98E43AF8 /* Debug */,
+				2A5FA11B0557B37D3B3058844EBF6085 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FB47F2E3419AB5BF7272B4DA3BFC91BE /* Build configuration list for PBXNativeTarget "Pods-GoodGame" */ = {
+		9E44EA3D8E2CB760B6AD7D3436642302 /* Build configuration list for PBXNativeTarget "TagList-Resources" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8A9537C93704CC5333EF7E2EBE9CAB69 /* Debug */,
-				3E0F5DF7C5DE2D2DBF4560C7216A7C56 /* Release */,
+				6F619079792DFD1D9A4572F3796B4DA2 /* Debug */,
+				70C15687DA57DCCE5046468D46DDDFB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A2F38FFB4A6E7BDD901DFE6ADA7804B6 /* Build configuration list for PBXNativeTarget "Pods-GoodGame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				821AB95F753046D4999D628011D3D715 /* Debug */,
+				110F2F433979D1E4B3F077EA0852F732 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FC2305D13F24DB60401EC76792B93150 /* Build configuration list for PBXNativeTarget "WSTagsField" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BEA6EB9C006149542762D56D8F5B048C /* Debug */,
+				C0B4A43FC21AAD75EDCB83C597EE6B4A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

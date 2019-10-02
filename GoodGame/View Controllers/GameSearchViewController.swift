@@ -91,7 +91,7 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toShowGame" {
-            guard let detailVC = segue.destination as? GameDetailViewController, let game = selectedVideoGame else { return }
+            guard let detailVC = segue.destination as? GameDetailTableViewController, let game = selectedVideoGame else { return }
             detailVC.gameId = game.id
             detailVC.gamePlaftormIds = game.platforms
             detailVC.genreIds = game.genres

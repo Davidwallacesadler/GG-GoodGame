@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		633D7BD3234273BF0046538F /* TagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D7BD2234273BF0046538F /* TagListViewController.swift */; };
 		63B27C14233A853F006D5B03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C13233A853F006D5B03 /* AppDelegate.swift */; };
 		63B27C16233A853F006D5B03 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C15233A853F006D5B03 /* SceneDelegate.swift */; };
 		63B27C18233A853F006D5B03 /* GameSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C17233A853F006D5B03 /* GameSearchViewController.swift */; };
@@ -18,11 +19,14 @@
 		63B27C32233A97A5006D5B03 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C31233A97A5006D5B03 /* Game.swift */; };
 		63B27C34233B3710006D5B03 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C33233B3710006D5B03 /* GameController.swift */; };
 		63B27C36233DA3FD006D5B03 /* GameDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C35233DA3FD006D5B03 /* GameDetailViewController.swift */; };
+		63C0D9332342C0CF006DD2FA /* GameDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0D9322342C0CF006DD2FA /* GameDetailTableViewController.swift */; };
+		63C0D9352342C303006DD2FA /* WSTagsFieldHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0D9342342C303006DD2FA /* WSTagsFieldHelper.swift */; };
 		9FE7639313DE1C045D25AA10 /* Pods_GoodGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1F701D79B34A624057CE0F /* Pods_GoodGame.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		55FC50D3EB961DD77F1523F8 /* Pods-GoodGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodGame.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoodGame/Pods-GoodGame.debug.xcconfig"; sourceTree = "<group>"; };
+		633D7BD2234273BF0046538F /* TagListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListViewController.swift; sourceTree = "<group>"; };
 		63B27C10233A853F006D5B03 /* GoodGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B27C13233A853F006D5B03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63B27C15233A853F006D5B03 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +40,8 @@
 		63B27C31233A97A5006D5B03 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		63B27C33233B3710006D5B03 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		63B27C35233DA3FD006D5B03 /* GameDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailViewController.swift; sourceTree = "<group>"; };
+		63C0D9322342C0CF006DD2FA /* GameDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailTableViewController.swift; sourceTree = "<group>"; };
+		63C0D9342342C303006DD2FA /* WSTagsFieldHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTagsFieldHelper.swift; sourceTree = "<group>"; };
 		DA1F701D79B34A624057CE0F /* Pods_GoodGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE8E9DE83B7ED993918AC9A3 /* Pods-GoodGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoodGame/Pods-GoodGame.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +123,8 @@
 			children = (
 				63B27C17233A853F006D5B03 /* GameSearchViewController.swift */,
 				63B27C35233DA3FD006D5B03 /* GameDetailViewController.swift */,
+				633D7BD2234273BF0046538F /* TagListViewController.swift */,
+				63C0D9322342C0CF006DD2FA /* GameDetailTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -125,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				63B27C2F233A9728006D5B03 /* Keys.swift */,
+				63C0D9342342C303006DD2FA /* WSTagsFieldHelper.swift */,
 			);
 			path = "Helper Files";
 			sourceTree = "<group>";
@@ -255,12 +264,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GoodGame/Pods-GoodGame-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/TagList/TagList.framework",
+				"${BUILT_PRODUCTS_DIR}/WSTagsField/WSTagsField.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TagList.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WSTagsField.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -277,10 +288,13 @@
 				63B27C2E233A8B4E006D5B03 /* NetworkController.swift in Sources */,
 				63B27C32233A97A5006D5B03 /* Game.swift in Sources */,
 				63B27C18233A853F006D5B03 /* GameSearchViewController.swift in Sources */,
+				633D7BD3234273BF0046538F /* TagListViewController.swift in Sources */,
 				63B27C14233A853F006D5B03 /* AppDelegate.swift in Sources */,
 				63B27C16233A853F006D5B03 /* SceneDelegate.swift in Sources */,
 				63B27C36233DA3FD006D5B03 /* GameDetailViewController.swift in Sources */,
+				63C0D9352342C303006DD2FA /* WSTagsFieldHelper.swift in Sources */,
 				63B27C30233A9728006D5B03 /* Keys.swift in Sources */,
+				63C0D9332342C0CF006DD2FA /* GameDetailTableViewController.swift in Sources */,
 				63B27C34233B3710006D5B03 /* GameController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
