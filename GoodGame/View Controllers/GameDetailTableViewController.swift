@@ -90,9 +90,15 @@ class GameDetailTableViewController: UITableViewController, UITextFieldDelegate 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        WSTagsFieldHelper.addTagsFieldToView(givenView: platformTagsView, tagField: platformTagsList, withPlaceholder: "Add a Platform")
-        WSTagsFieldHelper.addTagsFieldToView(givenView: genreTagsView, tagField: genreTagsList, withPlaceholder: "Add a Genre")
-        WSTagsFieldHelper.addTagsFieldToView(givenView: gameModesTagsView, tagField: gameModeTagsList, withPlaceholder: "Add a Game Mode")
+        WSTagsFieldHelper.addTagsFieldToView(givenView: platformTagsView,
+                                             tagField: platformTagsList,
+                                             withPlaceholder: "Add a Platform")
+        WSTagsFieldHelper.addTagsFieldToView(givenView: genreTagsView,
+                                             tagField: genreTagsList,
+                                             withPlaceholder: "Add a Genre")
+        WSTagsFieldHelper.addTagsFieldToView(givenView: gameModesTagsView,
+                                             tagField: gameModeTagsList,
+                                             withPlaceholder: "Add a Game Mode")
         platformTagsList.delegate = self
         genreTagsList.delegate = self
         gameModeTagsList.delegate = self
@@ -109,13 +115,40 @@ class GameDetailTableViewController: UITableViewController, UITextFieldDelegate 
     @IBOutlet weak var genreTagsView: UIView!
     @IBOutlet weak var gameModesTagsView: UIView!
     
+    // MARK: - Actions
+    
+    @IBAction func saveButtonPressed(_ sender: Any) {
+        var genres = [String]()
+        var platforms = [String]()
+        var gameModes = [String]()
+        for genre in genreTagsList.tags {
+            genres.append(genre.text)
+        }
+        for platform in platformTagsList.tags {
+            platforms.append(platform.text)
+        }
+        for gameMode in gameModeTagsList.tags {
+            gameModes.append(gameMode.text)
+        }
+        #warning("get a default image for the game")
+        guard let image = gameCover, let title = gameTitleLabel.text else { return }
+        let newSavedGame = SavedGame(title: title, image: image.jpegData(compressionQuality: 1.0))
+        GamePlatformController.shared.createGamePlatformsFor(savedGame: newSavedGame,
+                                                             withPlatforms: platforms)
+        GameGenreController.shared.createGameGenresFor(savedGame: newSavedGame,
+                                                       withGenres: genres)
+        PlayModeController.shared.createPlayModesFor(savedGame: newSavedGame,
+                                                     withPlayModes: gameModes)
+        self.navigationController?.popViewController(animated: true)
+    }
     // MARK: - Internal Methods
     
     private func updateImageView() {
-           if let gameImage = gameCover {
-               self.coverArtImageView.image = gameImage
-           }
-       }
+        if let gameImage = gameCover {
+            self.coverArtImageView.image = gameImage
+            gameCover = gameImage
+        }
+    }
     
     private func updatePlatformTagsView() {
         if let platforms = gamePlatforms {
@@ -139,7 +172,6 @@ class GameDetailTableViewController: UITableViewController, UITextFieldDelegate 
                 gameModeTagsList.addTag(mode.name)
             }
         }
-        
     }
     
     

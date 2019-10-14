@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6313FB7B2354E36E00BC2FE5 /* GoodGame.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6313FB792354E36E00BC2FE5 /* GoodGame.xcdatamodeld */; };
+		6313FB7D2354E6E700BC2FE5 /* SavedGame+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6313FB7C2354E6E700BC2FE5 /* SavedGame+Convenience.swift */; };
+		6313FB7F2354E6FC00BC2FE5 /* GamePlatform+convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6313FB7E2354E6FC00BC2FE5 /* GamePlatform+convenience.swift */; };
+		6313FB812354E70F00BC2FE5 /* GameGenre+convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6313FB802354E70F00BC2FE5 /* GameGenre+convenience.swift */; };
+		6313FB832354E72200BC2FE5 /* PlayMode+convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6313FB822354E72200BC2FE5 /* PlayMode+convenience.swift */; };
+		6313FB852354E9AF00BC2FE5 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6313FB842354E9AF00BC2FE5 /* CoreDataStack.swift */; };
+		6313FB872354ED7000BC2FE5 /* SavedGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6313FB862354ED7000BC2FE5 /* SavedGameController.swift */; };
+		6313FB892354EDC000BC2FE5 /* GamePlatformController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6313FB882354EDC000BC2FE5 /* GamePlatformController.swift */; };
+		6313FB8B2354EDD400BC2FE5 /* GameGenreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6313FB8A2354EDD400BC2FE5 /* GameGenreController.swift */; };
+		6313FB8D2354EDE100BC2FE5 /* PlayModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6313FB8C2354EDE100BC2FE5 /* PlayModeController.swift */; };
+		6313FB8F23552C2800BC2FE5 /* GameLibraryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6313FB8E23552C2800BC2FE5 /* GameLibraryCollectionViewController.swift */; };
+		6313FB9423552CFB00BC2FE5 /* SavedGameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6313FB9223552CFB00BC2FE5 /* SavedGameCollectionViewCell.swift */; };
+		6313FB9523552CFB00BC2FE5 /* SavedGameCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6313FB9323552CFB00BC2FE5 /* SavedGameCollectionViewCell.xib */; };
 		633D7BD3234273BF0046538F /* TagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D7BD2234273BF0046538F /* TagListViewController.swift */; };
 		63B27C14233A853F006D5B03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C13233A853F006D5B03 /* AppDelegate.swift */; };
 		63B27C16233A853F006D5B03 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C15233A853F006D5B03 /* SceneDelegate.swift */; };
@@ -18,7 +31,6 @@
 		63B27C30233A9728006D5B03 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C2F233A9728006D5B03 /* Keys.swift */; };
 		63B27C32233A97A5006D5B03 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C31233A97A5006D5B03 /* Game.swift */; };
 		63B27C34233B3710006D5B03 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C33233B3710006D5B03 /* GameController.swift */; };
-		63B27C36233DA3FD006D5B03 /* GameDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C35233DA3FD006D5B03 /* GameDetailViewController.swift */; };
 		63C0D9332342C0CF006DD2FA /* GameDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0D9322342C0CF006DD2FA /* GameDetailTableViewController.swift */; };
 		63C0D9352342C303006DD2FA /* WSTagsFieldHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0D9342342C303006DD2FA /* WSTagsFieldHelper.swift */; };
 		9FE7639313DE1C045D25AA10 /* Pods_GoodGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1F701D79B34A624057CE0F /* Pods_GoodGame.framework */; };
@@ -26,6 +38,19 @@
 
 /* Begin PBXFileReference section */
 		55FC50D3EB961DD77F1523F8 /* Pods-GoodGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodGame.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoodGame/Pods-GoodGame.debug.xcconfig"; sourceTree = "<group>"; };
+		6313FB7A2354E36E00BC2FE5 /* GoodGame.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GoodGame.xcdatamodel; sourceTree = "<group>"; };
+		6313FB7C2354E6E700BC2FE5 /* SavedGame+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedGame+Convenience.swift"; sourceTree = "<group>"; };
+		6313FB7E2354E6FC00BC2FE5 /* GamePlatform+convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GamePlatform+convenience.swift"; sourceTree = "<group>"; };
+		6313FB802354E70F00BC2FE5 /* GameGenre+convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameGenre+convenience.swift"; sourceTree = "<group>"; };
+		6313FB822354E72200BC2FE5 /* PlayMode+convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayMode+convenience.swift"; sourceTree = "<group>"; };
+		6313FB842354E9AF00BC2FE5 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		6313FB862354ED7000BC2FE5 /* SavedGameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedGameController.swift; sourceTree = "<group>"; };
+		6313FB882354EDC000BC2FE5 /* GamePlatformController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlatformController.swift; sourceTree = "<group>"; };
+		6313FB8A2354EDD400BC2FE5 /* GameGenreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGenreController.swift; sourceTree = "<group>"; };
+		6313FB8C2354EDE100BC2FE5 /* PlayModeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayModeController.swift; sourceTree = "<group>"; };
+		6313FB8E23552C2800BC2FE5 /* GameLibraryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLibraryCollectionViewController.swift; sourceTree = "<group>"; };
+		6313FB9223552CFB00BC2FE5 /* SavedGameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedGameCollectionViewCell.swift; sourceTree = "<group>"; };
+		6313FB9323552CFB00BC2FE5 /* SavedGameCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedGameCollectionViewCell.xib; sourceTree = "<group>"; };
 		633D7BD2234273BF0046538F /* TagListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListViewController.swift; sourceTree = "<group>"; };
 		63B27C10233A853F006D5B03 /* GoodGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B27C13233A853F006D5B03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -39,7 +64,6 @@
 		63B27C2F233A9728006D5B03 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		63B27C31233A97A5006D5B03 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		63B27C33233B3710006D5B03 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
-		63B27C35233DA3FD006D5B03 /* GameDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailViewController.swift; sourceTree = "<group>"; };
 		63C0D9322342C0CF006DD2FA /* GameDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailTableViewController.swift; sourceTree = "<group>"; };
 		63C0D9342342C303006DD2FA /* WSTagsFieldHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTagsFieldHelper.swift; sourceTree = "<group>"; };
 		DA1F701D79B34A624057CE0F /* Pods_GoodGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,7 +119,13 @@
 		63B27C27233A88CC006D5B03 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6313FB792354E36E00BC2FE5 /* GoodGame.xcdatamodeld */,
 				63B27C31233A97A5006D5B03 /* Game.swift */,
+				6313FB7C2354E6E700BC2FE5 /* SavedGame+Convenience.swift */,
+				6313FB7E2354E6FC00BC2FE5 /* GamePlatform+convenience.swift */,
+				6313FB802354E70F00BC2FE5 /* GameGenre+convenience.swift */,
+				6313FB822354E72200BC2FE5 /* PlayMode+convenience.swift */,
+				6313FB842354E9AF00BC2FE5 /* CoreDataStack.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -105,6 +135,10 @@
 			children = (
 				63B27C2D233A8B4E006D5B03 /* NetworkController.swift */,
 				63B27C33233B3710006D5B03 /* GameController.swift */,
+				6313FB862354ED7000BC2FE5 /* SavedGameController.swift */,
+				6313FB882354EDC000BC2FE5 /* GamePlatformController.swift */,
+				6313FB8A2354EDD400BC2FE5 /* GameGenreController.swift */,
+				6313FB8C2354EDE100BC2FE5 /* PlayModeController.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -114,6 +148,8 @@
 			children = (
 				63B27C19233A853F006D5B03 /* Main.storyboard */,
 				63B27C1E233A8543006D5B03 /* LaunchScreen.storyboard */,
+				6313FB9223552CFB00BC2FE5 /* SavedGameCollectionViewCell.swift */,
+				6313FB9323552CFB00BC2FE5 /* SavedGameCollectionViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -122,9 +158,9 @@
 			isa = PBXGroup;
 			children = (
 				63B27C17233A853F006D5B03 /* GameSearchViewController.swift */,
-				63B27C35233DA3FD006D5B03 /* GameDetailViewController.swift */,
 				633D7BD2234273BF0046538F /* TagListViewController.swift */,
 				63C0D9322342C0CF006DD2FA /* GameDetailTableViewController.swift */,
+				6313FB8E23552C2800BC2FE5 /* GameLibraryCollectionViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -223,6 +259,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6313FB9523552CFB00BC2FE5 /* SavedGameCollectionViewCell.xib in Resources */,
 				63B27C20233A8543006D5B03 /* LaunchScreen.storyboard in Resources */,
 				63B27C1D233A8543006D5B03 /* Assets.xcassets in Resources */,
 				63B27C1B233A853F006D5B03 /* Main.storyboard in Resources */,
@@ -285,16 +322,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6313FB7B2354E36E00BC2FE5 /* GoodGame.xcdatamodeld in Sources */,
+				6313FB812354E70F00BC2FE5 /* GameGenre+convenience.swift in Sources */,
+				6313FB7D2354E6E700BC2FE5 /* SavedGame+Convenience.swift in Sources */,
 				63B27C2E233A8B4E006D5B03 /* NetworkController.swift in Sources */,
+				6313FB9423552CFB00BC2FE5 /* SavedGameCollectionViewCell.swift in Sources */,
 				63B27C32233A97A5006D5B03 /* Game.swift in Sources */,
+				6313FB7F2354E6FC00BC2FE5 /* GamePlatform+convenience.swift in Sources */,
 				63B27C18233A853F006D5B03 /* GameSearchViewController.swift in Sources */,
+				6313FB8B2354EDD400BC2FE5 /* GameGenreController.swift in Sources */,
 				633D7BD3234273BF0046538F /* TagListViewController.swift in Sources */,
 				63B27C14233A853F006D5B03 /* AppDelegate.swift in Sources */,
 				63B27C16233A853F006D5B03 /* SceneDelegate.swift in Sources */,
-				63B27C36233DA3FD006D5B03 /* GameDetailViewController.swift in Sources */,
+				6313FB892354EDC000BC2FE5 /* GamePlatformController.swift in Sources */,
+				6313FB872354ED7000BC2FE5 /* SavedGameController.swift in Sources */,
 				63C0D9352342C303006DD2FA /* WSTagsFieldHelper.swift in Sources */,
+				6313FB852354E9AF00BC2FE5 /* CoreDataStack.swift in Sources */,
+				6313FB832354E72200BC2FE5 /* PlayMode+convenience.swift in Sources */,
 				63B27C30233A9728006D5B03 /* Keys.swift in Sources */,
+				6313FB8F23552C2800BC2FE5 /* GameLibraryCollectionViewController.swift in Sources */,
 				63C0D9332342C0CF006DD2FA /* GameDetailTableViewController.swift in Sources */,
+				6313FB8D2354EDE100BC2FE5 /* PlayModeController.swift in Sources */,
 				63B27C34233B3710006D5B03 /* GameController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -495,6 +543,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6313FB792354E36E00BC2FE5 /* GoodGame.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6313FB7A2354E36E00BC2FE5 /* GoodGame.xcdatamodel */,
+			);
+			currentVersion = 6313FB7A2354E36E00BC2FE5 /* GoodGame.xcdatamodel */;
+			path = GoodGame.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 63B27C08233A853F006D5B03 /* Project object */;
 }

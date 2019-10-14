@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15400" systemVersion="19A583" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="GameGenre" representedClassName="GameGenre" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String"/>
+        <relationship name="game" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavedGame" inverseName="gameGenres" inverseEntity="SavedGame"/>
+    </entity>
+    <entity name="GamePlatform" representedClassName="GamePlatform" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String"/>
+        <relationship name="game" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavedGame" inverseName="gamePlatforms" inverseEntity="SavedGame"/>
+    </entity>
+    <entity name="PlayMode" representedClassName="PlayMode" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String"/>
+        <relationship name="game" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavedGame" inverseName="playModes" inverseEntity="SavedGame"/>
+    </entity>
+    <entity name="SavedGame" representedClassName="SavedGame" syncable="YES" codeGenerationType="class">
+        <attribute name="image" attributeType="Binary"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="gameGenres" toMany="YES" deletionRule="Cascade" destinationEntity="GameGenre" inverseName="game" inverseEntity="GameGenre"/>
+        <relationship name="gamePlatforms" toMany="YES" deletionRule="Cascade" destinationEntity="GamePlatform" inverseName="game" inverseEntity="GamePlatform"/>
+        <relationship name="playModes" toMany="YES" deletionRule="Cascade" destinationEntity="PlayMode" inverseName="game" inverseEntity="PlayMode"/>
+    </entity>
+    <elements>
+        <element name="PlayMode" positionX="-27" positionY="63" width="128" height="73"/>
+        <element name="GameGenre" positionX="-36" positionY="27" width="128" height="73"/>
+        <element name="GamePlatform" positionX="186.42578125" positionY="28.5390625" width="128" height="73"/>
+        <element name="SavedGame" positionX="-63" positionY="-18" width="128" height="118"/>
+    </elements>
+</model>
