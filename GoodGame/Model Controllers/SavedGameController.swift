@@ -32,10 +32,16 @@ class SavedGameController {
     // MARK: - CRUD
     
     func createSavedGame(title: String,
-                         image: UIImage) {
+                         image: UIImage,
+                         platforms: [String],
+                         genres: [String],
+                         gameModes: [String]) {
         let imageData: Data?
         imageData = image.jpegData(compressionQuality: 1.0)
-        _ = SavedGame(title: title, image: imageData)
+        let savedGame = SavedGame(title: title, image: imageData)
+        GamePlatformController.shared.createGamePlatformsFor(savedGame: savedGame, withPlatforms: platforms)
+        GameGenreController.shared.createGameGenresFor(savedGame: savedGame, withGenres: genres)
+        PlayModeController.shared.createPlayModesFor(savedGame: savedGame, withPlayModes: gameModes)
         saveToPersitentStorage()
     }
     

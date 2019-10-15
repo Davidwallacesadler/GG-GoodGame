@@ -17,6 +17,7 @@ class GameDetailTableViewController: UITableViewController, UITextFieldDelegate 
     fileprivate let platformTagsList = WSTagsField()
     fileprivate let genreTagsList = WSTagsField()
     
+    var savedGame: SavedGame?
     var gameModeName = ""
     var gameModeIds: [Int]?
     var gameModes: [GameMode]? {
@@ -105,6 +106,7 @@ class GameDetailTableViewController: UITableViewController, UITextFieldDelegate 
         if let selectedGame = game {
             gameTitleLabel.text = selectedGame.name
         }
+        setupViewWithSavedGameIfNeeded()
     }
 
    // MARK: - Outlets
@@ -132,13 +134,7 @@ class GameDetailTableViewController: UITableViewController, UITextFieldDelegate 
         }
         #warning("get a default image for the game")
         guard let image = gameCover, let title = gameTitleLabel.text else { return }
-        let newSavedGame = SavedGame(title: title, image: image.jpegData(compressionQuality: 1.0))
-        GamePlatformController.shared.createGamePlatformsFor(savedGame: newSavedGame,
-                                                             withPlatforms: platforms)
-        GameGenreController.shared.createGameGenresFor(savedGame: newSavedGame,
-                                                       withGenres: genres)
-        PlayModeController.shared.createPlayModesFor(savedGame: newSavedGame,
-                                                     withPlayModes: gameModes)
+        SavedGameController.shared.createSavedGame(title: title, image: image, platforms: platforms, genres: genres, gameModes: gameModes)
         self.navigationController?.popViewController(animated: true)
     }
     // MARK: - Internal Methods
@@ -174,5 +170,21 @@ class GameDetailTableViewController: UITableViewController, UITextFieldDelegate 
         }
     }
     
-    
+    private func setupViewWithSavedGameIfNeeded() {
+        guard let saveGame = savedGame else { return }
+        gameTitleLabel.text = saveGame.title!
+        coverArtImageView.image = saveGame.photo
+        for platform in saveGame.gamePlatforms!.array {
+           let gamePlatform = platform as! GamePlatform
+           platformTagsList.addTag(gamePlatform.name!)
+        }
+        for gameMode in saveGame.playModes!.array {
+           let playMode = gameMode as! PlayMode
+           gameModeTagsList.addTag(playMode.name!)
+        }
+        for genre in saveGame.gameGenres!.array {
+           let gameGenre = genre as! GameGenre
+           genreTagsList.addTag(gameGenre.name!)
+        }
+   }
 }

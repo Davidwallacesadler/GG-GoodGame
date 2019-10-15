@@ -15,6 +15,5 @@ class SavedGameCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
 
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var coverImageView: UIImageView!
 }

@@ -11,7 +11,9 @@ import UIKit
 private let reuseIdentifier = "savedGameCell"
 
 class GameLibraryCollectionViewController: UICollectionViewController {
-
+    
+    // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,16 +30,19 @@ class GameLibraryCollectionViewController: UICollectionViewController {
     override func viewDidAppear(_ animated: Bool) {
         self.collectionView.reloadData()
     }
+    // MARK: - Internal Properties
     
+    private let spacing: CGFloat = 16.0
     var savedGames: [SavedGame] {
         get {
             return SavedGameController.shared.savedGames
         }
     }
+    var selectedSavedGame: SavedGame?
 
     // MARK: - UICollectionViewDataSource
     
-
+    #warning("I want sections to be alphebetical")
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -53,11 +58,17 @@ class GameLibraryCollectionViewController: UICollectionViewController {
         guard let gameCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? SavedGameCollectionViewCell else { return UICollectionViewCell() }
         let savedGame = savedGames[indexPath.row]
         gameCell.coverImageView.image = savedGame.photo
-        gameCell.titleLabel.text = savedGame.title
         return gameCell
     }
 
-    // MARK: UICollectionViewDelegate
+    // MARK: - UICollectionViewDelegate
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let saveGame = savedGames[indexPath.row]
+        selectedSavedGame = saveGame
+        self.performSegue(withIdentifier: "toShowSavedGame", sender: self)
+    }
+    
 
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
@@ -88,13 +99,28 @@ class GameLibraryCollectionViewController: UICollectionViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "toShowSavedGame" {
+            guard let detailVC = segue.destination as? GameDetailTableViewController, let savedGame = selectedSavedGame else { return }
+            detailVC.savedGame = savedGame
+        }
     }
-    */
+}
+
+// MARK: - CollectionView Flow
+
+extension GameLibraryCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let numberOfItemsPerRow: CGFloat = 2
+        let spacingBetweenCells: CGFloat = 16
+        let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
+        if let collection = self.collectionView {
+            let width = (collection.bounds.width - totalSpacing)/numberOfItemsPerRow
+            return CGSize(width: width, height: width)
+        } else {
+            return CGSize(width: 0, height: 0)
+        }
+    }
 }

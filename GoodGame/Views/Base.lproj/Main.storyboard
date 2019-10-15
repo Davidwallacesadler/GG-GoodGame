@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eGC-RB-qhN">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -25,7 +25,24 @@
             </objects>
             <point key="canvasLocation" x="-690" y="129"/>
         </scene>
-        <!--Game Library Collection View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="52n-9t-jrI">
+            <objects>
+                <navigationController id="Pzx-FK-vDy" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="bookmarks" id="Fdz-fU-qwW"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zc4-Ac-byT">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="WZn-KU-v1K" kind="relationship" relationship="rootViewController" id="mrf-IC-b3b"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="efr-zj-mZs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-691" y="864"/>
+        </scene>
+        <!--Library-->
         <scene sceneID="fZE-yR-qB7">
             <objects>
                 <collectionViewController id="WZn-KU-v1K" customClass="GameLibraryCollectionViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
@@ -57,10 +74,14 @@
                         </connections>
                     </collectionView>
                     <tabBarItem key="tabBarItem" systemItem="bookmarks" id="czD-N7-UlK"/>
+                    <navigationItem key="navigationItem" title="Library" id="R9g-QC-thR"/>
+                    <connections>
+                        <segue destination="eg1-gp-rZG" kind="show" identifier="toShowSavedGame" id="Yor-TU-IYt"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="buu-Jr-Wll" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-691" y="919"/>
+            <point key="canvasLocation" x="74" y="864"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="IVZ-V6-e0p">
@@ -73,7 +94,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="jdp-36-lUH" kind="relationship" relationship="viewControllers" id="qkB-H2-Da8"/>
-                        <segue destination="WZn-KU-v1K" kind="relationship" relationship="viewControllers" id="vKZ-Kd-Q0l"/>
+                        <segue destination="Pzx-FK-vDy" kind="relationship" relationship="viewControllers" id="3Vh-bb-Ezz"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yos-VH-WQd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -142,7 +163,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v8Y-iu-Jua" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tableViewController id="eg1-gp-rZG" customClass="GameDetailTableViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="WRA-RE-XI7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
@@ -272,7 +293,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="906" y="129"/>
+            <point key="canvasLocation" x="845" y="129"/>
         </scene>
         <!--Tag List View Controller-->
         <scene sceneID="E0X-1p-35E">
@@ -303,7 +324,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="859-1H-DyL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1034.7826086956522" y="-594.64285714285711"/>
+            <point key="canvasLocation" x="906" y="-579"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Yor-TU-IYt"/>
+    </inferredMetricsTieBreakers>
 </document>
