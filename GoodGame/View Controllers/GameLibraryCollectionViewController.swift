@@ -20,6 +20,12 @@ class GameLibraryCollectionViewController: UICollectionViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = spacing
+        self.collectionView?.collectionViewLayout = layout
         // Register cell classes
         self.collectionView!.register(UINib(nibName: "SavedGameCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView.delegate = self
@@ -58,11 +64,13 @@ class GameLibraryCollectionViewController: UICollectionViewController {
         guard let gameCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? SavedGameCollectionViewCell else { return UICollectionViewCell() }
         let savedGame = savedGames[indexPath.row]
         gameCell.coverImageView.image = savedGame.photo
+        gameCell.gameTitleLabel.text = savedGame.title
         return gameCell
     }
 
     // MARK: - UICollectionViewDelegate
     
+    #warning("I want to have a press and hold for the edit screen and a tap to get to the now playing screen")
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let saveGame = savedGames[indexPath.row]
         selectedSavedGame = saveGame
@@ -103,7 +111,7 @@ class GameLibraryCollectionViewController: UICollectionViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toShowSavedGame" {
-            guard let detailVC = segue.destination as? GameDetailTableViewController, let savedGame = selectedSavedGame else { return }
+            guard let detailVC = segue.destination as? GameDetailViewController, let savedGame = selectedSavedGame else { return }
             detailVC.savedGame = savedGame
         }
     }
@@ -113,12 +121,12 @@ class GameLibraryCollectionViewController: UICollectionViewController {
 
 extension GameLibraryCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numberOfItemsPerRow: CGFloat = 2
-        let spacingBetweenCells: CGFloat = 16
+        let numberOfItemsPerRow: CGFloat = 3
+        let spacingBetweenCells: CGFloat = 20
         let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
         if let collection = self.collectionView {
             let width = (collection.bounds.width - totalSpacing)/numberOfItemsPerRow
-            return CGSize(width: width, height: width)
+            return CGSize(width: width, height: width + (width / 4.0))
         } else {
             return CGSize(width: 0, height: 0)
         }

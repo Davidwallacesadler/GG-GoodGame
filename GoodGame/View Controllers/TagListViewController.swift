@@ -9,7 +9,7 @@
 import UIKit
 import WSTagsField
 
-class TagListViewController: UIViewController {
+class TagListViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Internal Properties
     
@@ -55,6 +55,7 @@ class TagListViewController: UIViewController {
         tagsField.returnKeyType = .continue
         tagsField.delimiter = ""
         tagsField.textDelegate = self
+        tagsField.delegate = self
         textFieldEvents()
     }
     

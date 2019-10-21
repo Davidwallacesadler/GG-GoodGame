@@ -10,30 +10,42 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="savedGameCell" id="gTV-IL-0wX" customClass="SavedGameCollectionViewCell" customModule="GoodGame" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+            <rect key="frame" x="0.0" y="0.0" width="150" height="179"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                <rect key="frame" x="0.0" y="0.0" width="150" height="179"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kgL-JJ-hc2">
                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="kgL-JJ-hc2" secondAttribute="height" multiplier="1:1" id="wjZ-aX-yXG"/>
+                        </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="OJ7-nz-Mln">
+                        <rect key="frame" x="0.0" y="153" width="150" height="15.5"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
-            <color key="backgroundColor" white="0.57456656678082196" alpha="0.10188356164383562" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="kgL-JJ-hc2" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="CW2-3z-ke4"/>
-                <constraint firstItem="kgL-JJ-hc2" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="MQz-bm-X4v"/>
-                <constraint firstAttribute="trailing" secondItem="kgL-JJ-hc2" secondAttribute="trailing" id="Nf6-JP-7ka"/>
-                <constraint firstAttribute="bottom" secondItem="kgL-JJ-hc2" secondAttribute="bottom" id="cMv-wA-oNT"/>
+                <constraint firstAttribute="trailing" secondItem="kgL-JJ-hc2" secondAttribute="trailing" id="CzS-c4-7Zi"/>
+                <constraint firstItem="kgL-JJ-hc2" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="E9q-D0-jeN"/>
+                <constraint firstAttribute="trailing" secondItem="OJ7-nz-Mln" secondAttribute="trailing" id="NiS-xp-hTg"/>
+                <constraint firstItem="OJ7-nz-Mln" firstAttribute="top" secondItem="kgL-JJ-hc2" secondAttribute="bottom" constant="3" id="NqP-5J-kQK"/>
+                <constraint firstItem="OJ7-nz-Mln" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Sap-5L-H8M"/>
+                <constraint firstItem="kgL-JJ-hc2" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="i1n-hG-83A"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <size key="customSize" width="148" height="139"/>
+            <size key="customSize" width="148" height="168"/>
             <connections>
                 <outlet property="coverImageView" destination="kgL-JJ-hc2" id="DhK-ZE-fcr"/>
+                <outlet property="gameTitleLabel" destination="OJ7-nz-Mln" id="07f-v1-pAb"/>
             </connections>
-            <point key="canvasLocation" x="136.23188405797103" y="147.99107142857142"/>
+            <point key="canvasLocation" x="136.23188405797103" y="157.70089285714286"/>
         </collectionViewCell>
     </objects>
 </document>

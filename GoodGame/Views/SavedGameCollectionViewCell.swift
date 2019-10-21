@@ -12,8 +12,15 @@ class SavedGameCollectionViewCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        roundCornersOf(viewLayer: coverImageView.layer, withRoundingCoefficient: 3.0)
     }
-
+    @IBOutlet weak var gameTitleLabel: UILabel!
     @IBOutlet weak var coverImageView: UIImageView!
+    
+    func roundCornersOf(viewLayer: CALayer,withRoundingCoefficient rounding: Double) {
+        viewLayer.cornerRadius = CGFloat(rounding)
+        viewLayer.borderWidth = 1.0
+        viewLayer.borderColor = UIColor.clear.cgColor
+        viewLayer.masksToBounds = true
+    }
 }
