@@ -42,6 +42,29 @@ class GameGenreController {
         saveToPersitentStorage()
     }
     
+    func updateGameGeneresFor(savedGame: SavedGame, withNewGenres genres: [String]) {
+        var newGenres: [GameGenre] = []
+        // Remove old:
+        for gameGenre in savedGame.gamePlatforms!.array {
+            let genre = gameGenre as! GameGenre
+            deleteGameGenre(gameGenre: genre)
+        }
+        // Add New:
+        for genre in genres {
+            let newGenre = GameGenre(name: genre)
+            newGenres.append(newGenre)
+        }
+        let newGenresOrderedSet = NSOrderedSet(array: newGenres)
+        savedGame.gameGenres = newGenresOrderedSet
+        saveToPersitentStorage()
+    }
+    
+    func deleteGameGenre(gameGenre: GameGenre) {
+        let moc = gameGenre.managedObjectContext
+        moc?.delete(gameGenre)
+        saveToPersitentStorage()
+    }
+    
     // MARK: - Persistence
     
     func saveToPersitentStorage() {

@@ -31,6 +31,7 @@ class SavedGameController {
     
     // MARK: - CRUD
     
+    #warning("FIX INCONSISTENT NAMING OF PLAYMODE AND GAME MODE")
     func createSavedGame(title: String,
                          image: UIImage,
                          platforms: [String],
@@ -45,11 +46,30 @@ class SavedGameController {
         saveToPersitentStorage()
     }
     
+    func updateSavedGame(newTitle title: String,
+                         newImage image: UIImage,
+                         newPlatforms platforms: [String],
+                         newGenres genres: [String],
+                         newPlayModes playModes: [String],
+                         gameToUpdate savedGame: SavedGame) {
+        let imageData: Data?
+        imageData = image.jpegData(compressionQuality: 1.0)
+        savedGame.title = title
+        savedGame.image = imageData
+        GamePlatformController.shared.updateGamePlatformsFor(savedGame: savedGame, withPlatforms: platforms)
+        GameGenreController.shared.updateGameGeneresFor(savedGame: savedGame, withNewGenres: genres)
+        PlayModeController.shared.updatePlayModesFor(savedGame: savedGame, withNewPlayModes: playModes)
+        saveToPersitentStorage()
+    }
+    
     func deleteSavedGame(savedGame: SavedGame) {
         let moc = savedGame.managedObjectContext
         moc?.delete(savedGame)
         saveToPersitentStorage()
     }
+    
+    
+    // MARK: - Helper Methods
     
     func invertPlayingStatus(savedGame: SavedGame) {
         savedGame.isBeingCurrentlyPlayed = !savedGame.isBeingCurrentlyPlayed
@@ -69,5 +89,4 @@ class SavedGameController {
             print(error,error.localizedDescription)
         }
     }
-
 }

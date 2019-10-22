@@ -42,6 +42,30 @@ class GamePlatformController {
         saveToPersitentStorage()
     }
     
+    // NEED TO REMOVE OLD PLATFROM OBJECTS
+    func updateGamePlatformsFor(savedGame: SavedGame, withPlatforms platforms: [String]) {
+        var newPlatforms: [GamePlatform] = []
+        // Delete Old Platforms:
+        for gamePlatform in savedGame.gamePlatforms!.array {
+            let platform = gamePlatform as! GamePlatform
+            deleteGamePlatforms(givenPlatform: platform)
+        }
+        // Add New Platforms:
+        for platform in platforms {
+            let newGamePlatform = GamePlatform(name: platform)
+            newPlatforms.append(newGamePlatform)
+        }
+        let newPlatformsOrderedSet = NSOrderedSet(array: newPlatforms)
+        savedGame.gamePlatforms = newPlatformsOrderedSet
+        saveToPersitentStorage()
+    }
+    
+    func deleteGamePlatforms(givenPlatform: GamePlatform) {
+        let moc = givenPlatform.managedObjectContext
+        moc?.delete(givenPlatform)
+        saveToPersitentStorage()
+    }
+    
     // MARK: - Persistence
     
     func saveToPersitentStorage() {

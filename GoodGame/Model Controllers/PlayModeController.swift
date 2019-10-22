@@ -42,6 +42,27 @@ class PlayModeController {
         saveToPersitentStorage()
     }
     
+    func updatePlayModesFor(savedGame: SavedGame, withNewPlayModes modes: [String]) {
+        var newPlayModes: [PlayMode] = []
+        for playMode in savedGame.playModes!.array {
+            let mode = playMode as! PlayMode
+            deletePlayMode(playMode: mode)
+        }
+        for mode in modes {
+            let newPlayMode = PlayMode(name: mode)
+            newPlayModes.append(newPlayMode)
+        }
+        let newPlayModesOrderedSet = NSOrderedSet(array: newPlayModes)
+        savedGame.playModes = newPlayModesOrderedSet
+        saveToPersitentStorage()
+    }
+    
+    func deletePlayMode(playMode: PlayMode) {
+        let moc = playMode.managedObjectContext
+        moc?.delete(playMode)
+        saveToPersitentStorage()
+    }
+    
     // MARK: - Persistence
     
     func saveToPersitentStorage() {

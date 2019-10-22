@@ -117,30 +117,37 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Actions
     @IBAction func saveButtonPressed(_ sender: Any) {
-        
-        // MARK: - Internal Properties
-        
-    var genres = [String]()
-    var platforms = [String]()
-    var gameModes = [String]()
-    for genre in genreTagsList.tags {
-        genres.append(genre.text)
-    }
-    for platform in platformTagsList.tags {
-        platforms.append(platform.text)
-    }
-    for gameMode in gameModeTagsList.tags {
-        gameModes.append(gameMode.text)
-    }
-    #warning("get a default image for the game")
-    guard let image = gameCover, let title = gameTitleTextField.text else { return }
-    SavedGameController.shared.createSavedGame(title: title,
-                                               image: image,
-                                               platforms: platforms,
-                                               genres: genres,
-                                               gameModes: gameModes)
-    self.navigationController?.popViewController(animated: true)
-    }
+        #warning("get a default image for the game")
+        var genres = [String]()
+        var platforms = [String]()
+        var gameModes = [String]()
+        for genre in genreTagsList.tags {
+            genres.append(genre.text)
+        }
+        for platform in platformTagsList.tags {
+            platforms.append(platform.text)
+        }
+        for gameMode in gameModeTagsList.tags {
+            gameModes.append(gameMode.text)
+        }
+        guard let image = gameCover, let title = gameTitleTextField.text else { return }
+        guard let currentlySavedGame = savedGame else {
+            SavedGameController.shared.createSavedGame(title: title,
+                                                              image: image,
+                                                              platforms: platforms,
+                                                              genres: genres,
+                                                              gameModes: gameModes)
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        SavedGameController.shared.updateSavedGame(newTitle: title,
+                                                   newImage: image,
+                                                   newPlatforms: platforms,
+                                                   newGenres: genres,
+                                                   newPlayModes: gameModes,
+                                                   gameToUpdate: currentlySavedGame)
+        self.navigationController?.popViewController(animated: true)
+        }
     
     
     // MARK: - Internal Methods
