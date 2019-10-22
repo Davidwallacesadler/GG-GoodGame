@@ -21,6 +21,8 @@ class PlayStatusViewController: UIViewController {
         if let savedGame = selectedGame {
             gameCoverImageView.image = savedGame.photo
             gameTitleLabel.text = savedGame.title
+            print("game is being Played: \(savedGame.isBeingCurrentlyPlayed)")
+            print("is game favorite: \(savedGame.isFavorite)")
         }
         
     }
@@ -29,6 +31,28 @@ class PlayStatusViewController: UIViewController {
     
     @IBOutlet weak var gameCoverImageView: UIImageView!
     @IBOutlet weak var gameTitleLabel: UILabel!
+    @IBOutlet weak var playPauseButton: UIButton!
+    @IBOutlet weak var favoriteStatusButton: UIButton!
+    
+    
+    // MARK: - Actions
+    
+    @IBAction func favoriteStatusButtonPressed(_ sender: Any) {
+        if let game = selectedGame {
+            SavedGameController.shared.invertFavoriteSatus(savedGame: game)
+            print("is game favorite \(game.isFavorite)")
+        }
+    }
+    @IBAction func finishButtonPressed(_ sender: Any) {
+        #warning("maybe pop up a rating and comment view where the iser can leave a rating and a comment for their playthrough -- maybe this creates a history of playthroughs for the saved game.")
+    }
+    
+    @IBAction func playPauseButtonPressed(_ sender: Any) {
+        if let game = selectedGame {
+            SavedGameController.shared.invertPlayingStatus(savedGame: game)
+            print("game is being Played: \(game.isBeingCurrentlyPlayed)")
+        }
+    }
     
     
 

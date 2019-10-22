@@ -14,6 +14,8 @@
     </entity>
     <entity name="SavedGame" representedClassName="SavedGame" syncable="YES" codeGenerationType="class">
         <attribute name="image" attributeType="Binary"/>
+        <attribute name="isBeingCurrentlyPlayed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="gameGenres" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="GameGenre" inverseName="savedGame" inverseEntity="GameGenre"/>
         <relationship name="gamePlatforms" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="GamePlatform" inverseName="savedGame" inverseEntity="GamePlatform"/>
@@ -23,6 +25,6 @@
         <element name="GameGenre" positionX="-36" positionY="27" width="128" height="73"/>
         <element name="GamePlatform" positionX="186.42578125" positionY="28.5390625" width="128" height="73"/>
         <element name="PlayMode" positionX="-27" positionY="63" width="128" height="73"/>
-        <element name="SavedGame" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="SavedGame" positionX="-63" positionY="-18" width="128" height="148"/>
     </elements>
 </model>

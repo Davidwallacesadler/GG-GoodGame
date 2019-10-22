@@ -99,6 +99,13 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
             gameTitleTextField.text = selectedGame.name
         }
      }
+    
+   override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        gameModeTagsList.frame = gameModeTagsView.bounds
+        platformTagsList.frame = platformTagsView.bounds
+        genreTagsList.frame = genreTagsView.bounds
+    }
 
     // MARK: - Outlets
     
@@ -110,26 +117,29 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Actions
     @IBAction func saveButtonPressed(_ sender: Any) {
-        var genres = [String]()
-        var platforms = [String]()
-        var gameModes = [String]()
-        for genre in genreTagsList.tags {
-            genres.append(genre.text)
-        }
-        for platform in platformTagsList.tags {
-            platforms.append(platform.text)
-        }
-        for gameMode in gameModeTagsList.tags {
-            gameModes.append(gameMode.text)
-        }
-        #warning("get a default image for the game")
-        guard let image = gameCover, let title = gameTitleTextField.text else { return }
-        SavedGameController.shared.createSavedGame(title: title,
-                                                   image: image,
-                                                   platforms: platforms,
-                                                   genres: genres,
-                                                   gameModes: gameModes)
-        self.navigationController?.popViewController(animated: true)
+        
+        // MARK: - Internal Properties
+        
+    var genres = [String]()
+    var platforms = [String]()
+    var gameModes = [String]()
+    for genre in genreTagsList.tags {
+        genres.append(genre.text)
+    }
+    for platform in platformTagsList.tags {
+        platforms.append(platform.text)
+    }
+    for gameMode in gameModeTagsList.tags {
+        gameModes.append(gameMode.text)
+    }
+    #warning("get a default image for the game")
+    guard let image = gameCover, let title = gameTitleTextField.text else { return }
+    SavedGameController.shared.createSavedGame(title: title,
+                                               image: image,
+                                               platforms: platforms,
+                                               genres: genres,
+                                               gameModes: gameModes)
+    self.navigationController?.popViewController(animated: true)
     }
     
     

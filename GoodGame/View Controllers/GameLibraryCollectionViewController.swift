@@ -36,6 +36,7 @@ class GameLibraryCollectionViewController: UICollectionViewController {
     override func viewDidAppear(_ animated: Bool) {
         self.collectionView.reloadData()
     }
+    
     // MARK: - Internal Properties
     
     private let spacing: CGFloat = 16.0

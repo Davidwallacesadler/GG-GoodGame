@@ -33,6 +33,18 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
     var genreName: String?
     var gamesAssociatedWithRandomPlatform: [SavedGame] = []
     var gamesAssociatedWithRandomGenre: [SavedGame] = []
+    var currentlyPlayingGames: [SavedGame] {
+        get {
+            var currentlyPlayingGames: [SavedGame] = []
+            for savedGame in SavedGameController.shared.savedGames {
+                if savedGame.isBeingCurrentlyPlayed {
+                    currentlyPlayingGames.append(savedGame)
+                }
+            }
+            return currentlyPlayingGames
+        }
+    }
+    private let spacing: CGFloat = 16.0
     
     // MARK: - View Lifecycle
 
@@ -75,7 +87,7 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case recentlyPlayedCollectionView:
-            return 0
+            return currentlyPlayingGames.count
         case randomPlatformCollectionView:
             return gamesAssociatedWithRandomPlatform.count
         case randomGenreCollectionView:
@@ -85,12 +97,12 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "squareImageCell", for: indexPath) as? SquareImageCollectionViewCell else { return UICollectionViewCell() }
         switch collectionView {
         case recentlyPlayedCollectionView:
-            #warning("need to add this played property to the SavedGame data model")
+            let currentlyPlayingSavedGame = currentlyPlayingGames[indexPath.row]
+            cell.mainImageView.image = currentlyPlayingSavedGame.photo
             return cell
         case randomPlatformCollectionView:
             let savedGameByPlatform = gamesAssociatedWithRandomPlatform[indexPath.row]
@@ -145,8 +157,11 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
 }
 
 extension ReccomendsViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let height = 50
-//        return CGSize(width: height, height: height)
-//    }
+func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let numberOfItemsPerRow: CGFloat = 3
+    let spacingBetweenCells: CGFloat = 20
+    let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
+    let width = (self.view.bounds.width - totalSpacing)/numberOfItemsPerRow
+    return CGSize(width: width, height: width)
+    }
 }

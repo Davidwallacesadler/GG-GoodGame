@@ -18,9 +18,13 @@ extension SavedGame {
     }
     convenience init(title: String,
                      image: Data?,
+                     isFavorite: Bool,
+                     isBeingCurrentlyPlayed: Bool,
                      context: NSManagedObjectContext = CoreDataStack.context) {
         self.init(context: context)
         self.title = title
         self.image = image
+        self.isFavorite = isFavorite
+        self.isBeingCurrentlyPlayed = isBeingCurrentlyPlayed
     }
 }

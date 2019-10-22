@@ -28,6 +28,7 @@
 		63341A5D235CF2A8006FD1D3 /* SquareImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63341A5B235CF2A8006FD1D3 /* SquareImageCollectionViewCell.swift */; };
 		63341A5E235CF2A8006FD1D3 /* SquareImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63341A5C235CF2A8006FD1D3 /* SquareImageCollectionViewCell.xib */; };
 		633D7BD3234273BF0046538F /* TagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D7BD2234273BF0046538F /* TagListViewController.swift */; };
+		636ABDE3235E30EF00312BE0 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636ABDE2235E30EF00312BE0 /* Array.swift */; };
 		63B27C14233A853F006D5B03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C13233A853F006D5B03 /* AppDelegate.swift */; };
 		63B27C16233A853F006D5B03 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C15233A853F006D5B03 /* SceneDelegate.swift */; };
 		63B27C18233A853F006D5B03 /* GameSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B27C17233A853F006D5B03 /* GameSearchViewController.swift */; };
@@ -65,6 +66,7 @@
 		63341A5B235CF2A8006FD1D3 /* SquareImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		63341A5C235CF2A8006FD1D3 /* SquareImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SquareImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		633D7BD2234273BF0046538F /* TagListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListViewController.swift; sourceTree = "<group>"; };
+		636ABDE2235E30EF00312BE0 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		63B27C10233A853F006D5B03 /* GoodGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B27C13233A853F006D5B03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63B27C15233A853F006D5B03 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 			children = (
 				63B27C2F233A9728006D5B03 /* Keys.swift */,
 				63C0D9342342C303006DD2FA /* WSTagsFieldHelper.swift */,
+				636ABDE2235E30EF00312BE0 /* Array.swift */,
 			);
 			path = "Helper Files";
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				63B27C32233A97A5006D5B03 /* Game.swift in Sources */,
 				6313FB7F2354E6FC00BC2FE5 /* GamePlatform+convenience.swift in Sources */,
 				63B27C18233A853F006D5B03 /* GameSearchViewController.swift in Sources */,
+				636ABDE3235E30EF00312BE0 /* Array.swift in Sources */,
 				6313FB8B2354EDD400BC2FE5 /* GameGenreController.swift in Sources */,
 				633D7BD3234273BF0046538F /* TagListViewController.swift in Sources */,
 				63341A52235CE1BD006FD1D3 /* ReccomendsViewController.swift in Sources */,
