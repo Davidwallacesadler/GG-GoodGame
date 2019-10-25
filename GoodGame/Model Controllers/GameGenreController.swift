@@ -45,7 +45,7 @@ class GameGenreController {
     func updateGameGeneresFor(savedGame: SavedGame, withNewGenres genres: [String]) {
         var newGenres: [GameGenre] = []
         // Remove old:
-        for gameGenre in savedGame.gamePlatforms!.array {
+        for gameGenre in savedGame.gameGenres!.array {
             let genre = gameGenre as! GameGenre
             deleteGameGenre(gameGenre: genre)
         }

@@ -58,7 +58,12 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
     }
     var selectedPlayModeNames: Set<String> = []
     var possiblePlayModeGames: Set<SavedGame> = []
-    
+    lazy var slideInTransitioningDelegate = SlideInPresentationManager()
+    var filteredGame: SavedGame? {
+        didSet {
+            self.performSegue(withIdentifier: "toShowFilteredGame", sender: self)
+        }
+    }
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
@@ -94,8 +99,7 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
         }
         let finalSet = possibleGenreGames.intersection(possiblePlatformGames).intersection(possiblePlayModeGames)
         guard let randomGameFromFilter = finalSet.randomElement() else { return }
-        // Segue to playStatusVC with randomGame
-        print("\(String(describing: randomGameFromFilter.title))")
+        filteredGame = randomGameFromFilter
         
     }
     
@@ -165,14 +169,16 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "toShowFilteredGame" {
+            guard let playStatusVC = segue.destination as? PlayStatusViewController, let selectedGame = filteredGame else { return }
+            slideInTransitioningDelegate.direction = .bottom
+            playStatusVC.transitioningDelegate = slideInTransitioningDelegate
+            playStatusVC.modalPresentationStyle = .custom
+            playStatusVC.selectedGame = selectedGame
+        }
     }
-    */
-
 }

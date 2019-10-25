@@ -116,6 +116,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var gameModeTagsView: UIView!
     
     // MARK: - Actions
+    
     @IBAction func saveButtonPressed(_ sender: Any) {
         #warning("get a default image for the game")
         var genres = [String]()
@@ -130,7 +131,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
         for gameMode in gameModeTagsList.tags {
             gameModes.append(gameMode.text)
         }
-        guard let image = gameCover, let title = gameTitleTextField.text else { return }
+        guard let image = coverArtImageView.image, let title = gameTitleTextField.text else { return }
         guard let currentlySavedGame = savedGame else {
             SavedGameController.shared.createSavedGame(title: title,
                                                               image: image,
@@ -149,6 +150,9 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.popViewController(animated: true)
         }
     
+    @IBAction func photoButtonPressed(_ sender: Any) {
+        getImage()
+    }
     
     // MARK: - Internal Methods
     
@@ -165,7 +169,6 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setupTagsViewDelegation() {
-        #warning("Cannot edit or select the tagsView for some reason")
         platformTagsList.textDelegate = self
         genreTagsList.textDelegate = self
         gameModeTagsList.textDelegate = self
@@ -219,5 +222,50 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
               genreTagsList.addTag(gameGenre.name!)
            }
       }
+}
 
+extension GameDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func getImage() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                imagePicker.sourceType = .camera
+                self.present(imagePicker, animated: true, completion: nil)
+            } else {
+                print("Camera not available")
+                let cameraNotAvailableAlertController = UIAlertController(title: "Camera not available", message: "You have not given permission to use the camera or there is not an available camera to use", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+                cameraNotAvailableAlertController.addAction(okAction)
+                self.present(cameraNotAvailableAlertController, animated: true, completion: nil)
+            }
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action) in
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (_) in
+        }))
+        if let popoverController = actionSheet.popoverPresentationController {
+            let cancelButton = UIAlertAction(title: "Cancel", style: .default) { (_) in
+                actionSheet.dismiss(animated: true, completion: nil)
+            }
+            actionSheet.addAction(cancelButton)
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+           guard let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+               return
+           }
+           coverArtImageView.image = originalImage
+           coverArtImageView.contentMode = .scaleAspectFill
+           picker.dismiss(animated: true, completion: nil)
+       }
 }

@@ -12,8 +12,8 @@ class SquareImageCollectionViewCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        ViewHelper.roundCornersOf(viewLayer: mainImageView.layer, withRoundingCoefficient: 6.0)
     }
     @IBOutlet weak var mainImageView: UIImageView!
-    
+    @IBOutlet weak var mainLabel: UILabel!
 }

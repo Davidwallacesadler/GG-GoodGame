@@ -12,6 +12,7 @@ class ReccomendsDetailViewController: UIViewController {
     
     // MARK: - Internal Properties
     var selectedGame: SavedGame?
+    lazy var slideInTransitioningDelegate = SlideInPresentationManager()
     
     // MARK: - View Lifecycle
 
@@ -39,6 +40,9 @@ class ReccomendsDetailViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toShowGamePlayStatus" {
             guard let playStatusVC = segue.destination as? PlayStatusViewController, let savedGame = selectedGame else { return }
+            slideInTransitioningDelegate.direction = .bottom
+            playStatusVC.transitioningDelegate = slideInTransitioningDelegate
+            playStatusVC.modalPresentationStyle = .custom
             playStatusVC.selectedGame = savedGame
         }
     }

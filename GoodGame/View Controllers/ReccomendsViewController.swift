@@ -45,6 +45,12 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
     private let spacing: CGFloat = 16.0
+    var selectedSavedGame: SavedGame? {
+        didSet {
+            self.performSegue(withIdentifier: "toShowPlayStatus", sender: self)
+        }
+    }
+    lazy var slideInTransitioningDelegate = SlideInPresentationManager()
     
     // MARK: - View Lifecycle
 
@@ -53,10 +59,15 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
         platformName = randomPlatformName
         genreName = randomGenreName
         if let platform = platformName, let genre = genreName {
-            randomPlatformLabel.text = "\(platform) Games"
-            randomGenreLabel.text = "\(genre) Games"
-            getGamesForGenre()
-            getGamesForPlatform()
+            if platform.isEmpty && genre.isEmpty {
+                randomPlatformLabel.text = "Random Platform"
+                randomGenreLabel.text = "Random Genre"
+            } else {
+                randomPlatformLabel.text = "\(platform) Games"
+                randomGenreLabel.text = "\(genre) Games"
+                getGamesForGenre()
+                getGamesForPlatform()
+            }
         }
         self.recentlyPlayedCollectionView.delegate = self
         self.recentlyPlayedCollectionView.dataSource = self
@@ -103,19 +114,42 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
         case recentlyPlayedCollectionView:
             let currentlyPlayingSavedGame = currentlyPlayingGames[indexPath.row]
             cell.mainImageView.image = currentlyPlayingSavedGame.photo
+            cell.mainLabel.text = currentlyPlayingSavedGame.title
             return cell
         case randomPlatformCollectionView:
             let savedGameByPlatform = gamesAssociatedWithRandomPlatform[indexPath.row]
             cell.mainImageView.image = savedGameByPlatform.photo
+            cell.mainLabel.text = savedGameByPlatform.title
             return cell
         case randomGenreCollectionView:
             let savedGameByGenre = gamesAssociatedWithRandomGenre[indexPath.row]
             cell.mainImageView.image = savedGameByGenre.photo
+            cell.mainLabel.text = savedGameByGenre.title
             return cell
         default:
             return UICollectionViewCell()
         }
     }
+    
+    // MARK: - CollectionView Delegate
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch collectionView {
+        case recentlyPlayedCollectionView:
+            let selectedGame = currentlyPlayingGames[indexPath.row]
+            self.selectedSavedGame = selectedGame
+        case randomPlatformCollectionView:
+            let selectedGame = gamesAssociatedWithRandomPlatform[indexPath.row]
+            self.selectedSavedGame = selectedGame
+        case randomGenreCollectionView:
+            let selectedGame = gamesAssociatedWithRandomGenre[indexPath.row]
+            self.selectedSavedGame = selectedGame
+        default:
+            return
+        }
+    }
+    
+    // MARK: - Internal Methods
     
     private func getGamesForPlatform() {
         if let gamePlatformName = platformName {
@@ -144,24 +178,30 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "toShowPlayStatus" {
+            guard let playStatusVC = segue.destination as? PlayStatusViewController, let savedGame = selectedSavedGame else { return }
+            slideInTransitioningDelegate.direction = .bottom
+            playStatusVC.transitioningDelegate = slideInTransitioningDelegate
+            playStatusVC.modalPresentationStyle = .custom
+            playStatusVC.selectedGame = savedGame
+        }
     }
-    */
-
 }
+
+// MARK: - CollectionViewDelegateFlowLayout
 
 extension ReccomendsViewController: UICollectionViewDelegateFlowLayout {
 func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     let numberOfItemsPerRow: CGFloat = 3
-    let spacingBetweenCells: CGFloat = 20
+    let spacingBetweenCells: CGFloat = 16
     let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
     let width = (self.view.bounds.width - totalSpacing)/numberOfItemsPerRow
-    return CGSize(width: width, height: width)
+    let height = collectionView.frame.height
+    return CGSize(width: height, height: width)
     }
 }
