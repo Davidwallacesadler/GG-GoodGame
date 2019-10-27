@@ -19,12 +19,15 @@ class PlayStatusViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let savedGame = selectedGame {
-            gameCoverImageView.image = savedGame.photo
             gameTitleLabel.text = savedGame.title
-            print("game is being Played: \(savedGame.isBeingCurrentlyPlayed)")
-            print("is game favorite: \(savedGame.isFavorite)")
+            if savedGame.isBeingCurrentlyPlayed {
+                playPauseButton.setImage(#imageLiteral(resourceName: "PauseImage"), for: .normal)
+                finishPlaythroughButton.setImage(#imageLiteral(resourceName: "FinishIcon"), for: .normal)
+            }
+            if savedGame.isFavorite {
+                favoriteStatusButton.setImage(#imageLiteral(resourceName: "favoriteIconSelected"), for: .normal)
+            }
         }
-        
     }
     
     // MARK: - Outlets
@@ -33,29 +36,53 @@ class PlayStatusViewController: UIViewController {
     @IBOutlet weak var gameTitleLabel: UILabel!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var favoriteStatusButton: UIButton!
-    
+    @IBOutlet weak var finishPlaythroughButton: UIButton!
     
     // MARK: - Actions
     
     @IBAction func favoriteStatusButtonPressed(_ sender: Any) {
         if let game = selectedGame {
+            if game.isFavorite {
+                favoriteStatusButton.setImage(#imageLiteral(resourceName: "favoriteIconUnselected"), for: .normal)
+            } else {
+                favoriteStatusButton.setImage(#imageLiteral(resourceName: "favoriteIconSelected"), for: .normal)
+            }
             SavedGameController.shared.invertFavoriteSatus(savedGame: game)
-            print("is game favorite \(game.isFavorite)")
         }
     }
     @IBAction func finishButtonPressed(_ sender: Any) {
-        #warning("maybe pop up a rating and comment view where the iser can leave a rating and a comment for their playthrough -- maybe this creates a history of playthroughs for the saved game.")
+        if let game = selectedGame {
+            if game.isBeingCurrentlyPlayed {
+                let finishPlaythroughAlert = UIAlertController(title: "How Was Your Playthrough?", message: nil, preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                finishPlaythroughAlert.addAction(cancelAction)
+                self.present(finishPlaythroughAlert, animated: true, completion: nil)
+                // HAVE THIS BE THE HANDLER
+                SavedGameController.shared.createPlaythroughHistory(savedGame: game, withComment: "I had a great time beating this game again!")
+                SavedGameController.shared.invertPlayingStatus(savedGame: game)
+                
+            } else {
+                let notCurrentlyPlayingAlert = UIAlertController(title: "Game Not Being Played", message: "Please hit the play button before attempting to finish the game.", preferredStyle: .alert)
+                let okayAction = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+                notCurrentlyPlayingAlert.addAction(okayAction)
+                self.present(notCurrentlyPlayingAlert, animated: true, completion: nil)
+            }
+        }
     }
     
     @IBAction func playPauseButtonPressed(_ sender: Any) {
         if let game = selectedGame {
+            if game.isBeingCurrentlyPlayed {
+                finishPlaythroughButton.setImage(#imageLiteral(resourceName: "finishDeniedIcon"), for: .normal)
+                playPauseButton.setImage(#imageLiteral(resourceName: "playIcon"), for: .normal)
+            } else {
+                finishPlaythroughButton.setImage(#imageLiteral(resourceName: "FinishIcon"), for: .normal)
+                playPauseButton.setImage(#imageLiteral(resourceName: "PauseImage"), for: .normal)
+                SavedGameController.shared.setBeginningOfPlaythroughDate(forSavedGame: game)
+            }
             SavedGameController.shared.invertPlayingStatus(savedGame: game)
-            print("game is being Played: \(game.isBeingCurrentlyPlayed)")
         }
     }
-    
-    
-
     /*
     // MARK: - Navigation
 

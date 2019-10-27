@@ -12,7 +12,7 @@ import CoreData
 
 extension SavedGame {
     var photo: UIImage {
-        guard let image = image else { return UIImage() }
+        guard let image = image else { return UIImage(named: "defaultCoverImage")! }
         guard let photo = UIImage(data: image as Data) else { return UIImage() }
         return photo
     }
@@ -20,11 +20,13 @@ extension SavedGame {
                      image: Data?,
                      isFavorite: Bool,
                      isBeingCurrentlyPlayed: Bool,
+                     startOfPlaythrough: Date?,
                      context: NSManagedObjectContext = CoreDataStack.context) {
         self.init(context: context)
         self.title = title
         self.image = image
         self.isFavorite = isFavorite
         self.isBeingCurrentlyPlayed = isBeingCurrentlyPlayed
+        self.startOfPlaythrough = startOfPlaythrough
     }
 }

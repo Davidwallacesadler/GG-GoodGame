@@ -18,10 +18,20 @@ class ReccomendsDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ViewHelper.roundCornersOf(viewLayer: randomGameButton.layer, withRoundingCoefficient: 10.0)
+        ViewHelper.roundCornersOf(viewLayer: reccomendByFilterButton.layer, withRoundingCoefficient: 10.0)
     }
+    
+    // MARK: - Outlets
+    
+    @IBOutlet weak var randomGameButton: UIButton!
+    @IBOutlet weak var reccomendByFilterButton: UIButton!
     
     // MARK: - Actions
     
+    @IBAction func backButtonPressed(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     @IBAction func randomGameButtonPressed(_ sender: Any) {
         getRandomGame()
     }

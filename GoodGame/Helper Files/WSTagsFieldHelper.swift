@@ -24,6 +24,7 @@ struct WSTagsFieldHelper {
         tagsField.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10) //old padding
         tagsField.placeholder = placeHolder
         tagsField.placeholderColor = .lightGray
+        tagsField.tintColor = .goodGamePinkBright
         tagsField.placeholderAlwaysVisible = true
         tagsField.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 0)
         tagsField.returnKeyType = .continue

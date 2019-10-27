@@ -69,6 +69,12 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableViewDelegation()
+        ViewHelper.roundCornersOf(viewLayer: platformsTableView.layer, withRoundingCoefficient: 15.0)
+        ViewHelper.roundCornersOf(viewLayer: genresTableView.layer, withRoundingCoefficient: 15.0)
+        ViewHelper.roundCornersOf(viewLayer: gameModesTableView.layer, withRoundingCoefficient: 15.0)
+        platformsTableView.register(UINib(nibName: "CheckableTableViewCell", bundle: nil), forCellReuseIdentifier: "checkableCell")
+        genresTableView.register(UINib(nibName: "CheckableTableViewCell", bundle: nil), forCellReuseIdentifier: "checkableCell")
+        gameModesTableView.register(UINib(nibName: "CheckableTableViewCell", bundle: nil), forCellReuseIdentifier: "checkableCell")
     }
     
     // MARK: - Outlets
@@ -79,6 +85,9 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
     
     // MARK: - Actions
     
+    @IBAction func backButtonPressed(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     @IBAction func filterButtonPressed(_ sender: Any) {
         // Apply Filter and get a random element from the collection
         #warning("this is super basic and just works for now -- need to come up with a better filtering method")
@@ -119,19 +128,19 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "checkableCell") as? CheckableTableViewCell else { return UITableViewCell() }
         switch tableView {
         case platformsTableView:
             let platformName = platformNames[indexPath.row]
-            cell.textLabel?.text = platformName
+            cell.mainLabel?.text = platformName
             return cell
         case genresTableView:
             let genreName = genresNames[indexPath.row]
-            cell.textLabel?.text = genreName
+            cell.mainLabel?.text = genreName
             return cell
         case gameModesTableView:
             let playModeName = playModeNames[indexPath.row]
-            cell.textLabel?.text = playModeName
+            cell.mainLabel?.text = playModeName
             return cell
         default:
             return cell

@@ -114,9 +114,19 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var platformTagsView: UIView!
     @IBOutlet weak var genreTagsView: UIView!
     @IBOutlet weak var gameModeTagsView: UIView!
+    @IBOutlet weak var playthroughHistoryBarButtonItem: UIBarButtonItem!
     
     // MARK: - Actions
     
+    @IBAction func playthroughHistoryButtonPressed(_ sender: Any) {
+        guard let game = savedGame else { return }
+        if game.playthroughs?.array.isEmpty == false {
+            self.performSegue(withIdentifier: "toShowHistory", sender: self)
+        }
+    }
+    @IBAction func backButtonPressed(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     @IBAction func saveButtonPressed(_ sender: Any) {
         #warning("get a default image for the game")
         var genres = [String]()
@@ -131,10 +141,10 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
         for gameMode in gameModeTagsList.tags {
             gameModes.append(gameMode.text)
         }
-        guard let image = coverArtImageView.image, let title = gameTitleTextField.text else { return }
+        guard let title = gameTitleTextField.text else { return }
         guard let currentlySavedGame = savedGame else {
             SavedGameController.shared.createSavedGame(title: title,
-                                                              image: image,
+                                                       image: coverArtImageView.image ?? UIImage(named: "defaultCoverImage")!,
                                                               platforms: platforms,
                                                               genres: genres,
                                                               gameModes: gameModes)
@@ -142,7 +152,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
             return
         }
         SavedGameController.shared.updateSavedGame(newTitle: title,
-                                                   newImage: image,
+                                                   newImage: coverArtImageView.image ?? UIImage(named: "defaultCoverImage")!,
                                                    newPlatforms: platforms,
                                                    newGenres: genres,
                                                    newPlayModes: gameModes,
@@ -181,47 +191,52 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
            }
        }
        
-       private func updatePlatformTagsView() {
-           if let platforms = gamePlatforms {
-               for platform in platforms {
-                   platformTagsList.addTag(platform.name)
-               }
+   private func updatePlatformTagsView() {
+       if let platforms = gamePlatforms {
+           for platform in platforms {
+               platformTagsList.addTag(platform.name)
            }
        }
-       
-       private func updateGenreTagsView() {
-           if let genres = genres {
-               for genre in genres {
-                   genreTagsList.addTag(genre.name)
-               }
+   }
+   
+   private func updateGenreTagsView() {
+       if let genres = genres {
+           for genre in genres {
+               genreTagsList.addTag(genre.name)
            }
        }
-       
-       private func updateGameModeTagsView() {
-           if let gameModes = gameModes {
-               for mode in gameModes {
-                   gameModeTagsList.addTag(mode.name)
-               }
+   }
+   
+   private func updateGameModeTagsView() {
+       if let gameModes = gameModes {
+           for mode in gameModes {
+               gameModeTagsList.addTag(mode.name)
            }
        }
+   }
+    
+    
        
-       private func setupViewWithSavedGameIfNeeded() {
-           guard let saveGame = savedGame else { return }
-           gameTitleTextField.text = saveGame.title!
-           coverArtImageView.image = saveGame.photo
-           for platform in saveGame.gamePlatforms!.array {
-              let gamePlatform = platform as! GamePlatform
-              platformTagsList.addTag(gamePlatform.name!)
-           }
-           for gameMode in saveGame.playModes!.array {
-              let playMode = gameMode as! PlayMode
-              gameModeTagsList.addTag(playMode.name!)
-           }
-           for genre in saveGame.gameGenres!.array {
-              let gameGenre = genre as! GameGenre
-              genreTagsList.addTag(gameGenre.name!)
-           }
-      }
+    private func setupViewWithSavedGameIfNeeded() {
+        guard let saveGame = savedGame else { return }
+        if saveGame.playthroughs?.array.isEmpty == false {
+            playthroughHistoryBarButtonItem.tintColor = .goodGamePinkBright
+        }
+        gameTitleTextField.text = saveGame.title!
+        coverArtImageView.image = saveGame.photo
+        for platform in saveGame.gamePlatforms!.array {
+            let gamePlatform = platform as! GamePlatform
+            platformTagsList.addTag(gamePlatform.name!)
+        }
+        for gameMode in saveGame.playModes!.array {
+            let playMode = gameMode as! PlayMode
+            gameModeTagsList.addTag(playMode.name!)
+        }
+        for genre in saveGame.gameGenres!.array {
+            let gameGenre = genre as! GameGenre
+            genreTagsList.addTag(gameGenre.name!)
+        }
+    }
 }
 
 extension GameDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -264,8 +279,17 @@ extension GameDetailViewController: UIImagePickerControllerDelegate, UINavigatio
            guard let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
                return
            }
-           coverArtImageView.image = originalImage
-           coverArtImageView.contentMode = .scaleAspectFill
-           picker.dismiss(animated: true, completion: nil)
-       }
+        coverArtImageView.image = originalImage
+        coverArtImageView.contentMode = .scaleAspectFill
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension GameDetailViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toShowHistory" {
+            guard let historyVC = segue.destination as? PlaythroughHistoryListTableViewController, let selectedGame = savedGame else { return }
+            historyVC.savedGame = selectedGame
+        }
+    }
 }

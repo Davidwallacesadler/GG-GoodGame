@@ -79,6 +79,15 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
         self.randomPlatformCollectionView.register(UINib(nibName: "SquareImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "squareImageCell")
         self.randomGenreCollectionView.register(UINib(nibName: "SquareImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "squareImageCell")
         randomPlatformCollectionView.reloadData()
+        
+//        let layout = UICollectionViewFlowLayout()
+//        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+//        layout.minimumLineSpacing = spacing
+//        layout.minimumInteritemSpacing = spacing
+//        layout.scrollDirection = .horizontal
+//        self.recentlyPlayedCollectionView.collectionViewLayout = layout
+//        self.randomPlatformCollectionView.collectionViewLayout = layout
+//        self.randomGenreCollectionView.collectionViewLayout = layout
     }
     
     // MARK: - Outlets
@@ -196,12 +205,12 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
 // MARK: - CollectionViewDelegateFlowLayout
 
 extension ReccomendsViewController: UICollectionViewDelegateFlowLayout {
-func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let numberOfItemsPerRow: CGFloat = 3
-    let spacingBetweenCells: CGFloat = 16
-    let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
-    let width = (self.view.bounds.width - totalSpacing)/numberOfItemsPerRow
-    let height = collectionView.frame.height
-    return CGSize(width: height, height: width)
-    }
+//func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//    let numberOfItemsPerRow: CGFloat = 1.25
+//    let spacingBetweenCells: CGFloat = 16
+//    let totalSpacing = (1.25 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
+//    let width = (self.view.bounds.width - totalSpacing)/numberOfItemsPerRow
+//    let height = collectionView.frame.height
+//    return CGSize(width: height, height: width)
+//    }
 }

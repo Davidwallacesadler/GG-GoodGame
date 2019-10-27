@@ -39,7 +39,7 @@ class SavedGameController {
                          gameModes: [String]) {
         let imageData: Data?
         imageData = image.jpegData(compressionQuality: 1.0)
-        let savedGame = SavedGame(title: title, image: imageData, isFavorite: false, isBeingCurrentlyPlayed: false)
+        let savedGame = SavedGame(title: title, image: imageData, isFavorite: false, isBeingCurrentlyPlayed: false, startOfPlaythrough: nil)
         GamePlatformController.shared.createGamePlatformsFor(savedGame: savedGame, withPlatforms: platforms)
         GameGenreController.shared.createGameGenresFor(savedGame: savedGame, withGenres: genres)
         PlayModeController.shared.createPlayModesFor(savedGame: savedGame, withPlayModes: gameModes)
@@ -78,6 +78,16 @@ class SavedGameController {
     
     func invertFavoriteSatus(savedGame: SavedGame) {
         savedGame.isFavorite = !savedGame.isFavorite
+        saveToPersitentStorage()
+    }
+    
+    func createPlaythroughHistory(savedGame: SavedGame, withComment: String) {
+        PlaythroughController.shared.createPlaythroughFor(savedGame: savedGame, userComment: withComment)
+        saveToPersitentStorage()
+    }
+    
+    func setBeginningOfPlaythroughDate(forSavedGame savedGame: SavedGame) {
+        savedGame.startOfPlaythrough = Date()
         saveToPersitentStorage()
     }
     // MARK: - Persistence
