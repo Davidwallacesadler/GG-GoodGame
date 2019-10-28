@@ -586,7 +586,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yos-VH-WQd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3374" y="1282"/>
+            <point key="canvasLocation" x="-3001" y="1121"/>
         </scene>
         <!--Add Games To Library-->
         <scene sceneID="tne-QT-ifu">

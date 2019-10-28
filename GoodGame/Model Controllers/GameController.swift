@@ -130,7 +130,47 @@ struct GameController {
                 }
             }
         }
-        
+    }
+    
+    func getGenresByGenreIds(_ genreIds: [Int],
+                          completion: @escaping(_ genres: [Genre]) -> Void) {
+        var idArrayString = "("
+        var index = 0
+        for id in genreIds {
+           if index < genreIds.count - 1 {
+               idArrayString.append("\(id),")
+           } else {
+               idArrayString.append("\(id))")
+           }
+           index += 1
+        }
+        let requestBodyString = "fields name; where id = \(idArrayString);"
+        guard let requestUrl = URL(string: Keys.baseURL + "genres"), let requestBody = requestBodyString.data(using: .utf8, allowLossyConversion: false) else { return }
+        NetworkController.performRequest(for: requestUrl,
+                                         httpMethod: .post,
+                                         urlParameters: nil,
+                                         body: requestBody) { (data, error) in
+            if error != nil {
+                print(error, error?.localizedDescription)
+                completion([])
+                return
+            } else {
+                guard let recievedData = data else {
+                    completion([])
+                    return
+                }
+                let decoder = JSONDecoder()
+                do {
+                    let genres = try decoder.decode([Genre].self, from: recievedData)
+                    completion(genres)
+                    return
+                } catch {
+                    print("Error parsing data into genre object", error, error.localizedDescription)
+                    completion([])
+                    return
+                }
+            }
+        }
     }
     
     // MARK: - Get Platform Data
@@ -138,6 +178,43 @@ struct GameController {
     func getPlatformByPlatformId(_ platformId: Int,
                              completion: @escaping(_ platforms: [Platform]) -> Void) {
         let requestBodyString = "fields *; exclude created_at, product_family, slug, summary, updated_at, versions, websites; where id = \(platformId);"
+        guard let requestUrl = URL(string: Keys.baseURL + "platforms"), let requestBody = requestBodyString.data(using: .utf8, allowLossyConversion: false) else { return }
+        NetworkController.performRequest(for: requestUrl,
+                                         httpMethod: .post,
+                                         urlParameters: nil,
+                                         body: requestBody) { (data, error) in
+            if error != nil {
+                print(error, error?.localizedDescription)
+                completion([])
+                return
+            }
+            guard let retreivedData = data else { return }
+            let decoder = JSONDecoder()
+            do {
+                let platforms = try decoder.decode([Platform].self, from: retreivedData)
+                completion(platforms)
+                return
+            } catch {
+                print("Error Parsing Platform into Object", error, error.localizedDescription)
+                completion([])
+                return
+            }
+        }
+    }
+    
+    func getPlatformsByPlatformIds(_ platformIds: [Int],
+                             completion: @escaping(_ platforms: [Platform]) -> Void) {
+        var idArrayString = "("
+        var index = 0
+        for id in platformIds {
+           if index < platformIds.count - 1 {
+               idArrayString.append("\(id),")
+           } else {
+               idArrayString.append("\(id))")
+           }
+           index += 1
+        }
+        let requestBodyString = "fields *; exclude created_at, product_family, slug, summary, updated_at, versions, websites; where id = \(idArrayString);"
         guard let requestUrl = URL(string: Keys.baseURL + "platforms"), let requestBody = requestBodyString.data(using: .utf8, allowLossyConversion: false) else { return }
         NetworkController.performRequest(for: requestUrl,
                                          httpMethod: .post,
@@ -179,6 +256,48 @@ struct GameController {
                                          httpMethod: .post,
                                          urlParameters: nil,
                                          body: requestBody) { (data, error) in
+            if error != nil {
+                print(error,error?.localizedDescription)
+                completion([])
+                return
+            } else {
+                guard let recievedData = data else {
+                    completion([])
+                    return
+                }
+                let decoder = JSONDecoder()
+                do {
+                    let gameModes = try decoder.decode([GameMode].self, from: recievedData)
+                    completion(gameModes)
+                    return
+                } catch {
+                    print("error parsing data into gameMode object", error, error.localizedDescription)
+                    completion([])
+                    return
+                }
+            }
+        }
+    }
+    
+    func getGameModesByModeIds(_ gameModeIds: [Int],
+                               completion: @escaping(_ gameModes: [GameMode]) -> Void) {
+        var idArrayString = "("
+        var index = 0
+        for id in gameModeIds {
+            if index < gameModeIds.count - 1 {
+                idArrayString.append("\(id),")
+            } else {
+                idArrayString.append("\(id))")
+            }
+            index += 1
+        }
+        let requestBodyString = "fields name; where id = \(idArrayString);"
+        
+        guard let requestUrl = URL(string: Keys.baseURL + "game_modes"), let requestBody = requestBodyString.data(using: .utf8, allowLossyConversion: false) else { return }
+        NetworkController.performRequest(for: requestUrl,
+                                          httpMethod: .post,
+                                          urlParameters: nil,
+                                          body: requestBody) { (data, error) in
             if error != nil {
                 print(error,error?.localizedDescription)
                 completion([])

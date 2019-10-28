@@ -29,6 +29,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
          }
      }
      // GENRES:
+    #warning("Just call update genre tags view after the network calls are all done! - instead of looping")
      var genreName = ""
      var genreIds: [Int]?
      var genres: [Genre]? {
@@ -65,28 +66,22 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
             self.gameCover = coverImage
            }
         if let platformIds = gamePlaftormIds {
-            for id in platformIds {
-                GameController.shared.getPlatformByPlatformId(id) { (gamePlatforms) in
-                    self.gamePlatforms = gamePlatforms
-                }
+            GameController.shared.getPlatformsByPlatformIds(platformIds) { (gamePlatforms) in
+                self.gamePlatforms = gamePlatforms
             }
         }
         if let genres = genreIds {
-            for id in genres {
-                GameController.shared.getGenreByGenreId(id) { (genres) in
-                    self.genres = genres
-                }
+            GameController.shared.getGenresByGenreIds(genres) { (genres) in
+                self.genres = genres
             }
         }
         if let modeIds = gameModeIds {
-            for id in modeIds {
-                GameController.shared.getGameModesByModeId(id) { (gameModes) in
-                    self.gameModes = gameModes
-                        }
-                    }
+            GameController.shared.getGameModesByModeIds(modeIds) { (gameModes) in
+                self.gameModes = gameModes
                 }
             }
-       }
+        }
+    }
      
      // MARK: - View Lifecycle
 
@@ -127,6 +122,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
     @IBAction func backButtonPressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
     @IBAction func saveButtonPressed(_ sender: Any) {
         #warning("get a default image for the game")
         var genres = [String]()
