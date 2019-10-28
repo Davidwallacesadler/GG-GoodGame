@@ -89,11 +89,11 @@
             </objects>
             <point key="canvasLocation" x="74" y="864"/>
         </scene>
-        <!--Reccomends-->
+        <!--Recommends-->
         <scene sceneID="KJP-cL-qdq">
             <objects>
                 <navigationController id="5P7-us-iZ3" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Reccomends" image="discoverTabBarIcon" id="Gl8-zH-8i1">
+                    <tabBarItem key="tabBarItem" title="Recommends" image="discoverTabBarIcon" id="Gl8-zH-8i1">
                         <color key="badgeColor" red="1" green="0.0" blue="0.85566986239999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="Dl7-I5-ZcW">
@@ -108,7 +108,7 @@
             </objects>
             <point key="canvasLocation" x="-691" y="1655"/>
         </scene>
-        <!--Reccomends-->
+        <!--Recommends-->
         <scene sceneID="6jO-UO-iOX">
             <objects>
                 <viewController id="Blj-oT-iGz" customClass="ReccomendsViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
@@ -233,7 +233,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ftd-95-1NY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Reccomends" id="WwH-AD-iHX">
+                    <navigationItem key="navigationItem" title="Recommends" id="WwH-AD-iHX">
                         <barButtonItem key="rightBarButtonItem" title="filter" image="magnifyingglass" catalog="system" id="ZdK-rd-qou">
                             <color key="tintColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -330,7 +330,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BLg-VQ-q27" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="925" y="1655"/>
+            <point key="canvasLocation" x="980" y="1655"/>
         </scene>
         <!--Reccomends Filter View Controller-->
         <scene sceneID="xHN-HE-fLR">
@@ -462,7 +462,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ZY-j4-hul" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1835" y="1655"/>
+            <point key="canvasLocation" x="1834" y="1657"/>
         </scene>
         <!--Now Playing-->
         <scene sceneID="Hln-GO-CSg">
@@ -824,6 +824,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="3rC-pf-oUp"/>
-        <segue reference="xPh-jY-E9B"/>
+        <segue reference="ilK-cI-WQR"/>
     </inferredMetricsTieBreakers>
 </document>
