@@ -48,12 +48,22 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
         guard let games = retreivedGames else { return }
         let selectedGame = games[indexPath.row]
         selectedVideoGame = selectedGame
-        self.performSegue(withIdentifier: "toShowGame", sender: self)
     }
     
     // MARK: - Internal Properties
     
-    var selectedVideoGame: Game?
+    var selectedVideoGame: Game? {
+        didSet {
+            getGameArtwork()
+        }
+    }
+    var selectedGameArtwork: [Artwork]? {
+        didSet {
+            DispatchQueue.main.async {
+                 self.performSegue(withIdentifier: "toShowGame", sender: self)
+            }
+        }
+    }
     var retreivedGames: [Game]? {
         didSet {
             DispatchQueue.main.async {
@@ -62,6 +72,12 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
         }
     }
     
+    func getGameArtwork() {
+        guard let game = selectedVideoGame else { return }
+        GameController.shared.getCoverArtworkByGameId(game.id) { (artworks) in
+            self.selectedGameArtwork = artworks
+        }
+    }
     
     // MARK: - View Lifecycle
 
@@ -91,7 +107,8 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toShowGame" {
-            guard let detailVC = segue.destination as? GameDetailViewController, let game = selectedVideoGame else { return }
+            guard let detailVC = segue.destination as? GameDetailViewController, let game = selectedVideoGame, let artworks = selectedGameArtwork else { return }
+            detailVC.artworks = artworks
             detailVC.gameId = game.id
             detailVC.gamePlaftormIds = game.platforms
             detailVC.genreIds = game.genres

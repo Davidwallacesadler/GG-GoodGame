@@ -30,9 +30,9 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
      }
      // GENRES:
     #warning("Just call update genre tags view after the network calls are all done! - instead of looping")
-     var genreName = ""
-     var genreIds: [Int]?
-     var genres: [Genre]? {
+    var genreName = ""
+    var genreIds: [Int]?
+    var genres: [Genre]? {
          didSet {
              DispatchQueue.main.async {
                  self.updateGenreTagsView()
@@ -40,18 +40,19 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
          }
      }
      // PLATFORMS:
-     var platformName = ""
-     var gamePlatforms: [Platform]? {
+    var platformName = ""
+    var gamePlatforms: [Platform]? {
          didSet {
              DispatchQueue.main.async {
                  self.updatePlatformTagsView()
              }
          }
      }
-     var gamePlaftormIds: [Int]?
+    var gamePlaftormIds: [Int]?
      // GAME COVER:
-     var gameId: Int?
-     var gameCover: UIImage? {
+    var gameId: Int?
+    var artworks: [Artwork]?
+    var gameCover: UIImage? {
      didSet {
          DispatchQueue.main.async {
              self.updateImageView()
@@ -61,10 +62,12 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
     // GAME:
     var game: Game? {
        didSet {
-        GameController.shared.getCoverImageByGameId(gameId!) { (image) in
-            guard let coverImage = image else { return }
-            self.gameCover = coverImage
-           }
+        if let artworkArray = artworks {
+            GameController.shared.getCoverImageByArtworks(artworkArray) { (image) in
+                guard let coverImage = image else { return }
+                self.gameCover = coverImage
+            }
+        }
         if let platformIds = gamePlaftormIds {
             GameController.shared.getPlatformsByPlatformIds(platformIds) { (gamePlatforms) in
                 self.gamePlatforms = gamePlatforms
@@ -182,8 +185,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
     
     private func updateImageView() {
            if let gameImage = gameCover {
-               self.coverArtImageView.image = gameImage
-               gameCover = gameImage
+              self.coverArtImageView.image = gameImage
            }
        }
        

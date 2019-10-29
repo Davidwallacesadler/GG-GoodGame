@@ -72,8 +72,8 @@ struct GameController {
                    print("Error Decoding into Artwork", error.localizedDescription, error)
                    completion([])
                }
-           }
-       }
+            }
+        }
     }
     
     func getCoverImageByGameId(_ imageId: Int,
@@ -98,6 +98,27 @@ struct GameController {
             }
         }
     }
+    
+    func getCoverImageByArtworks(_ artworks: [Artwork],
+                                  completion: @escaping(_ coverArt: UIImage?) -> Void) {
+               guard let imageUrlString = artworks[0].url else { return }
+               guard let imageUrl = URL(string:"https:" + imageUrlString) else { return }
+               NetworkController.performRequest(for: imageUrl,
+                                                httpMethod: .get,
+                                                urlParameters: nil,
+                                                body: nil) { (data, error) in
+                   if error != nil {
+                       print(error?.localizedDescription, error)
+                       completion(nil)
+                   } else {
+                       guard let recievedData = data else {
+                           completion(nil)
+                           return
+                       }
+                       completion(UIImage(data: recievedData as Data))
+               }
+           }
+       }
     
     // MARK: - Get Genre Data
     
