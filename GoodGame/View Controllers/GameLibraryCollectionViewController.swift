@@ -10,7 +10,16 @@ import UIKit
 
 private let reuseIdentifier = "savedGameCell"
 
-class GameLibraryCollectionViewController: UICollectionViewController {
+class GameLibraryCollectionViewController: UICollectionViewController, CollectionViewCellLongTouchDelegate {
+    
+    // MARK: - CollectionViewCellLongTouchDelegate
+    
+    func didLongPress(index: IndexPath) {
+        let selectedGame = savedGames[index.row]
+        selectedSavedGame = selectedGame
+        self.performSegue(withIdentifier: "toShowPlayStatus", sender: self)
+    }
+    
     
     // MARK: - View Lifecycle
     
@@ -39,6 +48,7 @@ class GameLibraryCollectionViewController: UICollectionViewController {
     
     // MARK: - Internal Properties
     
+    lazy var slideInTransitioningDelegate = SlideInPresentationManager()
     private let spacing: CGFloat = 16.0
     var savedGames: [SavedGame] {
         get {
@@ -63,6 +73,8 @@ class GameLibraryCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let gameCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? SavedGameCollectionViewCell else { return UICollectionViewCell() }
+        gameCell.delegate = self
+        gameCell.indexPath = indexPath
         let savedGame = savedGames[indexPath.row]
         gameCell.coverImageView.image = savedGame.photo
         gameCell.gameTitleLabel.text = savedGame.title
@@ -114,6 +126,12 @@ class GameLibraryCollectionViewController: UICollectionViewController {
         if segue.identifier == "toShowSavedGame" {
             guard let detailVC = segue.destination as? GameDetailViewController, let savedGame = selectedSavedGame else { return }
             detailVC.savedGame = savedGame
+        } else if segue.identifier == "toShowPlayStatus" {
+            guard let playStatusVC = segue.destination as? PlayStatusViewController, let savedGame = selectedSavedGame else { return }
+            slideInTransitioningDelegate.direction = .bottom
+            playStatusVC.transitioningDelegate = slideInTransitioningDelegate
+            playStatusVC.modalPresentationStyle = .custom
+            playStatusVC.selectedGame = savedGame
         }
     }
 }
