@@ -12,9 +12,6 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
     
     // MARK: - Internal Properties
     
-    #warning("Need to add a currently playing property to my saved game object, as well as a favorite status, and user rating, and possibly user comment -- Maybe have some kind of history of when the game is played")
-    
-    #warning("something is weird with how these are being intialized")
     var randomPlatformName: String {
         get {
             guard let randomPlatform = GamePlatformController.shared.platforms.randomElement() else { return "" }
@@ -56,38 +53,14 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        platformName = randomPlatformName
-        genreName = randomGenreName
-        if let platform = platformName, let genre = genreName {
-            if platform.isEmpty && genre.isEmpty {
-                randomPlatformLabel.text = "Random Platform"
-                randomGenreLabel.text = "Random Genre"
-            } else {
-                randomPlatformLabel.text = "\(platform) Games"
-                randomGenreLabel.text = "\(genre) Games"
-                getGamesForGenre()
-                getGamesForPlatform()
-            }
-        }
-        self.recentlyPlayedCollectionView.delegate = self
-        self.recentlyPlayedCollectionView.dataSource = self
-        self.randomPlatformCollectionView.delegate = self
-        self.randomPlatformCollectionView.dataSource = self
-        self.randomGenreCollectionView.delegate = self
-        self.randomGenreCollectionView.dataSource = self
-        self.recentlyPlayedCollectionView.register(UINib(nibName: "SquareImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "squareImageCell")
-        self.randomPlatformCollectionView.register(UINib(nibName: "SquareImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "squareImageCell")
-        self.randomGenreCollectionView.register(UINib(nibName: "SquareImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "squareImageCell")
-        randomPlatformCollectionView.reloadData()
-        
-//        let layout = UICollectionViewFlowLayout()
-//        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-//        layout.minimumLineSpacing = spacing
-//        layout.minimumInteritemSpacing = spacing
-//        layout.scrollDirection = .horizontal
-//        self.recentlyPlayedCollectionView.collectionViewLayout = layout
-//        self.randomPlatformCollectionView.collectionViewLayout = layout
-//        self.randomGenreCollectionView.collectionViewLayout = layout
+        prepareRandomGenreAndPlatformData()
+        setupCollectionViewDataSourceAndDelegation()
+        registerCustomCollectionViewCells()
+        setupCollectionViewFlowLayouts()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.recentlyPlayedCollectionView.reloadData()
     }
     
     // MARK: - Outlets
@@ -186,12 +159,52 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
     
+    private func setupCollectionViewDataSourceAndDelegation() {
+        self.recentlyPlayedCollectionView.delegate = self
+        self.recentlyPlayedCollectionView.dataSource = self
+        self.randomPlatformCollectionView.delegate = self
+        self.randomPlatformCollectionView.dataSource = self
+        self.randomGenreCollectionView.delegate = self
+        self.randomGenreCollectionView.dataSource = self
+    }
+    
+    private func registerCustomCollectionViewCells() {
+        self.recentlyPlayedCollectionView.register(UINib(nibName: "SquareImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "squareImageCell")
+        self.randomPlatformCollectionView.register(UINib(nibName: "SquareImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "squareImageCell")
+        self.randomGenreCollectionView.register(UINib(nibName: "SquareImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "squareImageCell")
+    }
+    
+    private func prepareRandomGenreAndPlatformData() {
+        platformName = randomPlatformName
+        genreName = randomGenreName
+        if let platform = platformName, let genre = genreName {
+            if platform.isEmpty && genre.isEmpty {
+                randomPlatformLabel.text = "Random Platform"
+                randomGenreLabel.text = "Random Genre"
+            } else {
+                randomPlatformLabel.text = "\(platform) Games"
+                randomGenreLabel.text = "\(genre) Games"
+                getGamesForGenre()
+                getGamesForPlatform()
+            }
+        }
+    }
+    
+    private func setupCollectionViewFlowLayouts() {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: self.recentlyPlayedCollectionView.frame.width / 1.5, height: self.recentlyPlayedCollectionView.frame.height)
+        //layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = spacing
+        layout.scrollDirection = .horizontal
+        self.recentlyPlayedCollectionView.collectionViewLayout = layout
+        self.randomPlatformCollectionView.collectionViewLayout = layout
+        self.randomGenreCollectionView.collectionViewLayout = layout
+    }
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "toShowPlayStatus" {
             guard let playStatusVC = segue.destination as? PlayStatusViewController, let savedGame = selectedSavedGame else { return }
             slideInTransitioningDelegate.direction = .bottom
@@ -204,13 +217,13 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
 
 // MARK: - CollectionViewDelegateFlowLayout
 
-extension ReccomendsViewController: UICollectionViewDelegateFlowLayout {
+//extension ReccomendsViewController: UICollectionViewDelegateFlowLayout {
 //func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//    let numberOfItemsPerRow: CGFloat = 1.25
+//    let numberOfItemsPerRow: CGFloat = 2
 //    let spacingBetweenCells: CGFloat = 16
-//    let totalSpacing = (1.25 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
+//    let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
 //    let width = (self.view.bounds.width - totalSpacing)/numberOfItemsPerRow
-//    let height = collectionView.frame.height
+//    let height = collectionView.bounds.height
 //    return CGSize(width: height, height: width)
 //    }
-}
+//}

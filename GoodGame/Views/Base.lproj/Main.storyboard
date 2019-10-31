@@ -83,7 +83,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="UGs-Hn-zRK" kind="show" identifier="toShowSavedGame" id="3rC-pf-oUp"/>
-                        <segue destination="xaI-35-Rgs" kind="modal" identifier="toShowPlayStatus" id="ceH-WA-yhA"/>
+                        <segue destination="xaI-35-Rgs" kind="presentation" identifier="toShowPlayStatus" id="ceH-WA-yhA"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="buu-Jr-Wll" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -132,7 +132,7 @@
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rrx-cX-5vP">
                                                 <rect key="frame" x="0.0" y="36" width="335" height="144.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="d64-Us-dq3">
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="d64-Us-dq3">
                                                     <size key="itemSize" width="200" height="150"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -140,10 +140,10 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="squareImageCell" id="QY2-sa-is4" customClass="SquareImageCollectionViewCell" customModule="GoodGame" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="-3" width="200" height="150"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="njN-NY-BOd">
-                                                            <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </collectionViewCellContentView>
                                                     </collectionViewCell>
@@ -166,7 +166,7 @@
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cmq-l2-90L">
                                                 <rect key="frame" x="0.0" y="36" width="335" height="145"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UXz-VI-Nwd">
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UXz-VI-Nwd">
                                                     <size key="itemSize" width="200" height="150"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -174,10 +174,10 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="squareImageCell" id="4c9-1I-3oh" customClass="SquareImageCollectionViewCell" customModule="GoodGame" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="-2.5" width="200" height="150"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="tcg-Tb-bEb">
-                                                            <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </collectionViewCellContentView>
                                                     </collectionViewCell>
@@ -200,7 +200,7 @@
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ol0-2H-wm5">
                                                 <rect key="frame" x="0.0" y="36" width="335" height="144.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Gbz-c1-3CE">
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Gbz-c1-3CE">
                                                     <size key="itemSize" width="200" height="150"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -208,10 +208,10 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="squareImageCell" id="vp7-1V-eKY" customClass="SquareImageCollectionViewCell" customModule="GoodGame" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="-3" width="200" height="150"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pY5-c6-U5b">
-                                                            <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </collectionViewCellContentView>
                                                     </collectionViewCell>
@@ -611,7 +611,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.86615640862944165" green="0.86615640862944165" blue="0.86615640862944165" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -824,7 +823,7 @@
         <image name="sliderFilterIcon" width="63" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3rC-pf-oUp"/>
-        <segue reference="ceH-WA-yhA"/>
+        <segue reference="crk-hi-3dY"/>
+        <segue reference="Whk-9D-cY9"/>
     </inferredMetricsTieBreakers>
 </document>
