@@ -22,6 +22,8 @@ struct WSTagsFieldHelper {
         tagsField.spaceBetweenTags = 10
         tagsField.layoutMargins = UIEdgeInsets(top: 2, left: 6, bottom: 2, right: 6)
         tagsField.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10) //old padding
+        tagsField.enableScrolling = true
+        tagsField.maxHeight = tagsView.bounds.height
         tagsField.placeholder = placeHolder
         tagsField.placeholderColor = .lightGray
         tagsField.tintColor = .goodGamePinkBright
