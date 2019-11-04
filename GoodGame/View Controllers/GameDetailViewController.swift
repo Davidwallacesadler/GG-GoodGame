@@ -93,6 +93,8 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
         addTagViews()
         setupTagsViewDelegation()
         setupViewWithSavedGameIfNeeded()
+        addNotificationObserverForKeyboard()
+        resignFirstResponderTapRecongnizerSetup()
         if let selectedGame = game {
             gameTitleTextField.text = selectedGame.name
         }
@@ -103,6 +105,12 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
         gameModeTagsList.frame = gameModeTagsView.bounds
         platformTagsList.frame = platformTagsView.bounds
         genreTagsList.frame = genreTagsView.bounds
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     // MARK: - Outlets
@@ -196,25 +204,23 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
            }
        }
    }
-   
+    
    private func updateGenreTagsView() {
-       if let genres = genres {
-           for genre in genres {
-               genreTagsList.addTag(genre.name)
-           }
-       }
-   }
-   
-   private func updateGameModeTagsView() {
-       if let gameModes = gameModes {
-           for mode in gameModes {
-               gameModeTagsList.addTag(mode.name)
-           }
-       }
-   }
+        if let genres = genres {
+            for genre in genres {
+                genreTagsList.addTag(genre.name)
+            }
+        }
+    }
     
+    private func updateGameModeTagsView() {
+        if let gameModes = gameModes {
+            for mode in gameModes {
+                gameModeTagsList.addTag(mode.name)
+            }
+        }
+    }
     
-       
     private func setupViewWithSavedGameIfNeeded() {
         guard let saveGame = savedGame else { return }
         if saveGame.playthroughs?.array.isEmpty == false {
@@ -234,6 +240,31 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
             let gameGenre = genre as! GameGenre
             genreTagsList.addTag(gameGenre.name!)
         }
+    }
+    
+    private func addNotificationObserverForKeyboard() {
+       NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillHide() {
+        self.view.frame.origin.y = 0 + 60
+    }
+    
+    @objc func keyboardWillChange(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if genreTagsList.isFirstResponder {
+               self.view.frame.origin.y = -(keyboardSize.height - 70)
+            } else if gameModeTagsList.isFirstResponder {
+            self.view.frame.origin.y = -(keyboardSize.height - 70)
+            }
+        }
+    }
+    
+    private func resignFirstResponderTapRecongnizerSetup() {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
     }
 }
 

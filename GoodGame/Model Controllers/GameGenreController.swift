@@ -14,6 +14,7 @@ class GameGenreController {
     // MARK: - Shared Instance
     
     static let shared = GameGenreController()
+    var filteringPredicate: NSPredicate?
     
     // MARK: - GamePlatorms
     
@@ -25,6 +26,24 @@ class GameGenreController {
             return result
         } catch {
             return []
+        }
+    }
+    
+    func loadSavedGamesBasedOnGenreName(genreName: String) -> [SavedGame] {
+        let request: NSFetchRequest<GameGenre> = GameGenre.fetchRequest()
+        filteringPredicate = NSPredicate(format: "name == %@", genreName)
+        request.predicate = filteringPredicate
+        let moc = CoreDataStack.context
+        var genres = [GameGenre]()
+        do {
+            let result = try moc.fetch(request)
+            genres = result
+        } catch {
+            print(error,error.localizedDescription)
+            return []
+        }
+        return genres.map { (gameGenre) -> SavedGame in
+            return gameGenre.savedGame!
         }
     }
     

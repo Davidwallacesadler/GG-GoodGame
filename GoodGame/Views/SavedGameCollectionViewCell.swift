@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CollectionViewCellLongTouchDelegate {
-    func didLongPress(index: IndexPath)
+    func didLongPress(index: IndexPath, sectionKey: String)
 }
 
 class SavedGameCollectionViewCell: UICollectionViewCell {
@@ -17,6 +17,7 @@ class SavedGameCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     var delegate: CollectionViewCellLongTouchDelegate?
     var indexPath: IndexPath?
+    var sectionKey: String?
     
     // MARK: - View Lifecycle
 
@@ -43,13 +44,13 @@ class SavedGameCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func longPress(sender: UILongPressGestureRecognizer) {
-        guard let desiredIndexPath = indexPath else { return }
+        guard let desiredIndexPath = indexPath, let desiredSection = sectionKey else { return }
         if sender.state == .began {
             let generator = UIImpactFeedbackGenerator(style: .medium)
             generator.impactOccurred()
         }
         if sender.state == .ended {
-            delegate?.didLongPress(index: desiredIndexPath)
+            delegate?.didLongPress(index: desiredIndexPath, sectionKey: desiredSection)
         }
     }
     

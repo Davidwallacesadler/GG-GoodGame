@@ -30,3 +30,9 @@ extension SavedGame {
         self.startOfPlaythrough = startOfPlaythrough
     }
 }
+
+extension SavedGame: Named {
+    var name: String {
+        return title!
+    }
+}

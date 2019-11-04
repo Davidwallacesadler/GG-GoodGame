@@ -14,10 +14,17 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
     
     // MARK: - CollectionViewCellLongTouchDelegate
     
-    func didLongPress(index: IndexPath) {
-        let selectedGame = savedGames[index.row]
+    func didLongPress(index: IndexPath, sectionKey: String) {
+        guard let gamesBasedOnCharacter = savedGamesOrdered[sectionKey] else { return }
+        let selectedGame = gamesBasedOnCharacter[index.row]
         selectedSavedGame = selectedGame
         self.performSegue(withIdentifier: "toShowPlayStatus", sender: self)
+    }
+    
+    // MARK: - Actions
+
+    #warning("maybe implement filtering here in the future - but for now just keep it alphabetical")
+    @IBAction func filterButtonTapped(_ sender: Any) {
     }
     
     
@@ -25,23 +32,11 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-        layout.minimumLineSpacing = spacing
-        layout.minimumInteritemSpacing = spacing
-        self.collectionView?.collectionViewLayout = layout
-        // Register cell classes
-        self.collectionView!.register(UINib(nibName: "SavedGameCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-
-        // Do any additional setup after loading the view.
+        setupCollectionViewInsets()
+        setupCollectionViewDelegation()
+        registerCustomCells()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         self.collectionView.reloadData()
     }
@@ -50,76 +45,86 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
     
     lazy var slideInTransitioningDelegate = SlideInPresentationManager()
     private let spacing: CGFloat = 16.0
-    var savedGames: [SavedGame] {
+    var selectedSavedGame: SavedGame?
+    let savedGamesOrdered: [String : [SavedGame]] = SavedGameController.shared.savedGames.groupedByFirstTitleLetterString()
+    #warning("Make this not computed somehow -- gets computed every time it gets called")
+    var groupingKeys: [String] {
         get {
-            return SavedGameController.shared.savedGames
+            var grouping = [String]()
+            for key in savedGamesOrdered.keys {
+                grouping.append(key)
+            }
+            return grouping.sorted(by: <)
         }
     }
-    var selectedSavedGame: SavedGame?
+    let filterTitles = ["Alphabetical", "By Favorites", " By Games Completed", "By Genre", "By Platform"]
+    
+    // MARK: - Internal Methods
+    
+    private func setupCollectionViewInsets() {
+        let layout = UICollectionViewFlowLayout()
+        layout.headerReferenceSize = CGSize(width: self.view.frame.size.width, height: 30)
+        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = spacing
+        self.collectionView?.collectionViewLayout = layout
+    }
+    
+    private func setupCollectionViewDelegation() {
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+    }
+    
+    private func registerCustomCells() {
+        self.collectionView!.register(UINib(nibName: "SavedGameCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(UINib(nibName: "SectionHeader", bundle: nil), forCellWithReuseIdentifier: "sectionHeader")
+    }
 
     // MARK: - UICollectionViewDataSource
     
     #warning("I want sections to be alphebetical")
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        return groupingKeys.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "sectionHeader", for: indexPath) as? SectionHeader {
+            sectionHeader.mainLabel.text = groupingKeys[indexPath.section]
+            return sectionHeader
+        }
+        return UICollectionReusableView()
     }
 
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return savedGames.count
+        let firstLetterKey = groupingKeys[section]
+        guard let groupingCount = savedGamesOrdered[firstLetterKey]?.count else { return 0 }
+        return groupingCount
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let gameCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? SavedGameCollectionViewCell else { return UICollectionViewCell() }
-        gameCell.delegate = self
-        gameCell.indexPath = indexPath
-        let savedGame = savedGames[indexPath.row]
-        gameCell.coverImageView.image = savedGame.photo
-        gameCell.gameTitleLabel.text = savedGame.title
+        let alphaKey = groupingKeys[indexPath.section]
+        if let gameGrouping = savedGamesOrdered[alphaKey] {
+            let savedGame = gameGrouping[indexPath.row]
+            gameCell.coverImageView.image = savedGame.photo
+            gameCell.gameTitleLabel.text = savedGame.title
+            gameCell.delegate = self
+            gameCell.indexPath = indexPath
+            gameCell.sectionKey = alphaKey
+        }
         return gameCell
     }
 
     // MARK: - UICollectionViewDelegate
     
-    #warning("I want to have a press and hold for the edit screen and a tap to get to the now playing screen")
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let saveGame = savedGames[indexPath.row]
+        let alphaKey = groupingKeys[indexPath.section]
+        guard let gameCollection = savedGamesOrdered[alphaKey] else { return }
+        let saveGame = gameCollection[indexPath.row]
         selectedSavedGame = saveGame
         self.performSegue(withIdentifier: "toShowSavedGame", sender: self)
     }
     
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
-
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -135,6 +140,7 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
         }
     }
 }
+
 
 // MARK: - CollectionView Flow
 

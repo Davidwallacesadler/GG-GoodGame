@@ -56,13 +56,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="IEr-9t-zpa">
                             <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="headerReferenceSize" width="50" height="30"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier=" " id="tyn-Ho-e6X">
-                                <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
+                                <rect key="frame" x="0.0" y="30" width="150" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="1lk-jv-2Sh">
                                     <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
@@ -71,6 +71,28 @@
                                 <size key="customSize" width="150" height="200"/>
                             </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="sectionHeader" id="gIt-NI-aaL" customClass="SectionHeader" customModule="GoodGame" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yC-0D-LJz">
+                                    <rect key="frame" x="20" y="5" width="335" height="20"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.97110961294416243" green="0.97110961294416243" blue="0.97110961294416243" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="4yC-0D-LJz" firstAttribute="top" secondItem="gIt-NI-aaL" secondAttribute="top" constant="5" id="AcF-45-PuI"/>
+                                <constraint firstAttribute="trailing" secondItem="4yC-0D-LJz" secondAttribute="trailing" constant="20" id="DjL-br-yX9"/>
+                                <constraint firstAttribute="bottom" secondItem="4yC-0D-LJz" secondAttribute="bottom" constant="5" id="U8n-Ug-B4t"/>
+                                <constraint firstItem="4yC-0D-LJz" firstAttribute="leading" secondItem="gIt-NI-aaL" secondAttribute="leading" constant="20" id="UL8-Es-Sut"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="mainLabel" destination="4yC-0D-LJz" id="s9K-02-QbA"/>
+                            </connections>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="WZn-KU-v1K" id="xv6-2s-K2E"/>
                             <outlet property="delegate" destination="WZn-KU-v1K" id="phx-XQ-G4g"/>
@@ -78,7 +100,10 @@
                     </collectionView>
                     <navigationItem key="navigationItem" title="Library" id="R9g-QC-thR">
                         <barButtonItem key="leftBarButtonItem" title="Filter" image="filterNavBarIcon" id="puJ-ai-wSQ">
-                            <color key="tintColor" red="1" green="0.0" blue="0.85566986239999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="filterButtonTapped:" destination="WZn-KU-v1K" id="Wfi-Ux-wbm"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -486,7 +511,7 @@
                                         <rect key="frame" x="20" y="81" width="335" height="63"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Zy-VP-smW">
-                                                <rect key="frame" x="0.0" y="0.0" width="108.5" height="63"/>
+                                                <rect key="frame" x="0.0" y="20.5" width="108.5" height="22"/>
                                                 <color key="tintColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="playIcon"/>
                                                 <connections>
@@ -494,7 +519,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ksU-Fd-v9y">
-                                                <rect key="frame" x="113.5" y="0.0" width="108" height="63"/>
+                                                <rect key="frame" x="113.5" y="20.5" width="108" height="22"/>
                                                 <color key="tintColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="finishDeniedIcon"/>
                                                 <connections>
@@ -502,7 +527,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qrc-KR-gcg">
-                                                <rect key="frame" x="226.5" y="0.0" width="108.5" height="63"/>
+                                                <rect key="frame" x="226.5" y="15" width="108.5" height="33"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                 <color key="tintColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="favoriteIconUnselected">
@@ -517,7 +542,7 @@
                                             <constraint firstAttribute="height" constant="63" id="3VG-DC-gkV"/>
                                         </constraints>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F84-ig-xba">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F84-ig-xba">
                                         <rect key="frame" x="20" y="30" width="335" height="36"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -827,7 +852,7 @@
         <image name="sliderFilterIcon" width="63" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="crk-hi-3dY"/>
-        <segue reference="xPh-jY-E9B"/>
+        <segue reference="3rC-pf-oUp"/>
+        <segue reference="ceH-WA-yhA"/>
     </inferredMetricsTieBreakers>
 </document>

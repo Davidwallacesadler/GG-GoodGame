@@ -134,29 +134,11 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
     // MARK: - Internal Methods
     
     private func getGamesForPlatform() {
-        if let gamePlatformName = platformName {
-            let platforms = GamePlatformController.shared.platforms
-            for platform in platforms {
-                if platform.name == gamePlatformName {
-                    if let savedGame = platform.savedGame {
-                        gamesAssociatedWithRandomPlatform.append(savedGame)
-                    }
-                }
-            }
-        }
+        gamesAssociatedWithRandomPlatform = GamePlatformController.shared.loadSavedGamesFromPlatform(platformName: platformName!)
     }
     
     private func getGamesForGenre() {
-        if let gameGenreName = genreName {
-            let genres = GameGenreController.shared.genres
-            for genre in genres {
-                if genre.name == gameGenreName {
-                    if let savedGame = genre.savedGame {
-                        gamesAssociatedWithRandomGenre.append(savedGame)
-                    }
-                }
-            }
-        }
+        gamesAssociatedWithRandomGenre = GameGenreController.shared.loadSavedGamesBasedOnGenreName(genreName: genreName!)
     }
     
     private func setupCollectionViewDataSourceAndDelegation() {

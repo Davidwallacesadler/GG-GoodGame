@@ -14,6 +14,7 @@ class PlayModeController {
     // MARK: - Shared Instance
     
     static let shared = PlayModeController()
+    var filteringPredicate: NSPredicate?
     
     // MARK: - GamePlatorms
     
@@ -25,6 +26,24 @@ class PlayModeController {
             return result
         } catch {
             return []
+        }
+    }
+    
+    func loadSavedGamesBasedOnPlayModeNames(playModeName: String) -> [SavedGame] {
+        let request: NSFetchRequest<PlayMode> = PlayMode.fetchRequest()
+        filteringPredicate = NSPredicate(format: "name == %@", playModeName)
+        request.predicate = filteringPredicate
+        let moc = CoreDataStack.context
+        var playModes = [PlayMode]()
+        do {
+            let result = try moc.fetch(request)
+            playModes = result
+        } catch {
+            print(error,error.localizedDescription)
+            return []
+        }
+        return playModes.map { (playMode) -> SavedGame in
+            return playMode.savedGame!
         }
     }
     

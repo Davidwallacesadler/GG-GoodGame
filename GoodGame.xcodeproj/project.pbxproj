@@ -34,6 +34,11 @@
 		63341A5E235CF2A8006FD1D3 /* SquareImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63341A5C235CF2A8006FD1D3 /* SquareImageCollectionViewCell.xib */; };
 		636ABDE3235E30EF00312BE0 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636ABDE2235E30EF00312BE0 /* Array.swift */; };
 		636ABDE523601B0F00312BE0 /* ViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636ABDE423601B0F00312BE0 /* ViewHelper.swift */; };
+		6375CC26236CF45C0040F736 /* LongTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375CC24236CF45C0040F736 /* LongTextTableViewCell.swift */; };
+		6375CC27236CF45C0040F736 /* LongTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6375CC25236CF45C0040F736 /* LongTextTableViewCell.xib */; };
+		6375CC29236CF80D0040F736 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375CC28236CF80D0040F736 /* Date.swift */; };
+		6375CC31236F79120040F736 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375CC2F236F79120040F736 /* SectionHeader.swift */; };
+		6375CC32236F79120040F736 /* SectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6375CC30236F79120040F736 /* SectionHeader.xib */; };
 		637D44392363FD8300899455 /* CheckableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637D44372363FD8300899455 /* CheckableTableViewCell.swift */; };
 		637D443A2363FD8300899455 /* CheckableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 637D44382363FD8300899455 /* CheckableTableViewCell.xib */; };
 		637D443C236646BC00899455 /* PlaythroughHistoryListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637D443B236646BC00899455 /* PlaythroughHistoryListTableViewController.swift */; };
@@ -80,6 +85,11 @@
 		63341A5C235CF2A8006FD1D3 /* SquareImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SquareImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		636ABDE2235E30EF00312BE0 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		636ABDE423601B0F00312BE0 /* ViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHelper.swift; sourceTree = "<group>"; };
+		6375CC24236CF45C0040F736 /* LongTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextTableViewCell.swift; sourceTree = "<group>"; };
+		6375CC25236CF45C0040F736 /* LongTextTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LongTextTableViewCell.xib; sourceTree = "<group>"; };
+		6375CC28236CF80D0040F736 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		6375CC2F236F79120040F736 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
+		6375CC30236F79120040F736 /* SectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionHeader.xib; sourceTree = "<group>"; };
 		637D44372363FD8300899455 /* CheckableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckableTableViewCell.swift; sourceTree = "<group>"; };
 		637D44382363FD8300899455 /* CheckableTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckableTableViewCell.xib; sourceTree = "<group>"; };
 		637D443B236646BC00899455 /* PlaythroughHistoryListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaythroughHistoryListTableViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +196,10 @@
 				6313FB9323552CFB00BC2FE5 /* SavedGameCollectionViewCell.xib */,
 				637D44372363FD8300899455 /* CheckableTableViewCell.swift */,
 				637D44382363FD8300899455 /* CheckableTableViewCell.xib */,
+				6375CC24236CF45C0040F736 /* LongTextTableViewCell.swift */,
+				6375CC25236CF45C0040F736 /* LongTextTableViewCell.xib */,
+				6375CC2F236F79120040F736 /* SectionHeader.swift */,
+				6375CC30236F79120040F736 /* SectionHeader.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -215,6 +229,7 @@
 				633175562363781C00AD81AA /* SlideInPresentationManager.swift */,
 				6331755823637DB400AD81AA /* SlideInPresentationController.swift */,
 				6331755A23638A0B00AD81AA /* UIColor.swift */,
+				6375CC28236CF80D0040F736 /* Date.swift */,
 			);
 			path = "Helper Files";
 			sourceTree = "<group>";
@@ -304,11 +319,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6375CC32236F79120040F736 /* SectionHeader.xib in Resources */,
 				637D443A2363FD8300899455 /* CheckableTableViewCell.xib in Resources */,
 				6313FB9523552CFB00BC2FE5 /* SavedGameCollectionViewCell.xib in Resources */,
 				63B27C20233A8543006D5B03 /* LaunchScreen.storyboard in Resources */,
 				63B27C1D233A8543006D5B03 /* Assets.xcassets in Resources */,
 				63341A5E235CF2A8006FD1D3 /* SquareImageCollectionViewCell.xib in Resources */,
+				6375CC27236CF45C0040F736 /* LongTextTableViewCell.xib in Resources */,
 				63B27C1B233A853F006D5B03 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +388,7 @@
 			files = (
 				63341A5D235CF2A8006FD1D3 /* SquareImageCollectionViewCell.swift in Sources */,
 				6313FB7B2354E36E00BC2FE5 /* GoodGame.xcdatamodeld in Sources */,
+				6375CC26236CF45C0040F736 /* LongTextTableViewCell.swift in Sources */,
 				6313FB812354E70F00BC2FE5 /* GameGenre+convenience.swift in Sources */,
 				6331755F2363977300AD81AA /* PlaythroughController.swift in Sources */,
 				6313FB7D2354E6E700BC2FE5 /* SavedGame+Convenience.swift in Sources */,
@@ -394,11 +412,13 @@
 				63341A58235CE3F7006FD1D3 /* PlayStatusViewController.swift in Sources */,
 				6313FB852354E9AF00BC2FE5 /* CoreDataStack.swift in Sources */,
 				6313FB832354E72200BC2FE5 /* PlayMode+convenience.swift in Sources */,
+				6375CC31236F79120040F736 /* SectionHeader.swift in Sources */,
 				63B27C30233A9728006D5B03 /* Keys.swift in Sources */,
 				6331755D2363967A00AD81AA /* PlaythroughHistory+convenience.swift in Sources */,
 				63341A4F23590D08006FD1D3 /* GameDetailViewController.swift in Sources */,
 				63341A54235CE29F006FD1D3 /* ReccomendsDetailViewController.swift in Sources */,
 				637D443C236646BC00899455 /* PlaythroughHistoryListTableViewController.swift in Sources */,
+				6375CC29236CF80D0040F736 /* Date.swift in Sources */,
 				63341A56235CE351006FD1D3 /* ReccomendsFilterViewController.swift in Sources */,
 				6331755923637DB400AD81AA /* SlideInPresentationController.swift in Sources */,
 				6313FB8F23552C2800BC2FE5 /* GameLibraryCollectionViewController.swift in Sources */,
