@@ -484,11 +484,49 @@
                         <outlet property="genresTableView" destination="Mbb-gG-aia" id="BoY-6E-hQz"/>
                         <outlet property="platformsTableView" destination="aOG-6F-zDw" id="Okb-YK-KSg"/>
                         <segue destination="xaI-35-Rgs" kind="presentation" identifier="toShowFilteredGame" id="xPh-jY-E9B"/>
+                        <segue destination="mae-S0-AXh" kind="presentation" identifier="toShowFilteredGames" id="GGv-TE-if5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ZY-j4-hul" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1834" y="1657"/>
+            <point key="canvasLocation" x="1834" y="1655"/>
+        </scene>
+        <!--Filtered Games List Collection View Controller-->
+        <scene sceneID="Xe0-Ov-MoK">
+            <objects>
+                <collectionViewController id="mae-S0-AXh" customClass="FilteredGamesListCollectionViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="r5A-Nb-aEm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="n8a-TD-9sr">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="savedGameCell" id="CCz-aP-ZGl" customClass="SavedGameCollectionViewCell" customModule="GoodGame" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="NqV-YJ-wTM">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionViewCellContentView>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="mae-S0-AXh" id="Lzb-cX-VaK"/>
+                            <outlet property="delegate" destination="mae-S0-AXh" id="UA5-4z-rcd"/>
+                        </connections>
+                    </collectionView>
+                    <connections>
+                        <segue destination="xaI-35-Rgs" kind="presentation" identifier="toShowFilteredSavedGame" id="wqt-VG-ugL"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IDW-fY-ZTb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2788" y="1637"/>
         </scene>
         <!--Now Playing-->
         <scene sceneID="Hln-GO-CSg">
@@ -853,6 +891,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="3rC-pf-oUp"/>
-        <segue reference="ceH-WA-yhA"/>
+        <segue reference="wqt-VG-ugL"/>
     </inferredMetricsTieBreakers>
 </document>

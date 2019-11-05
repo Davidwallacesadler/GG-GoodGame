@@ -29,7 +29,6 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
          }
      }
      // GENRES:
-    #warning("Just call update genre tags view after the network calls are all done! - instead of looping")
     var genreName = ""
     var genreIds: [Int]?
     var genres: [Genre]? {
@@ -130,6 +129,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
             self.performSegue(withIdentifier: "toShowHistory", sender: self)
         }
     }
+    
     @IBAction func backButtonPressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -268,6 +268,8 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
+// MARK: - ImagePicker Delegation
+
 extension GameDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func getImage() {
@@ -313,6 +315,8 @@ extension GameDetailViewController: UIImagePickerControllerDelegate, UINavigatio
         picker.dismiss(animated: true, completion: nil)
     }
 }
+
+// MARK: - Navigation
 
 extension GameDetailViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

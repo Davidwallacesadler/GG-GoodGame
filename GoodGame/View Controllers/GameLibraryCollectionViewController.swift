@@ -27,7 +27,6 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
     @IBAction func filterButtonTapped(_ sender: Any) {
     }
     
-    
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
@@ -47,15 +46,12 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
     private let spacing: CGFloat = 16.0
     var selectedSavedGame: SavedGame?
     let savedGamesOrdered: [String : [SavedGame]] = SavedGameController.shared.savedGames.groupedByFirstTitleLetterString()
-    #warning("Make this not computed somehow -- gets computed every time it gets called")
     var groupingKeys: [String] {
-        get {
-            var grouping = [String]()
-            for key in savedGamesOrdered.keys {
-                grouping.append(key)
-            }
-            return grouping.sorted(by: <)
+        var grouping = [String]()
+        for key in savedGamesOrdered.keys {
+            grouping.append(key)
         }
+        return grouping.sorted(by: <)
     }
     let filterTitles = ["Alphabetical", "By Favorites", " By Games Completed", "By Genre", "By Platform"]
     
@@ -68,17 +64,17 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
         layout.minimumLineSpacing = spacing
         layout.minimumInteritemSpacing = spacing
         self.collectionView?.collectionViewLayout = layout
-    }
+     }
     
-    private func setupCollectionViewDelegation() {
+     private func setupCollectionViewDelegation() {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-    }
+     }
     
-    private func registerCustomCells() {
+     private func registerCustomCells() {
         self.collectionView!.register(UINib(nibName: "SavedGameCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView!.register(UINib(nibName: "SectionHeader", bundle: nil), forCellWithReuseIdentifier: "sectionHeader")
-    }
+     }
 
     // MARK: - UICollectionViewDataSource
     

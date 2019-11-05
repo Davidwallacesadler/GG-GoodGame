@@ -11,6 +11,7 @@ import UIKit
 class ReccomendsDetailViewController: UIViewController {
     
     // MARK: - Internal Properties
+    
     var selectedGame: SavedGame?
     lazy var slideInTransitioningDelegate = SlideInPresentationManager()
     var randomButtonFlipped = false
@@ -33,6 +34,7 @@ class ReccomendsDetailViewController: UIViewController {
     @IBAction func backButtonPressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
     @IBAction func randomGameButtonPressed(_ sender: Any) {
         if randomButtonFlipped {
             self.performSegue(withIdentifier: "toShowGamePlayStatus", sender: self)
@@ -89,6 +91,4 @@ class ReccomendsDetailViewController: UIViewController {
             playStatusVC.selectedGame = savedGame
         }
     }
-    
-
 }

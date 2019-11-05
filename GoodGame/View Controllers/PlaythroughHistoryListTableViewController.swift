@@ -22,14 +22,12 @@ class PlaythroughHistoryListTableViewController: UITableViewController {
     
     var savedGame: SavedGame?
     var history: [PlaythroughHistory] {
-        get {
-            var playthroughs: [PlaythroughHistory] = []
-            guard let selectedGame = savedGame else { return playthroughs }
-            for playthrough in selectedGame.playthroughs!.array {
-                playthroughs.append(playthrough as! PlaythroughHistory)
-            }
-            return playthroughs
+        var playthroughs: [PlaythroughHistory] = []
+        guard let selectedGame = savedGame else { return playthroughs }
+        for playthrough in selectedGame.playthroughs!.array {
+            playthroughs.append(playthrough as! PlaythroughHistory)
         }
+        return playthroughs
     }
     
     // MARK: - Internal Methods

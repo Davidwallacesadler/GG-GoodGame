@@ -53,55 +53,18 @@ class PlayStatusViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func favoriteStatusButtonPressed(_ sender: Any) {
-        if let game = selectedGame {
-            SavedGameController.shared.invertFavoriteSatus(savedGame: game)
-            updateInterfaceBasedOnGameState(game: game)
-        }
+       updateFavoriteStatus()
     }
     
     @IBAction func finishButtonPressed(_ sender: Any) {
-        if let game = selectedGame {
-            if game.isBeingCurrentlyPlayed {
-                let finishPlaythroughAlert = UIAlertController(title: "How Was Your Playthrough? \n\n\n\n\n", message: nil, preferredStyle: .alert)
-                
-                let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { (action) in
-                    finishPlaythroughAlert.view.removeObserver(self, forKeyPath: "bounds")
-                }
-                finishPlaythroughAlert.addAction(cancelAction)
-
-                let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
-                    let enteredText = self.textView.text
-                    SavedGameController.shared.createPlaythroughHistory(savedGame: game, withComment: enteredText!)
-                    SavedGameController.shared.invertPlayingStatus(savedGame: game)
-                    finishPlaythroughAlert.view.removeObserver(self, forKeyPath: "bounds")
-                }
-                finishPlaythroughAlert.addAction(saveAction)
-                
-                finishPlaythroughAlert.view.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions.new, context: nil)
-                textView.backgroundColor = UIColor.white
-                textView.textContainerInset = UIEdgeInsets.init(top: 8, left: 5, bottom: 8, right: 5)
-                finishPlaythroughAlert.view.addSubview(self.textView)
-                self.present(finishPlaythroughAlert, animated: true, completion: nil)
-            } else {
-                let notCurrentlyPlayingAlert = UIAlertController(title: "Game Not Being Played", message: "Please hit the play button before attempting to record a playthrough of the game.", preferredStyle: .alert)
-                let okayAction = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
-                notCurrentlyPlayingAlert.addAction(okayAction)
-                self.present(notCurrentlyPlayingAlert, animated: true, completion: nil)
-            }
-        }
+       displayPlaythroughAlert()
     }
     
     @IBAction func playPauseButtonPressed(_ sender: Any) {
-        if let game = selectedGame {
-            if game.isBeingCurrentlyPlayed == false {
-                SavedGameController.shared.setBeginningOfPlaythroughDate(forSavedGame: game)
-            }
-            SavedGameController.shared.invertPlayingStatus(savedGame: game)
-            updateInterfaceBasedOnGameState(game: game)
-        }
+       updatePlayStatus()
     }
     
-    // MARK: - Alert TextView Bounds
+    // MARK: - Playthrough Alert TextView Bounds
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "bounds"{
@@ -118,6 +81,23 @@ class PlayStatusViewController: UIViewController {
     }
     
     // MARK: - Internal Methods
+    
+    private func updatePlayStatus() {
+        if let game = selectedGame {
+           if game.isBeingCurrentlyPlayed == false {
+               SavedGameController.shared.setBeginningOfPlaythroughDate(forSavedGame: game)
+           }
+           SavedGameController.shared.invertPlayingStatus(savedGame: game)
+           updateInterfaceBasedOnGameState(game: game)
+       }
+    }
+    
+    private func updateFavoriteStatus() {
+        if let game = selectedGame {
+            SavedGameController.shared.invertFavoriteSatus(savedGame: game)
+            updateInterfaceBasedOnGameState(game: game)
+        }
+    }
     
     private func updateInterfaceBasedOnGameState(game: SavedGame) {
         if game.isFavorite {
@@ -138,5 +118,37 @@ class PlayStatusViewController: UIViewController {
             playPauseButton.setImage(playStatusViewImages[playIconIndex], for: .normal)
             finishPlaythroughButton.setImage(playStatusViewImages[finishDeniedIconIndex], for: .normal)
         }
+    }
+    
+    private func displayPlaythroughAlert() {
+        if let game = selectedGame {
+          if game.isBeingCurrentlyPlayed {
+              let finishPlaythroughAlert = UIAlertController(title: "How Was Your Playthrough? \n\n\n\n\n", message: nil, preferredStyle: .alert)
+              
+              let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { (action) in
+                  finishPlaythroughAlert.view.removeObserver(self, forKeyPath: "bounds")
+              }
+              finishPlaythroughAlert.addAction(cancelAction)
+
+              let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
+                  let enteredText = self.textView.text
+                  SavedGameController.shared.createPlaythroughHistory(savedGame: game, withComment: enteredText!)
+                  SavedGameController.shared.invertPlayingStatus(savedGame: game)
+                  finishPlaythroughAlert.view.removeObserver(self, forKeyPath: "bounds")
+              }
+              finishPlaythroughAlert.addAction(saveAction)
+              
+              finishPlaythroughAlert.view.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions.new, context: nil)
+              textView.backgroundColor = UIColor.white
+              textView.textContainerInset = UIEdgeInsets.init(top: 8, left: 5, bottom: 8, right: 5)
+              finishPlaythroughAlert.view.addSubview(self.textView)
+              self.present(finishPlaythroughAlert, animated: true, completion: nil)
+          } else {
+              let notCurrentlyPlayingAlert = UIAlertController(title: "Game Not Being Played", message: "Please hit the play button before attempting to record a playthrough of the game.", preferredStyle: .alert)
+              let okayAction = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+              notCurrentlyPlayingAlert.addAction(okayAction)
+              self.present(notCurrentlyPlayingAlert, animated: true, completion: nil)
+          }
+       }
     }
 }

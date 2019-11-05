@@ -11,6 +11,7 @@ import UIKit
 class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Internal Properties
+    #warning("just use a set of the names -- automatically unique")
     var genresNames: [String] {
         get {
             var genreNames: [String] = []
@@ -24,9 +25,7 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
             return genreNames
         }
     }
-    var selectedGenreNames: Set<String> = []
-    var possibleGenreGames: Set<SavedGame> = []
-    
+    var selectedGenreName: String = ""
     var platformNames: [String] {
         get {
             var platformNames: [String] = []
@@ -40,9 +39,7 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
             return platformNames
         }
     }
-    var selectedPlatformNames: Set<String> = []
-    var possiblePlatformGames: Set<SavedGame> = []
-    
+    var selectedPlatformName: String = ""
     var playModeNames: [String] {
         get {
             var playModeNames: [String] = []
@@ -56,12 +53,16 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
             return playModeNames
         }
     }
-    var selectedPlayModeNames: Set<String> = []
-    var possiblePlayModeGames: Set<SavedGame> = []
+    var selectedPlayModeName: String = ""
     lazy var slideInTransitioningDelegate = SlideInPresentationManager()
     var filteredGame: SavedGame? {
         didSet {
             self.performSegue(withIdentifier: "toShowFilteredGame", sender: self)
+        }
+    }
+    var filteredGames: [SavedGame]? {
+        didSet {
+            self.performSegue(withIdentifier: "toShowFilteredGames", sender: self)
         }
     }
     // MARK: - View Lifecycle
@@ -69,12 +70,8 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableViewDelegation()
-        ViewHelper.roundCornersOf(viewLayer: platformsTableView.layer, withRoundingCoefficient: 15.0)
-        ViewHelper.roundCornersOf(viewLayer: genresTableView.layer, withRoundingCoefficient: 15.0)
-        ViewHelper.roundCornersOf(viewLayer: gameModesTableView.layer, withRoundingCoefficient: 15.0)
-        platformsTableView.register(UINib(nibName: "CheckableTableViewCell", bundle: nil), forCellReuseIdentifier: "checkableCell")
-        genresTableView.register(UINib(nibName: "CheckableTableViewCell", bundle: nil), forCellReuseIdentifier: "checkableCell")
-        gameModesTableView.register(UINib(nibName: "CheckableTableViewCell", bundle: nil), forCellReuseIdentifier: "checkableCell")
+        roundTableViewCorners()
+        registerCustomCells()
     }
     
     // MARK: - Outlets
@@ -88,28 +85,15 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
     @IBAction func backButtonPressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
     @IBAction func filterButtonPressed(_ sender: Any) {
         // Apply Filter and get a random element from the collection
-        #warning("this is super basic and just works for now -- need to come up with a better filtering method")
-        for platform in GamePlatformController.shared.platforms {
-            if selectedPlatformNames.contains(platform.name!) {
-                possiblePlatformGames.insert(platform.savedGame!)
-            }
-        }
-        for genre in GameGenreController.shared.genres {
-            if selectedGenreNames.contains(genre.name!) {
-                possibleGenreGames.insert(genre.savedGame!)
-            }
-        }
-        for playMode in PlayModeController.shared.playModes {
-            if selectedPlayModeNames.contains(playMode.name!) {
-                possiblePlayModeGames.insert(playMode.savedGame!)
-            }
-        }
-        let finalSet = possibleGenreGames.intersection(possiblePlatformGames).intersection(possiblePlayModeGames)
-        guard let randomGameFromFilter = finalSet.randomElement() else { return }
-        filteredGame = randomGameFromFilter
-        
+        #warning("if the string is empty -- pass in nil for fetch predicate (i.e return whole collection)")
+        let platformSavedGames = GamePlatformController.shared.loadSavedGamesFromPlatform(platformName: selectedPlatformName)
+        let genreSavedGames = GameGenreController.shared.loadSavedGamesBasedOnGenreName(genreName: selectedGenreName)
+        let playModeSavedGames = PlayModeController.shared.loadSavedGamesBasedOnPlayModeNames(playModeName: selectedPlayModeName)
+        let commonSavedGames = Array(Set(platformSavedGames).intersection(Set(genreSavedGames)).intersection(Set(playModeSavedGames)))
+        filteredGames = commonSavedGames
     }
     
     // MARK: - TableView DataSource
@@ -154,13 +138,13 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
         case platformsTableView:
             // check if isSelected from the cell? -- first tap adds the name, second tap removes it
             let selectedPlatformName = platformNames[indexPath.row]
-            selectedPlatformNames.insert(selectedPlatformName)
+            self.selectedPlatformName = selectedPlatformName
         case genresTableView:
             let selectedGenreName = genresNames[indexPath.row]
-            selectedGenreNames.insert(selectedGenreName)
+            self.selectedGenreName = selectedGenreName
         case gameModesTableView:
             let selectedPlayModeName = playModeNames[indexPath.row]
-            selectedPlayModeNames.insert(selectedPlayModeName)
+            self.selectedPlayModeName = selectedPlayModeName
         default:
             return
         }
@@ -177,6 +161,17 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
         gameModesTableView.delegate = self
     }
     
+    private func roundTableViewCorners() {
+        ViewHelper.roundCornersOf(viewLayer: platformsTableView.layer, withRoundingCoefficient: 15.0)
+        ViewHelper.roundCornersOf(viewLayer: genresTableView.layer, withRoundingCoefficient: 15.0)
+        ViewHelper.roundCornersOf(viewLayer: gameModesTableView.layer, withRoundingCoefficient: 15.0)
+    }
+    
+    private func registerCustomCells() {
+        platformsTableView.register(UINib(nibName: "CheckableTableViewCell", bundle: nil), forCellReuseIdentifier: "checkableCell")
+        genresTableView.register(UINib(nibName: "CheckableTableViewCell", bundle: nil), forCellReuseIdentifier: "checkableCell")
+        gameModesTableView.register(UINib(nibName: "CheckableTableViewCell", bundle: nil), forCellReuseIdentifier: "checkableCell")
+    }
 
     
     // MARK: - Navigation
@@ -188,6 +183,9 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
             playStatusVC.transitioningDelegate = slideInTransitioningDelegate
             playStatusVC.modalPresentationStyle = .custom
             playStatusVC.selectedGame = selectedGame
+        } else if segue.identifier == "toShowFilteredGames" {
+            guard let filteredGamesVC = segue.destination as? FilteredGamesListCollectionViewController, let selectedGames = filteredGames else { return }
+            filteredGamesVC.savedGames = selectedGames
         }
     }
 }
