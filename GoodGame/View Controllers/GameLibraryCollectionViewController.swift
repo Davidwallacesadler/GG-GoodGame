@@ -45,7 +45,11 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
     lazy var slideInTransitioningDelegate = SlideInPresentationManager()
     private let spacing: CGFloat = 16.0
     var selectedSavedGame: SavedGame?
-    let savedGamesOrdered: [String : [SavedGame]] = SavedGameController.shared.savedGames.groupedByFirstTitleLetterString()
+    var savedGamesOrdered: [String : [SavedGame]] {
+        get {
+            return SavedGameController.shared.savedGames.groupedByFirstTitleLetterString()
+        }
+    }
     var groupingKeys: [String] {
         var grouping = [String]()
         for key in savedGamesOrdered.keys {
@@ -136,7 +140,6 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
         }
     }
 }
-
 
 // MARK: - CollectionView Flow
 

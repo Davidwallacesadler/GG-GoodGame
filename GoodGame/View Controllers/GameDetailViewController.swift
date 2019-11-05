@@ -120,9 +120,20 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var genreTagsView: UIView!
     @IBOutlet weak var gameModeTagsView: UIView!
     @IBOutlet weak var playthroughHistoryBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var deleteBarButtonItem: UIBarButtonItem!
     
     // MARK: - Actions
     
+    @IBAction func deleteButtonPressed(_ sender: Any) {
+        guard let game = savedGame else { return }
+        let deletionAlert = UIAlertController(title: "Confirm Deletion", message: "Are you sure you want to delete this game from your library?", preferredStyle: .alert)
+        deletionAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        deletionAlert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { (alert) in
+            SavedGameController.shared.deleteSavedGame(savedGame: game)
+            self.navigationController?.popViewController(animated: true)
+        }))
+        self.present(deletionAlert, animated: true, completion: nil)
+    }
     @IBAction func playthroughHistoryButtonPressed(_ sender: Any) {
         guard let game = savedGame else { return }
         if game.playthroughs?.array.isEmpty == false {
@@ -223,6 +234,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
     
     private func setupViewWithSavedGameIfNeeded() {
         guard let saveGame = savedGame else { return }
+        deleteBarButtonItem.tintColor = .goodGamePinkBright
         if saveGame.playthroughs?.array.isEmpty == false {
             playthroughHistoryBarButtonItem.tintColor = .goodGamePinkBright
         }

@@ -483,7 +483,6 @@
                         <outlet property="gameModesTableView" destination="Jgm-Oh-UKW" id="fHC-zw-LRg"/>
                         <outlet property="genresTableView" destination="Mbb-gG-aia" id="BoY-6E-hQz"/>
                         <outlet property="platformsTableView" destination="aOG-6F-zDw" id="Okb-YK-KSg"/>
-                        <segue destination="xaI-35-Rgs" kind="presentation" identifier="toShowFilteredGame" id="xPh-jY-E9B"/>
                         <segue destination="mae-S0-AXh" kind="presentation" identifier="toShowFilteredGames" id="GGv-TE-if5"/>
                     </connections>
                 </viewController>
@@ -526,7 +525,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IDW-fY-ZTb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2788" y="1637"/>
+            <point key="canvasLocation" x="2654" y="1657"/>
         </scene>
         <!--Now Playing-->
         <scene sceneID="Hln-GO-CSg">
@@ -824,6 +823,12 @@
                                     <action selector="saveButtonPressed:" destination="UGs-Hn-zRK" id="RdT-aK-8v9"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Delete" id="T8S-p1-55e">
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="deleteButtonPressed:" destination="UGs-Hn-zRK" id="Omp-x8-Cgi"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="Item" image="navBarfinishIcon" id="owA-ZW-zsf">
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
@@ -834,6 +839,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="coverArtImageView" destination="5Sh-nz-8RT" id="VEj-iC-HfC"/>
+                        <outlet property="deleteBarButtonItem" destination="T8S-p1-55e" id="WNs-4F-ajK"/>
                         <outlet property="gameModeTagsView" destination="3br-JO-gI6" id="0o8-8p-rdb"/>
                         <outlet property="gameTitleTextField" destination="j1N-2b-OUA" id="731-ta-SLO"/>
                         <outlet property="genreTagsView" destination="w3c-O0-Y90" id="67c-Be-Z7C"/>

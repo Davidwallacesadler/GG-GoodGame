@@ -93,7 +93,6 @@ class FilteredGamesListCollectionViewController: UICollectionViewController {
            playStatusVC.selectedGame = selectedGame
         }
     }
-
 }
 
 extension FilteredGamesListCollectionViewController: UICollectionViewDelegateFlowLayout {
