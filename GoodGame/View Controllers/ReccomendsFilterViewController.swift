@@ -11,7 +11,7 @@ import UIKit
 class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Internal Properties
-    #warning("just use a set of the names -- automatically unique")
+    #warning("cast genre names as a set to solve unqiueness problem")
     var genresNames: [String] {
         get {
             var genreNames: [String] = []
@@ -65,6 +65,7 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
             self.performSegue(withIdentifier: "toShowFilteredGames", sender: self)
         }
     }
+    
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
@@ -89,11 +90,32 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
     @IBAction func filterButtonPressed(_ sender: Any) {
         // Apply Filter and get a random element from the collection
         #warning("if the string is empty -- pass in nil for fetch predicate (i.e return whole collection)")
-        let platformSavedGames = GamePlatformController.shared.loadSavedGamesFromPlatform(platformName: selectedPlatformName)
-        let genreSavedGames = GameGenreController.shared.loadSavedGamesBasedOnGenreName(genreName: selectedGenreName)
-        let playModeSavedGames = PlayModeController.shared.loadSavedGamesBasedOnPlayModeNames(playModeName: selectedPlayModeName)
+        var platformSavedGames = [SavedGame]()
+        var genreSavedGames = [SavedGame]()
+        var playModeSavedGames = [SavedGame]()
+        if selectedPlatformName.isEmpty {
+            platformSavedGames = SavedGameController.shared.savedGames
+        } else {
+            platformSavedGames = GamePlatformController.shared.loadSavedGamesFromPlatform(platformName: selectedPlatformName)
+        }
+        if selectedGenreName.isEmpty {
+            genreSavedGames = SavedGameController.shared.savedGames
+        } else {
+            genreSavedGames = GameGenreController.shared.loadSavedGamesBasedOnGenreName(genreName: selectedGenreName)
+        }
+        if selectedPlayModeName.isEmpty {
+            playModeSavedGames = SavedGameController.shared.savedGames
+        } else {
+            playModeSavedGames = PlayModeController.shared.loadSavedGamesBasedOnPlayModeNames(playModeName: selectedPlayModeName)
+        }
         let commonSavedGames = Array(Set(platformSavedGames).intersection(Set(genreSavedGames)).intersection(Set(playModeSavedGames)))
-        filteredGames = commonSavedGames
+        if commonSavedGames.isEmpty {
+            let noGamesFoundAlert = UIAlertController(title: "No Games Found", message: "The selected filters don't match any games in your library. Please try other filter combinations.", preferredStyle: .alert)
+            noGamesFoundAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(noGamesFoundAlert, animated: true, completion: nil)
+        } else {
+            filteredGames = commonSavedGames
+        }
     }
     
     // MARK: - TableView DataSource

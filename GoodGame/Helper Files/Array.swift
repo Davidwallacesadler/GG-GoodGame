@@ -39,7 +39,7 @@ extension Array where Element: Gamed {
             let existing = accumulatingValue[firstLetter] ?? []
             accumulatingValue[firstLetter] = existing + [modifyingValue]
         }
-        print(groupedByFirstLetter.description)
+        //print(groupedByFirstLetter.description)
         return groupedByFirstLetter
     }
 }
@@ -53,7 +53,7 @@ extension Array where Element: Named {
             let existing = accumulatingValue[firstLetter] ?? []
             accumulatingValue[firstLetter] = existing + [modifyingValue]
         }
-        print(groupedByFirstLetter.description)
+       // print(groupedByFirstLetter.description)
         return groupedByFirstLetter
     }
 }

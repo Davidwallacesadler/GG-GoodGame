@@ -10,6 +10,7 @@ import UIKit
 
 class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
+    #warning("Maybe perform the netowrk call on textFieldDidAddText or something - so the list is getting updated as the user is inputing text")
     // MARK: - SearchBar Delegate
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -72,13 +73,6 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
         }
     }
     
-    func getGameArtwork() {
-        guard let game = selectedVideoGame else { return }
-        GameController.shared.getCoverArtworkByGameId(game.id) { (artworks) in
-            self.selectedGameArtwork = artworks
-        }
-    }
-    
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
@@ -101,6 +95,13 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
     private func setupTableView() {
         searchResultsTableView.delegate = self
         searchResultsTableView.dataSource = self
+    }
+    
+    private func getGameArtwork() {
+       guard let game = selectedVideoGame else { return }
+       GameController.shared.getCoverArtworkByGameId(game.id) { (artworks) in
+           self.selectedGameArtwork = artworks
+       }
     }
     
     // MARK: - Navigation

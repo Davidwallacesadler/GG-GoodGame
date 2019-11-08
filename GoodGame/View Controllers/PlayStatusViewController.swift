@@ -40,6 +40,8 @@ class PlayStatusViewController: UIViewController {
             gameTitleLabel.text = savedGame.title
             updateInterfaceBasedOnGameState(game: savedGame)
         }
+        resignFirstResponderTapRecongnizerSetup()
+        addDoneButtonToKeyboard()
     }
     
     // MARK: - Outlets
@@ -81,6 +83,28 @@ class PlayStatusViewController: UIViewController {
     }
     
     // MARK: - Internal Methods
+    
+    private func addDoneButtonToKeyboard() {
+        let doneToolBar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50.0))
+        doneToolBar.barStyle = .default
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))
+        let items = [flexSpace,done]
+        doneToolBar.items = items
+        doneToolBar.sizeToFit()
+        textView.inputAccessoryView = doneToolBar
+        textView.autocorrectionType = .no
+    }
+    
+    @objc func doneButtonAction() {
+        textView.resignFirstResponder()
+    }
+    
+    private func resignFirstResponderTapRecongnizerSetup() {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
     
     private func updatePlayStatus() {
         if let game = selectedGame {
@@ -131,10 +155,11 @@ class PlayStatusViewController: UIViewController {
               finishPlaythroughAlert.addAction(cancelAction)
 
               let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
-                  let enteredText = self.textView.text
-                  SavedGameController.shared.createPlaythroughHistory(savedGame: game, withComment: enteredText!)
-                  SavedGameController.shared.invertPlayingStatus(savedGame: game)
-                  finishPlaythroughAlert.view.removeObserver(self, forKeyPath: "bounds")
+                let enteredText = self.textView.text
+                SavedGameController.shared.createPlaythroughHistory(savedGame: game, withComment: enteredText!)
+                SavedGameController.shared.invertPlayingStatus(savedGame: game)
+                finishPlaythroughAlert.view.removeObserver(self, forKeyPath: "bounds")
+                self.updateInterfaceBasedOnGameState(game: game)
               }
               finishPlaythroughAlert.addAction(saveAction)
               
@@ -145,7 +170,7 @@ class PlayStatusViewController: UIViewController {
               self.present(finishPlaythroughAlert, animated: true, completion: nil)
           } else {
               let notCurrentlyPlayingAlert = UIAlertController(title: "Game Not Being Played", message: "Please hit the play button before attempting to record a playthrough of the game.", preferredStyle: .alert)
-              let okayAction = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+              let okayAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
               notCurrentlyPlayingAlert.addAction(okayAction)
               self.present(notCurrentlyPlayingAlert, animated: true, completion: nil)
           }

@@ -20,6 +20,7 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
+            <color key="backgroundColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="zd6-pH-K6D" secondAttribute="trailing" constant="20" id="0Fc-9k-4Wt"/>
                 <constraint firstItem="zd6-pH-K6D" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="20" id="9dW-YS-zMJ"/>

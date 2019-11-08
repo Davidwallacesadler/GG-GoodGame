@@ -14,6 +14,7 @@ class PlaythroughController {
     // MARK: - Shared Instance
     
     static let shared = PlaythroughController()
+    var filteringPredicate: NSPredicate?
     
     // MARK: - Fetched Playthroughs
     
@@ -28,10 +29,28 @@ class PlaythroughController {
         }
     }
     
+    func loadBeatenGames() -> [SavedGame] {
+        let request: NSFetchRequest<PlaythroughHistory> = PlaythroughHistory.fetchRequest()
+        let moc = CoreDataStack.context
+        filteringPredicate = NSPredicate(format: "endDate != nil")
+        request.predicate = filteringPredicate
+        var histories = [PlaythroughHistory]()
+        do {
+            let result = try moc.fetch(request)
+            histories = result
+        } catch {
+            return []
+        }
+        let savedGames = histories.map { (playthroughHistory) -> SavedGame in
+            return playthroughHistory.savedGame!
+        }
+        return savedGames.uniques
+    }
+    
     // MARK: - CRUD
     
     func createPlaythroughFor(savedGame: SavedGame,
-                           userComment: String) {
+                              userComment: String) {
         guard let playthroughStartDate = savedGame.startOfPlaythrough else { return }
         let newPlaythrough = PlaythroughHistory(startDate: playthroughStartDate, endDate: Date(), userComment: userComment)
         savedGame.addToPlaythroughs(newPlaythrough)

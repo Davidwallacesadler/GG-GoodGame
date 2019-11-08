@@ -51,9 +51,9 @@
             <objects>
                 <collectionViewController id="WZn-KU-v1K" customClass="GameLibraryCollectionViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="shd-XW-o8x">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="IEr-9t-zpa">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="50" height="30"/>
@@ -82,7 +82,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.97110961294416243" green="0.97110961294416243" blue="0.97110961294416243" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" red="0.87416719543147203" green="0.87416719543147203" blue="0.87416719543147203" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="4yC-0D-LJz" firstAttribute="top" secondItem="gIt-NI-aaL" secondAttribute="top" constant="5" id="AcF-45-PuI"/>
                                 <constraint firstAttribute="trailing" secondItem="4yC-0D-LJz" secondAttribute="trailing" constant="20" id="DjL-br-yX9"/>
@@ -100,18 +100,23 @@
                     </collectionView>
                     <navigationItem key="navigationItem" title="Library" id="R9g-QC-thR">
                         <barButtonItem key="leftBarButtonItem" title="Filter" image="filterNavBarIcon" id="puJ-ai-wSQ">
-                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="filterButtonTapped:" destination="WZn-KU-v1K" id="Wfi-Ux-wbm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="gameFilterPickerView" destination="WeX-q9-yOw" id="2Mq-6F-D92"/>
                         <segue destination="UGs-Hn-zRK" kind="show" identifier="toShowSavedGame" id="3rC-pf-oUp"/>
                         <segue destination="xaI-35-Rgs" kind="presentation" identifier="toShowPlayStatus" id="ceH-WA-yhA"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="buu-Jr-Wll" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <pickerView contentMode="scaleToFill" id="WeX-q9-yOw">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                </pickerView>
             </objects>
             <point key="canvasLocation" x="74" y="864"/>
         </scene>
@@ -139,7 +144,7 @@
             <objects>
                 <viewController id="Blj-oT-iGz" customClass="ReccomendsViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8FE-zf-ay2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="aoC-Lj-axM">
@@ -156,7 +161,7 @@
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rrx-cX-5vP">
                                                 <rect key="frame" x="0.0" y="36" width="335" height="144.5"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="d64-Us-dq3">
                                                     <size key="itemSize" width="200" height="150"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -190,7 +195,7 @@
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cmq-l2-90L">
                                                 <rect key="frame" x="0.0" y="36" width="335" height="145"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UXz-VI-Nwd">
                                                     <size key="itemSize" width="200" height="150"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -224,7 +229,7 @@
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ol0-2H-wm5">
                                                 <rect key="frame" x="0.0" y="36" width="335" height="144.5"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Gbz-c1-3CE">
                                                     <size key="itemSize" width="200" height="150"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -250,7 +255,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="aoC-Lj-axM" firstAttribute="leading" secondItem="ftd-95-1NY" secondAttribute="leading" constant="20" id="2qN-w0-i3G"/>
                             <constraint firstItem="ftd-95-1NY" firstAttribute="bottom" secondItem="aoC-Lj-axM" secondAttribute="bottom" constant="16" id="Kf0-gV-8PQ"/>
@@ -285,7 +290,7 @@
             <objects>
                 <viewController id="RWm-j1-Iav" customClass="ReccomendsDetailViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cEJ-Ri-tGB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How Would You Like To Find a Game?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jcv-hD-ecP">
@@ -363,23 +368,23 @@
             <objects>
                 <viewController id="5Zn-Fg-Jrz" customClass="ReccomendsFilterViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Km2-H3-L62">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="kgR-xi-aIx">
                                 <rect key="frame" x="20" y="16" width="335" height="542"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Gt9-l5-KBF">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="204"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="212"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Platforms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8wP-MI-fS0">
-                                                <rect key="frame" x="0.0" y="0.0" width="139" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="139" height="8"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aOG-6F-zDw">
-                                                <rect key="frame" x="0.0" y="0.0" width="335" height="204"/>
+                                                <rect key="frame" x="0.0" y="8" width="335" height="204"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="checkableCell" rowHeight="43.666667938232422" id="45f-Nn-pMr">
@@ -398,16 +403,16 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="9AC-4H-9uz">
-                                        <rect key="frame" x="0.0" y="204" width="335" height="174"/>
+                                        <rect key="frame" x="0.0" y="212" width="335" height="153.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genres" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBs-Gc-F7E">
-                                                <rect key="frame" x="0.0" y="0.0" width="102.5" height="36"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="102.5" height="15.5"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Mbb-gG-aia">
-                                                <rect key="frame" x="0.0" y="36" width="335" height="138"/>
+                                                <rect key="frame" x="0.0" y="15.5" width="335" height="138"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="checkableCell" rowHeight="43.666667938232422" id="taz-QH-WsR">
@@ -426,16 +431,16 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="8JL-OE-wpQ">
-                                        <rect key="frame" x="0.0" y="378" width="335" height="164"/>
+                                        <rect key="frame" x="0.0" y="365.5" width="335" height="176.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Modes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAW-3f-UWm">
-                                                <rect key="frame" x="0.0" y="0.0" width="190" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="190" height="12.5"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jgm-Oh-UKW">
-                                                <rect key="frame" x="0.0" y="0.0" width="335" height="164"/>
+                                                <rect key="frame" x="0.0" y="12.5" width="335" height="164"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="checkableCell" rowHeight="43.666667938232422" id="zNL-vn-n5U">
@@ -497,7 +502,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="r5A-Nb-aEm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="n8a-TD-9sr">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -627,7 +632,7 @@
         <scene sceneID="IVZ-V6-e0p">
             <objects>
                 <tabBarController id="eGC-RB-qhN" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="V69-9p-Pzf">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="V69-9p-Pzf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -656,7 +661,7 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="GameSearchViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" placeholder="Enter a game title..." translatesAutoresizingMaskIntoConstraints="NO" id="0Bo-5e-lrE">
@@ -664,7 +669,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0IL-gh-dT8">
-                                <rect key="frame" x="0.0" y="56" width="375" height="567"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="518"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="1tD-lo-VfP">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -712,7 +717,7 @@
             <objects>
                 <viewController id="UGs-Hn-zRK" customClass="GameDetailViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o9c-iR-G8f">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3br-JO-gI6" userLabel="gameModeTagsView">
@@ -897,6 +902,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="3rC-pf-oUp"/>
-        <segue reference="wqt-VG-ugL"/>
+        <segue reference="ceH-WA-yhA"/>
     </inferredMetricsTieBreakers>
 </document>

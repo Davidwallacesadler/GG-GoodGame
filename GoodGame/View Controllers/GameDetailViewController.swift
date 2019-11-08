@@ -84,6 +84,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    var keyboardHeight: CGFloat?
      
      // MARK: - View Lifecycle
 
@@ -260,15 +261,31 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func keyboardWillHide() {
-        self.view.frame.origin.y = 0 + 60
+        // +60 for iphone 7/8
+        // +90 for iPhone 11
+        // 1/3 of keyboard height
+        guard let keyboardHeight = self.keyboardHeight else { return }
+        if keyboardHeight < 300.0 {
+            self.view.frame.origin.y = 60
+        } else {
+            self.view.frame.origin.y = keyboardHeight * 0.255
+        }
     }
     
     @objc func keyboardWillChange(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if genreTagsList.isFirstResponder {
-               self.view.frame.origin.y = -(keyboardSize.height - 70)
-            } else if gameModeTagsList.isFirstResponder {
-            self.view.frame.origin.y = -(keyboardSize.height - 70)
+            self.keyboardHeight = keyboardSize.height
+            let twoThirdsKeyboardHeight = keyboardSize.height * 0.75
+            print(keyboardSize.height.description, twoThirdsKeyboardHeight.description)
+            if genreTagsList.isFirstResponder || gameModeTagsList.isFirstResponder{
+                // MAYBE SWITCH ON THE KEYBOARD HEIGHT??? IF < 300 use iphone 8 settings, otherwise
+                // -70 for iphone 7/8
+                // -200 for iPhone 11
+                if keyboardSize.height < 300.0 {
+                    self.view.frame.origin.y = -(keyboardSize.height - 70)
+                } else {
+                    self.view.frame.origin.y = -(keyboardSize.height - twoThirdsKeyboardHeight)
+                }
             }
         }
     }

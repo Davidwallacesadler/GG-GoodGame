@@ -10,7 +10,48 @@ import UIKit
 
 private let reuseIdentifier = "savedGameCell"
 
-class GameLibraryCollectionViewController: UICollectionViewController, CollectionViewCellLongTouchDelegate {
+class GameLibraryCollectionViewController: UICollectionViewController, CollectionViewCellLongTouchDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    // MARK: - PickerView Delegate / DataSources
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return filterTitles.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let filterTitle = filterTitles[row]
+        return filterTitle
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let selectedFilterTitle = filterTitles[row]
+        switch selectedFilterTitle {
+        case filterTitles[0]:
+            // All
+            refreshAllOrderedSavedGames()
+        case filterTitles[1]:
+            // Favorites
+            let favoriteGames = SavedGameController.shared.loadFavoriteGames()
+            savedGamesOrdered = favoriteGames.groupedByFirstTitleLetterString()
+        case filterTitles[2]:
+            // Currently Playing
+            let currentlyPlayingGames = SavedGameController.shared.loadCurrentlyPlayingGames()
+            savedGamesOrdered = currentlyPlayingGames.groupedByFirstTitleLetterString()
+        case filterTitles[3]:
+            // Games Beaten
+            let gamesWithPlaythroughs = PlaythroughController.shared.loadBeatenGames()
+            savedGamesOrdered = gamesWithPlaythroughs.groupedByFirstTitleLetterString()
+        default:
+            return
+        }
+        self.collectionView.reloadData()
+        gameFilterPickerView.removeFromSuperview()
+        tempInput?.resignFirstResponder()
+    }
+    
     
     // MARK: - CollectionViewCellLongTouchDelegate
     
@@ -21,10 +62,23 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
         self.performSegue(withIdentifier: "toShowPlayStatus", sender: self)
     }
     
+    // MARK: - Outlets
+    
+    @IBOutlet var gameFilterPickerView: UIPickerView!
+    
     // MARK: - Actions
 
-    #warning("maybe implement filtering here in the future - but for now just keep it alphabetical")
+    #warning("for now maybe implement filtering here for currently playing and favorite status")
     @IBAction func filterButtonTapped(_ sender: Any) {
+        if gameFilterPickerView.superview != nil {
+            return
+        }
+        let temporaryInput = UITextField(frame: CGRect.zero)
+        temporaryInput.inputView = self.gameFilterPickerView
+        self.view.addSubview(temporaryInput)
+        temporaryInput.becomeFirstResponder()
+        tempInput = temporaryInput
+        
     }
     
     // MARK: - View Lifecycle
@@ -33,10 +87,13 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
         super.viewDidLoad()
         setupCollectionViewInsets()
         setupCollectionViewDelegation()
+        setupPickerViewDelegation()
         registerCustomCells()
+        resignFirstResponderTapRecongnizerSetup()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        refreshAllOrderedSavedGames()
         self.collectionView.reloadData()
     }
     
@@ -45,11 +102,7 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
     lazy var slideInTransitioningDelegate = SlideInPresentationManager()
     private let spacing: CGFloat = 16.0
     var selectedSavedGame: SavedGame?
-    var savedGamesOrdered: [String : [SavedGame]] {
-        get {
-            return SavedGameController.shared.savedGames.groupedByFirstTitleLetterString()
-        }
-    }
+    var savedGamesOrdered: [String : [SavedGame]] = SavedGameController.shared.savedGames.groupedByFirstTitleLetterString()
     var groupingKeys: [String] {
         var grouping = [String]()
         for key in savedGamesOrdered.keys {
@@ -57,9 +110,14 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
         }
         return grouping.sorted(by: <)
     }
-    let filterTitles = ["Alphabetical", "By Favorites", " By Games Completed", "By Genre", "By Platform"]
-    
+    let filterTitles = ["All Games", "Favorites", "Currently Playing", "Games Beaten"]
+    var tempInput: UITextField?
     // MARK: - Internal Methods
+    
+    private func refreshAllOrderedSavedGames() {
+        let currentSavedGamesOrdered = SavedGameController.shared.savedGames.groupedByFirstTitleLetterString()
+        savedGamesOrdered = currentSavedGamesOrdered
+    }
     
     private func setupCollectionViewInsets() {
         let layout = UICollectionViewFlowLayout()
@@ -79,6 +137,17 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
         self.collectionView!.register(UINib(nibName: "SavedGameCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView!.register(UINib(nibName: "SectionHeader", bundle: nil), forCellWithReuseIdentifier: "sectionHeader")
      }
+    
+    private func setupPickerViewDelegation() {
+        self.gameFilterPickerView.delegate = self
+        self.gameFilterPickerView.dataSource = self
+    }
+    
+    private func resignFirstResponderTapRecongnizerSetup() {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
 
     // MARK: - UICollectionViewDataSource
     

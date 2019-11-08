@@ -25,6 +25,9 @@ struct WSTagsFieldHelper {
         tagsField.enableScrolling = true
         tagsField.maxHeight = tagsView.bounds.height
         tagsField.placeholder = placeHolder
+        tagsField.fieldTextColor = .lightGray
+        tagsField.autocapitalizationType = .words
+        //tagsField.autocorrectionType = .yes
         tagsField.placeholderColor = .lightGray
         tagsField.tintColor = .goodGamePinkBright
         tagsField.placeholderAlwaysVisible = true
@@ -40,6 +43,7 @@ struct WSTagsFieldHelper {
         }
 
         tagsField.onDidChangeText = { _, text in
+            #warning("perform case insensitive search through respective collections")
             print("DidChangeText")
         }
 

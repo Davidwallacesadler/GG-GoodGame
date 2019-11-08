@@ -33,31 +33,31 @@ class SavedGameController {
     }
     
     #warning("could use predicate here with savedGames to get attributes of the saved game -- IE should use predicates here for isFavorite, hasBeenCompleted ---- CAN NOT USE A 'TO-MANY' RELATIONSHIP")
-    func loadFavoriteGames() {
+    func loadFavoriteGames() -> [SavedGame] {
         let request: NSFetchRequest<SavedGame> = SavedGame.fetchRequest()
         filteringPredicate = NSPredicate(format: "(isFavorite == YES)")
         request.predicate = filteringPredicate
         let moc = CoreDataStack.context
         do {
             let result = try moc.fetch(request)
-            print(result.description)
+            return result
         } catch {
             print(error,error.localizedDescription)
-            return
+            return []
         }
     }
     
-    func loadCurrentlyPlayingGames() {
+    func loadCurrentlyPlayingGames() -> [SavedGame] {
         let request: NSFetchRequest<SavedGame> = SavedGame.fetchRequest()
         filteringPredicate = NSPredicate(format: "(isBeingCurrentlyPlayed == YES)")
         request.predicate = filteringPredicate
         let moc = CoreDataStack.context
         do {
             let result = try moc.fetch(request)
-            print(result.description)
+            return result
         } catch {
             print(error,error.localizedDescription)
-            return
+            return []
         }
     }
     
