@@ -29,6 +29,24 @@ class PlayModeController {
         }
     }
     
+    func fetchSavedGameFromPlayModePredicateString(predicateString: String) -> [SavedGame] {
+        let request: NSFetchRequest<PlayMode> = PlayMode.fetchRequest()
+        filteringPredicate = NSPredicate(format: predicateString)
+        request.predicate = filteringPredicate
+        let moc = CoreDataStack.context
+        var playModes = [PlayMode]()
+        do {
+            let result = try moc.fetch(request)
+            playModes = result
+        } catch {
+            print(error,error.localizedDescription)
+            return []
+        }
+        return playModes.map { (playMode) -> SavedGame in
+            return playMode.savedGame!
+        }
+    }
+    
     func loadSavedGamesBasedOnPlayModeNames(playModeName: String) -> [SavedGame] {
         let request: NSFetchRequest<PlayMode> = PlayMode.fetchRequest()
         filteringPredicate = NSPredicate(format: "name == %@", playModeName)

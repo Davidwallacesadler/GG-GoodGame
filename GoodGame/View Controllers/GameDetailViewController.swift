@@ -268,7 +268,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
         if keyboardHeight < 300.0 {
             self.view.frame.origin.y = 60
         } else {
-            self.view.frame.origin.y = keyboardHeight * 0.255
+            self.view.frame.origin.y = keyboardHeight * 0.292
         }
     }
     

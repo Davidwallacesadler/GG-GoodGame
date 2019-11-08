@@ -9,22 +9,49 @@
 import UIKit
 
 class CheckableTableViewCell: UITableViewCell {
+    
+    // MARK: - Properties
+    
+    var cellIsSelected: Bool = false {
+        didSet {
+            
+        }
+    }
+    
+    // MARK: - View Lifecycle
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
+    
+    // MARK: - Outlets
 
     @IBOutlet weak var mainLabel: UILabel!
-    @IBOutlet weak var circleButton: UIButton!
+    @IBOutlet weak var circleButton: UIImageView!
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        if selected {
-            circleButton.setImage(UIImage(named: "checkmarkCircleSelected")!, for: .normal)
-        } else {
-            circleButton.setImage(UIImage(named: "checkmarkCircleUnselected")!, for: .normal)
+    // MARK: - Methods
+    
+    func updateSelectedStatus() {
+        cellIsSelected = !cellIsSelected
+        
+    }
+    
+    func updateCheckmarkImage() {
+        switch cellIsSelected {
+        case true:
+            circleButton.image = UIImage(named: "checkmarkCircleSelected")
+        default:
+            circleButton.image = UIImage(named: "checkmarkCircleUnselected")
         }
     }
+//    override func setSelected(_ selected: Bool, animated: Bool) {
+//        super.setSelected(selected, animated: animated)
+//        if selected {
+//            circleButton.image = UIImage(named: "checkmarkCircleSelected")
+//        } else {
+//            circleButton.image = UIImage(named: "checkmarkCircleUnselected")
+//        }
+//    }
     
 }

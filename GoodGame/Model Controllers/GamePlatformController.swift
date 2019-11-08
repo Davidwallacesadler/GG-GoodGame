@@ -35,6 +35,24 @@ class GamePlatformController {
     // This dictionary matches up with the platfrom ids from IGDB
     //let possiblePlatforms: Dictionary = ["Linux":3,"Nintendo 64":4,]
     
+    func fetchSavedGameFromPlatformPredicateString(predicateString: String) -> [SavedGame] {
+        let request: NSFetchRequest<GamePlatform> = GamePlatform.fetchRequest()
+        filteringPredicate = NSPredicate(format: predicateString)
+        request.predicate = filteringPredicate
+        let moc = CoreDataStack.context
+        var gamePlatforms = [GamePlatform]()
+        do {
+            let result = try moc.fetch(request)
+            gamePlatforms = result
+        } catch {
+            print(error,error.localizedDescription)
+            return []
+        }
+        return gamePlatforms.map { (gamePlatform) -> SavedGame in
+            return gamePlatform.savedGame!
+        }
+    }
+    
     func loadSavedGamesFromPlatform(platformName: String) -> [SavedGame] {
         let request: NSFetchRequest<GamePlatform> = GamePlatform.fetchRequest()
         filteringPredicate = NSPredicate(format: "name == %@", platformName)

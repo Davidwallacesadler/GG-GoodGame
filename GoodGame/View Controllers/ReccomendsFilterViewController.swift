@@ -25,7 +25,7 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
             return genreNames
         }
     }
-    var selectedGenreName: String = ""
+    var selectedGenreNames: [String] = []
     var platformNames: [String] {
         get {
             var platformNames: [String] = []
@@ -39,7 +39,7 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
             return platformNames
         }
     }
-    var selectedPlatformName: String = ""
+    var selectedPlatformNames: [String] = []
     var playModeNames: [String] {
         get {
             var playModeNames: [String] = []
@@ -53,7 +53,7 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
             return playModeNames
         }
     }
-    var selectedPlayModeName: String = ""
+    var selectedPlayModeNames: [String] = []
     lazy var slideInTransitioningDelegate = SlideInPresentationManager()
     var filteredGame: SavedGame? {
         didSet {
@@ -93,20 +93,23 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
         var platformSavedGames = [SavedGame]()
         var genreSavedGames = [SavedGame]()
         var playModeSavedGames = [SavedGame]()
-        if selectedPlatformName.isEmpty {
+        if selectedPlatformNames.isEmpty {
             platformSavedGames = SavedGameController.shared.savedGames
         } else {
-            platformSavedGames = GamePlatformController.shared.loadSavedGamesFromPlatform(platformName: selectedPlatformName)
+            let platformPredicateString = createPredicateString(givenNameArray: selectedPlatformNames)
+            platformSavedGames = GamePlatformController.shared.fetchSavedGameFromPlatformPredicateString(predicateString: platformPredicateString)
         }
-        if selectedGenreName.isEmpty {
+        if selectedGenreNames.isEmpty {
             genreSavedGames = SavedGameController.shared.savedGames
         } else {
-            genreSavedGames = GameGenreController.shared.loadSavedGamesBasedOnGenreName(genreName: selectedGenreName)
+            let genrePredicateString = createPredicateString(givenNameArray: selectedGenreNames)
+            genreSavedGames = GameGenreController.shared.fetchSavedGameFromGenrePredicateString(predicateString: genrePredicateString)
         }
-        if selectedPlayModeName.isEmpty {
+        if selectedPlayModeNames.isEmpty {
             playModeSavedGames = SavedGameController.shared.savedGames
         } else {
-            playModeSavedGames = PlayModeController.shared.loadSavedGamesBasedOnPlayModeNames(playModeName: selectedPlayModeName)
+            let playModePredicateString = createPredicateString(givenNameArray: selectedPlayModeNames)
+            playModeSavedGames = PlayModeController.shared.fetchSavedGameFromPlayModePredicateString(predicateString: playModePredicateString)
         }
         let commonSavedGames = Array(Set(platformSavedGames).intersection(Set(genreSavedGames)).intersection(Set(playModeSavedGames)))
         if commonSavedGames.isEmpty {
@@ -156,17 +159,41 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
     // MARK: - TableView Delegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? CheckableTableViewCell else { return }
         switch tableView {
         case platformsTableView:
-            // check if isSelected from the cell? -- first tap adds the name, second tap removes it
             let selectedPlatformName = platformNames[indexPath.row]
-            self.selectedPlatformName = selectedPlatformName
+            cell.updateSelectedStatus()
+            cell.updateCheckmarkImage()
+            if cell.cellIsSelected {
+                selectedPlatformNames.append(selectedPlatformName)
+            } else {
+                guard let indexOfName = selectedPlatformNames.firstIndex(of: selectedPlatformName) else { return }
+                    selectedPlatformNames.remove(at: indexOfName)
+            }
+            print("Currently selected platforms = \(selectedPlatformNames.description)")
         case genresTableView:
             let selectedGenreName = genresNames[indexPath.row]
-            self.selectedGenreName = selectedGenreName
+            cell.updateSelectedStatus()
+            cell.updateCheckmarkImage()
+            if cell.cellIsSelected {
+                selectedGenreNames.append(selectedGenreName)
+            } else {
+                guard let indexOfName = selectedGenreNames.firstIndex(of: selectedGenreName) else { return }
+                selectedGenreNames.remove(at: indexOfName)
+            }
+            print("Currently selected genres = \(selectedGenreNames.description)")
         case gameModesTableView:
             let selectedPlayModeName = playModeNames[indexPath.row]
-            self.selectedPlayModeName = selectedPlayModeName
+            cell.updateSelectedStatus()
+            cell.updateCheckmarkImage()
+            if cell.cellIsSelected {
+                selectedPlayModeNames.append(selectedPlayModeName)
+            } else {
+                guard let indexOfName = selectedPlayModeNames.firstIndex(of: selectedPlayModeName) else { return }
+                selectedPlayModeNames.remove(at: indexOfName)
+            }
+            print("Currently selected playModes = \(selectedPlayModeNames.description)")
         default:
             return
         }
@@ -193,6 +220,28 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
         platformsTableView.register(UINib(nibName: "CheckableTableViewCell", bundle: nil), forCellReuseIdentifier: "checkableCell")
         genresTableView.register(UINib(nibName: "CheckableTableViewCell", bundle: nil), forCellReuseIdentifier: "checkableCell")
         gameModesTableView.register(UINib(nibName: "CheckableTableViewCell", bundle: nil), forCellReuseIdentifier: "checkableCell")
+    }
+    
+    private func createPredicateString(givenNameArray: [String]) -> String {
+        //#""\#(name)""#
+        var predicateString = ""
+        if givenNameArray.count == 1 {
+            let nameEscaped = #""\#(givenNameArray[0])""#
+            predicateString = "name == \(nameEscaped)"
+        } else {
+            for i in 0..<givenNameArray.count {
+                let name = givenNameArray[i]
+                let nameChunk = #""\#(name)""#
+                var predicateChunk = ""
+                if i < (givenNameArray.count - 1) {
+                    predicateChunk = "(name == \(nameChunk)) OR "
+                } else {
+                    predicateChunk = "(name == \(nameChunk))"
+                }
+                predicateString.append(predicateChunk)
+            }
+        }
+        return predicateString
     }
 
     

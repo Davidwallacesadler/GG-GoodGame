@@ -29,6 +29,24 @@ class GameGenreController {
         }
     }
     
+    func fetchSavedGameFromGenrePredicateString(predicateString: String) -> [SavedGame] {
+        let request: NSFetchRequest<GameGenre> = GameGenre.fetchRequest()
+        filteringPredicate = NSPredicate(format: predicateString)
+        request.predicate = filteringPredicate
+        let moc = CoreDataStack.context
+        var gameGenres = [GameGenre]()
+        do {
+            let result = try moc.fetch(request)
+            gameGenres = result
+        } catch {
+            print(error,error.localizedDescription)
+            return []
+        }
+        return gameGenres.map { (gameGenre) -> SavedGame in
+            return gameGenre.savedGame!
+        }
+    }
+    
     func loadSavedGamesBasedOnGenreName(genreName: String) -> [SavedGame] {
         let request: NSFetchRequest<GameGenre> = GameGenre.fetchRequest()
         filteringPredicate = NSPredicate(format: "name == %@", genreName)
