@@ -18,6 +18,15 @@ class PlayModeController {
     
     // MARK: - GamePlatorms
     
+    let possiblePlayModes: Dictionary = [
+        "Single player": 1,
+        "Multiplayer": 2,
+        "Co-operative": 3,
+        "Split screen": 4,
+        "Massively Multiplayer Online (MMO)": 5
+    ]
+    
+    
     var playModes: [PlayMode] {
         let request: NSFetchRequest<PlayMode> = PlayMode.fetchRequest()
         let moc = CoreDataStack.context

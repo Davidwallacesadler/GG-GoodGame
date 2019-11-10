@@ -146,9 +146,9 @@ class PlayStatusViewController: UIViewController {
     
     private func displayPlaythroughAlert() {
         if let game = selectedGame {
-          if game.isBeingCurrentlyPlayed {
+            if game.isBeingCurrentlyPlayed {
               let finishPlaythroughAlert = UIAlertController(title: "How Was Your Playthrough? \n\n\n\n\n", message: nil, preferredStyle: .alert)
-              
+                
               let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { (action) in
                   finishPlaythroughAlert.view.removeObserver(self, forKeyPath: "bounds")
               }
@@ -161,19 +161,27 @@ class PlayStatusViewController: UIViewController {
                 finishPlaythroughAlert.view.removeObserver(self, forKeyPath: "bounds")
                 self.updateInterfaceBasedOnGameState(game: game)
               }
-              finishPlaythroughAlert.addAction(saveAction)
+                
+                finishPlaythroughAlert.addAction(saveAction)
               
-              finishPlaythroughAlert.view.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions.new, context: nil)
-              textView.backgroundColor = UIColor.white
-              textView.textContainerInset = UIEdgeInsets.init(top: 8, left: 5, bottom: 8, right: 5)
-              finishPlaythroughAlert.view.addSubview(self.textView)
-              self.present(finishPlaythroughAlert, animated: true, completion: nil)
-          } else {
-              let notCurrentlyPlayingAlert = UIAlertController(title: "Game Not Being Played", message: "Please hit the play button before attempting to record a playthrough of the game.", preferredStyle: .alert)
-              let okayAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-              notCurrentlyPlayingAlert.addAction(okayAction)
-              self.present(notCurrentlyPlayingAlert, animated: true, completion: nil)
-          }
-       }
+                finishPlaythroughAlert.view.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions.new, context: nil)
+                switch self.traitCollection.userInterfaceStyle {
+                case .dark:
+                    textView.backgroundColor = .darkGray
+                    textView.textColor = .white
+                default:
+                    textView.backgroundColor = .white
+                    textView.textColor = .black
+                }
+                textView.textContainerInset = UIEdgeInsets.init(top: 8, left: 5, bottom: 8, right: 5)
+                finishPlaythroughAlert.view.addSubview(self.textView)
+                self.present(finishPlaythroughAlert, animated: true, completion: nil)
+            } else {
+                let notCurrentlyPlayingAlert = UIAlertController(title: "Game Not Being Played", message: "Please hit the play button before attempting to record a playthrough of the game.", preferredStyle: .alert)
+                let okayAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                notCurrentlyPlayingAlert.addAction(okayAction)
+                self.present(notCurrentlyPlayingAlert, animated: true, completion: nil)
+            }
+        }
     }
 }

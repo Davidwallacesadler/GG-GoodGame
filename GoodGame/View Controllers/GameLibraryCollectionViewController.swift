@@ -68,7 +68,6 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
     
     // MARK: - Actions
 
-    #warning("for now maybe implement filtering here for currently playing and favorite status")
     @IBAction func filterButtonTapped(_ sender: Any) {
         if gameFilterPickerView.superview != nil {
             return
@@ -78,7 +77,6 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
         self.view.addSubview(temporaryInput)
         temporaryInput.becomeFirstResponder()
         tempInput = temporaryInput
-        
     }
     
     // MARK: - View Lifecycle
@@ -151,7 +149,6 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
 
     // MARK: - UICollectionViewDataSource
     
-    #warning("I want sections to be alphebetical")
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return groupingKeys.count
     }

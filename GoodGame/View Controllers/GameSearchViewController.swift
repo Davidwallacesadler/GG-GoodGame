@@ -15,12 +15,19 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = gameSearchBar.text, gameSearchBar.text?.isEmpty == false else {
+            searchBar.resignFirstResponder()
             return
         }
         GameController.shared.searchByGameName(searchText) { (games) in
             self.retreivedGames = games
         }
         searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        GameController.shared.searchByGameName(searchText) { (games) in
+            self.retreivedGames = games
+        }
     }
     
     
@@ -49,6 +56,7 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
         guard let games = retreivedGames else { return }
         let selectedGame = games[indexPath.row]
         selectedVideoGame = selectedGame
+        gameSearchBar.resignFirstResponder()
     }
     
     // MARK: - Internal Properties
@@ -79,6 +87,7 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
         super.viewDidLoad()
         setupSearchbar()
         setupTableView()
+        resignFirstResponderTapRecongnizerSetup()
     }
     
     // MARK: - Outlets
@@ -102,6 +111,12 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
        GameController.shared.getCoverArtworkByGameId(game.id) { (artworks) in
            self.selectedGameArtwork = artworks
        }
+    }
+    
+    private func resignFirstResponderTapRecongnizerSetup() {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
     }
     
     // MARK: - Navigation

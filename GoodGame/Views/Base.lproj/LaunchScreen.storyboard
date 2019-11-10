@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appLogo1024" translatesAutoresizingMaskIntoConstraints="NO" id="8qN-br-LGV">
-                                <rect key="frame" x="0.0" y="241" width="414" height="414"/>
+                                <rect key="frame" x="50" y="291" width="314" height="314"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="8qN-br-LGV" secondAttribute="height" multiplier="1:1" id="WkJ-0b-WpV"/>
                                 </constraints>
@@ -24,8 +24,8 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="8qN-br-LGV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Za6-QI-2qu"/>
-                            <constraint firstItem="8qN-br-LGV" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="dvv-Jr-bni"/>
+                            <constraint firstItem="8qN-br-LGV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="Za6-QI-2qu"/>
+                            <constraint firstItem="8qN-br-LGV" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-50" id="dvv-Jr-bni"/>
                             <constraint firstItem="8qN-br-LGV" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="dwg-am-WIm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -37,6 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="appLogo1024" width="1024" height="1024"/>
+        <image name="appLogo1024" width="886" height="886"/>
     </resources>
 </document>

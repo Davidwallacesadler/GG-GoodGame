@@ -16,7 +16,23 @@ class GameGenreController {
     static let shared = GameGenreController()
     var filteringPredicate: NSPredicate?
     
-    // MARK: - GamePlatorms
+    // MARK: - Game Genres
+    
+    let possibleGenres: Dictionary = [
+        "Point-and-click": 2,
+        "Fighting": 4,
+        "Shooter": 5,
+        "Music": 7,
+        "Platform": 8,
+        "Puzzle": 9,
+        "Racing": 10,
+        "Real Time Strategy (RTS)": 11,
+        "Role-playing (RPG)": 12,
+        "Simulator": 13,
+        "Sport": 14,
+        "Strategy": 15,
+        "Turn-based strategy (TBS)": 16
+    ]
     
     var genres: [GameGenre] {
         let request: NSFetchRequest<GameGenre> = GameGenre.fetchRequest()

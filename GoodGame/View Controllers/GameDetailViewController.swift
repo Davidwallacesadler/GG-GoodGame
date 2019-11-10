@@ -98,6 +98,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
         if let selectedGame = game {
             gameTitleTextField.text = selectedGame.name
         }
+        setupColorsBasedOnDarkMode()
      }
     
    override func viewDidLayoutSubviews() {
@@ -294,6 +295,21 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
+    }
+    
+    private func setupColorsBasedOnDarkMode() {
+        switch self.traitCollection.userInterfaceStyle {
+        case .dark:
+            platformTagsList.fieldTextColor = .white
+            genreTagsList.fieldTextColor = .white
+            gameModeTagsList.fieldTextColor = .white
+        case .light:
+            platformTagsList.fieldTextColor = .black
+            genreTagsList.fieldTextColor = .black
+            gameModeTagsList.fieldTextColor = .black
+        default:
+            return
+        }
     }
 }
 

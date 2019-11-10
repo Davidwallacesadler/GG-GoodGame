@@ -93,6 +93,11 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
         var platformSavedGames = [SavedGame]()
         var genreSavedGames = [SavedGame]()
         var playModeSavedGames = [SavedGame]()
+        if selectedPlatformNames.isEmpty && selectedGenreNames.isEmpty && selectedPlayModeNames.isEmpty {
+            let noGamesFoundAlert = UIAlertController(title: "No Games Found", message: "Please select at least one name from the filter lists to get results.", preferredStyle: .alert)
+            noGamesFoundAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(noGamesFoundAlert, animated: true, completion: nil)
+        }
         if selectedPlatformNames.isEmpty {
             platformSavedGames = SavedGameController.shared.savedGames
         } else {
@@ -113,9 +118,7 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
         }
         let commonSavedGames = Array(Set(platformSavedGames).intersection(Set(genreSavedGames)).intersection(Set(playModeSavedGames)))
         if commonSavedGames.isEmpty {
-            let noGamesFoundAlert = UIAlertController(title: "No Games Found", message: "The selected filters don't match any games in your library. Please try other filter combinations.", preferredStyle: .alert)
-            noGamesFoundAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            self.present(noGamesFoundAlert, animated: true, completion: nil)
+            presentNoGamesFoundAlert()
         } else {
             filteredGames = commonSavedGames
         }
@@ -160,39 +163,43 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? CheckableTableViewCell else { return }
+        cell.setSelected(cell.isSelected, animated: true)
         switch tableView {
         case platformsTableView:
             let selectedPlatformName = platformNames[indexPath.row]
-            cell.updateSelectedStatus()
-            cell.updateCheckmarkImage()
-            if cell.cellIsSelected {
-                selectedPlatformNames.append(selectedPlatformName)
-            } else {
-                guard let indexOfName = selectedPlatformNames.firstIndex(of: selectedPlatformName) else { return }
-                    selectedPlatformNames.remove(at: indexOfName)
-            }
+            selectedPlatformNames.append(selectedPlatformName)
             print("Currently selected platforms = \(selectedPlatformNames.description)")
         case genresTableView:
             let selectedGenreName = genresNames[indexPath.row]
-            cell.updateSelectedStatus()
-            cell.updateCheckmarkImage()
-            if cell.cellIsSelected {
-                selectedGenreNames.append(selectedGenreName)
-            } else {
-                guard let indexOfName = selectedGenreNames.firstIndex(of: selectedGenreName) else { return }
-                selectedGenreNames.remove(at: indexOfName)
-            }
+            selectedGenreNames.append(selectedGenreName)
             print("Currently selected genres = \(selectedGenreNames.description)")
         case gameModesTableView:
             let selectedPlayModeName = playModeNames[indexPath.row]
-            cell.updateSelectedStatus()
-            cell.updateCheckmarkImage()
-            if cell.cellIsSelected {
-                selectedPlayModeNames.append(selectedPlayModeName)
-            } else {
-                guard let indexOfName = selectedPlayModeNames.firstIndex(of: selectedPlayModeName) else { return }
-                selectedPlayModeNames.remove(at: indexOfName)
-            }
+            selectedPlayModeNames.append(selectedPlayModeName)
+            print("Currently selected playModes = \(selectedPlayModeNames.description)")
+        default:
+            return
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? CheckableTableViewCell else { return }
+        cell.setSelected(cell.isSelected, animated: true)
+        switch tableView {
+        case platformsTableView:
+            let selectedPlatformName = platformNames[indexPath.row]
+            guard let indexOfName = selectedPlatformNames.firstIndex(of: selectedPlatformName) else { return }
+            selectedPlatformNames.remove(at: indexOfName)
+            print("Currently selected platforms = \(selectedPlatformNames.description)")
+        case genresTableView:
+            let selectedGenreName = genresNames[indexPath.row]
+            guard let indexOfName = selectedGenreNames.firstIndex(of: selectedGenreName) else { return }
+            selectedGenreNames.remove(at: indexOfName)
+            print("Currently selected genres = \(selectedGenreNames.description)")
+        case gameModesTableView:
+            let selectedPlayModeName = playModeNames[indexPath.row]
+            guard let indexOfName = selectedPlayModeNames.firstIndex(of: selectedPlayModeName) else { return }
+            selectedPlayModeNames.remove(at: indexOfName)
             print("Currently selected playModes = \(selectedPlayModeNames.description)")
         default:
             return
@@ -223,7 +230,6 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
     }
     
     private func createPredicateString(givenNameArray: [String]) -> String {
-        //#""\#(name)""#
         var predicateString = ""
         if givenNameArray.count == 1 {
             let nameEscaped = #""\#(givenNameArray[0])""#
@@ -242,6 +248,12 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
             }
         }
         return predicateString
+    }
+    
+    private func presentNoGamesFoundAlert() {
+        let noGamesFoundAlert = UIAlertController(title: "No Games Found", message: "None of the selected filters match any games in your library. Please try other filter combinations.", preferredStyle: .alert)
+        noGamesFoundAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        self.present(noGamesFoundAlert, animated: true, completion: nil)
     }
 
     

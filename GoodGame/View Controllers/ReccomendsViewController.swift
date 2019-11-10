@@ -31,15 +31,7 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
     var gamesAssociatedWithRandomPlatform: [SavedGame] = []
     var gamesAssociatedWithRandomGenre: [SavedGame] = []
     var currentlyPlayingGames: [SavedGame] {
-        get {
-            var currentlyPlayingGames: [SavedGame] = []
-            for savedGame in SavedGameController.shared.savedGames {
-                if savedGame.isBeingCurrentlyPlayed {
-                    currentlyPlayingGames.append(savedGame)
-                }
-            }
-            return currentlyPlayingGames
-        }
+        return SavedGameController.shared.loadCurrentlyPlayingGames()
     }
     private let spacing: CGFloat = 16.0
     var selectedSavedGame: SavedGame? {
@@ -59,6 +51,7 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
         setupCollectionViewFlowLayouts()
     }
     
+    #warning("need to have an observer to reload this collectionview whenever the view comes back")
     override func viewDidAppear(_ animated: Bool) {
         self.recentlyPlayedCollectionView.reloadData()
     }
@@ -179,9 +172,25 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
         layout.minimumLineSpacing = spacing
         layout.minimumInteritemSpacing = spacing
         layout.scrollDirection = .horizontal
+        
+        let layoutTwo = UICollectionViewFlowLayout()
+        layoutTwo.itemSize = CGSize(width: self.randomPlatformCollectionView.frame.width / 1.5, height: self.randomPlatformCollectionView.frame.height)
+        //layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        layoutTwo.minimumLineSpacing = spacing
+        layoutTwo.minimumInteritemSpacing = spacing
+        layoutTwo.scrollDirection = .horizontal
+        
+        let layoutThree = UICollectionViewFlowLayout()
+        layoutThree.itemSize = CGSize(width: self.randomGenreCollectionView.frame.width / 1.5, height: self.randomGenreCollectionView.frame.height)
+        //layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        layoutThree.minimumLineSpacing = spacing
+        layoutThree.minimumInteritemSpacing = spacing
+        layoutThree.scrollDirection = .horizontal
+        
+        
         self.recentlyPlayedCollectionView.collectionViewLayout = layout
-        self.randomPlatformCollectionView.collectionViewLayout = layout
-        self.randomGenreCollectionView.collectionViewLayout = layout
+        self.randomPlatformCollectionView.collectionViewLayout = layoutTwo
+        self.randomGenreCollectionView.collectionViewLayout = layoutThree
     }
     
     // MARK: - Navigation
@@ -199,13 +208,13 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
 
 // MARK: - CollectionViewDelegateFlowLayout
 
-//extension ReccomendsViewController: UICollectionViewDelegateFlowLayout {
-//func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//    let numberOfItemsPerRow: CGFloat = 2
-//    let spacingBetweenCells: CGFloat = 16
-//    let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
-//    let width = (self.view.bounds.width - totalSpacing)/numberOfItemsPerRow
-//    let height = collectionView.bounds.height
-//    return CGSize(width: height, height: width)
-//    }
-//}
+extension ReccomendsViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let numberOfItemsPerRow: CGFloat = 2
+        let spacingBetweenCells: CGFloat = 16
+        let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
+        let width = (collectionView.bounds.width - totalSpacing)/numberOfItemsPerRow
+        let height = collectionView.bounds.height
+        return CGSize(width: height, height: width)
+    }
+}

@@ -10,14 +10,6 @@ import UIKit
 
 class CheckableTableViewCell: UITableViewCell {
     
-    // MARK: - Properties
-    
-    var cellIsSelected: Bool = false {
-        didSet {
-            
-        }
-    }
-    
     // MARK: - View Lifecycle
 
     override func awakeFromNib() {
@@ -32,26 +24,13 @@ class CheckableTableViewCell: UITableViewCell {
     
     // MARK: - Methods
     
-    func updateSelectedStatus() {
-        cellIsSelected = !cellIsSelected
-        
-    }
-    
-    func updateCheckmarkImage() {
-        switch cellIsSelected {
-        case true:
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        if selected {
             circleButton.image = UIImage(named: "checkmarkCircleSelected")
-        default:
+        } else {
             circleButton.image = UIImage(named: "checkmarkCircleUnselected")
         }
     }
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//        if selected {
-//            circleButton.image = UIImage(named: "checkmarkCircleSelected")
-//        } else {
-//            circleButton.image = UIImage(named: "checkmarkCircleUnselected")
-//        }
-//    }
     
 }
