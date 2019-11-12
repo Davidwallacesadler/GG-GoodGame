@@ -32,5 +32,4 @@ class CheckableTableViewCell: UITableViewCell {
             circleButton.image = UIImage(named: "checkmarkCircleUnselected")
         }
     }
-    
 }

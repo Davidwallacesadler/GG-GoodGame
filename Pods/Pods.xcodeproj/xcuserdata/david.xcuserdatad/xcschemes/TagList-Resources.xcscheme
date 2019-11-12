@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F53EC862308904725E9A1C6134EC5BCB"
+               BlueprintIdentifier = "7423969A682862B3FABE6CF31EF5A71C"
                BuildableName = "Resources.bundle"
                BlueprintName = "TagList-Resources"
                ReferencedContainer = "container:Pods.xcodeproj">

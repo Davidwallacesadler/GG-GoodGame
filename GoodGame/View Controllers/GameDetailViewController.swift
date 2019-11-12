@@ -9,17 +9,60 @@
 import UIKit
 import WSTagsField
 
-class GameDetailViewController: UIViewController, UITextFieldDelegate {
+class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK: - TableView Delegate / Datasource
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tagSuggestions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = tagSuggestions[indexPath.row]
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let selectedTagsList = currentlySelectedTagsList else { return }
+        // ADD TO GENRES -- WHICH ADDS TO TAGS
+        suggestedTagTableView.removeFromSuperview()
+        let selectedTagToAdd = tagSuggestions[indexPath.row]
+        selectedTagsList.addTag(selectedTagToAdd)
+ 
+    }
     
     // MARK: - Internal Properties
     
      // TagFields
-     fileprivate let gameModeTagsList = WSTagsField()
-     fileprivate let platformTagsList = WSTagsField()
-     fileprivate let genreTagsList = WSTagsField()
-     
+    fileprivate let gameModeTagsList = WSTagsField()
+    fileprivate let platformTagsList = WSTagsField()
+    fileprivate let genreTagsList = WSTagsField()
+    var currentlySelectedTagsView: UIView?
+    var currentlySelectedTagsList: WSTagsField?
+    
+    #warning("now just figure out a way to account for new ones as well")
+    var possiblePlatforms = GamePlatformController.shared.possiblePlatforms.map { (keyValue) -> String in
+        return keyValue.key
+    }
+    var possibleGenres = GameGenreController.shared.possibleGenres.map { (keyValue) -> String in
+        return keyValue.key
+    }
+    var possiblePlayModes = PlayModeController.shared.possiblePlayModes.map { (keyValue) -> String in
+        return keyValue.key
+    }
+    var tagSuggestions: [String] = [] {
+        didSet {
+            DispatchQueue.main.async {
+            guard let selectedTagView = self.currentlySelectedTagsView else { return }
+            self.suggestedTagTableView.frame = CGRect(x: selectedTagView.frame.origin.x, y: selectedTagView.frame.origin.y + selectedTagView.bounds.height, width: selectedTagView.frame.width, height: 200.0)
+                self.view.addSubview(self.suggestedTagTableView)
+                self.suggestedTagTableView.reloadData()
+            }
+        }
+    }
+    
      var savedGame: SavedGame?
-     var gameModeName = ""
      var gameModeIds: [Int]?
      var gameModes: [GameMode]? {
          didSet {
@@ -29,7 +72,6 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
          }
      }
      // GENRES:
-    var genreName = ""
     var genreIds: [Int]?
     var genres: [Genre]? {
          didSet {
@@ -39,7 +81,6 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
          }
      }
      // PLATFORMS:
-    var platformName = ""
     var gamePlatforms: [Platform]? {
          didSet {
              DispatchQueue.main.async {
@@ -67,6 +108,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
                 self.gameCover = coverImage
             }
         }
+        #warning("replace the rest of these network calls with keys from my dictionaries -- fixes naming and other issues.")
         if let platformIds = gamePlaftormIds {
             GameController.shared.getPlatformsByPlatformIds(platformIds) { (gamePlatforms) in
                 self.gamePlatforms = gamePlatforms
@@ -84,7 +126,6 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    var keyboardHeight: CGFloat?
      
      // MARK: - View Lifecycle
 
@@ -93,12 +134,72 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
         addTagViews()
         setupTagsViewDelegation()
         setupViewWithSavedGameIfNeeded()
-        addNotificationObserverForKeyboard()
-        resignFirstResponderTapRecongnizerSetup()
+        accountForCustomTags()
+        //resignFirstResponderTapRecongnizerSetup()
         if let selectedGame = game {
             gameTitleTextField.text = selectedGame.name
         }
         setupColorsBasedOnDarkMode()
+        
+        suggestedTagTableView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        suggestedTagTableView.delegate = self
+        suggestedTagTableView.dataSource = self
+        
+        #warning("Instead of adding text")
+        platformTagsList.onDidChangeText = {tagsList, text in
+            self.currentlySelectedTagsView = self.platformTagsView
+            self.currentlySelectedTagsList = tagsList
+            let platforms: [String] = self.possiblePlatforms.compactMap { (platform) -> String? in
+                if platform.contains(text!) {
+                    return platform
+                } else {
+                    return nil
+                }
+            }
+            if platforms.isEmpty == false {
+                self.tagSuggestions = platforms
+            }
+            
+            print("Platform Text Changed")
+        }
+        
+        genreTagsList.onDidChangeText = {tagsList, text in
+            self.currentlySelectedTagsView = self.genreTagsView
+            self.currentlySelectedTagsList = tagsList
+            let genres: [String] = self.possibleGenres.compactMap { (genre) -> String? in
+                if genre.contains(text!) {
+                    return genre
+                } else {
+                    return nil
+                }
+            }
+            if genres.isEmpty == false {
+                self.tagSuggestions = genres
+            }
+            print("Genre Text Changed")
+        }
+        
+        gameModeTagsList.onDidChangeText = {tagsList, text in
+            self.currentlySelectedTagsView = self.gameModeTagsView
+            self.currentlySelectedTagsList = tagsList
+            let gameModes: [String] = self.possiblePlayModes.compactMap { (gameMode) -> String? in
+                if gameMode.contains(text!) {
+                    return gameMode
+                } else {
+                    return nil
+                }
+            }
+            if gameModes.isEmpty == false {
+                self.tagSuggestions = gameModes
+            }
+            
+            print("Game Mode Text Changed")
+        }
+        suggestedTagTableView.delegate = self
+        suggestedTagTableView.dataSource = self
+        platformTagsList.inputFieldAccessoryView = toolBarView
+        genreTagsList.inputFieldAccessoryView = toolBarView
+        gameModeTagsList.inputFieldAccessoryView = toolBarView
      }
     
    override func viewDidLayoutSubviews() {
@@ -107,15 +208,11 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
         platformTagsList.frame = platformTagsView.bounds
         genreTagsList.frame = genreTagsView.bounds
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
 
     // MARK: - Outlets
     
+    @IBOutlet var toolBarView: UIView!
+    @IBOutlet var suggestedTagTableView: UITableView!
     @IBOutlet weak var coverArtImageView: UIImageView!
     @IBOutlet weak var gameTitleTextField: UITextField!
     @IBOutlet weak var platformTagsView: UIView!
@@ -126,6 +223,11 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Actions
     
+    @IBAction func toolBarDoneButtonPressed(_ sender: Any) {
+        suggestedTagTableView.removeFromSuperview()
+        guard let selectedTagsList = currentlySelectedTagsList else { return }
+        selectedTagsList.endEditing()
+    }
     @IBAction func deleteButtonPressed(_ sender: Any) {
         guard let game = savedGame else { return }
         let deletionAlert = UIAlertController(title: "Confirm Deletion", message: "Are you sure you want to delete this game from your library?", preferredStyle: .alert)
@@ -148,34 +250,68 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        #warning("get a default image for the game")
-        var genres = [String]()
-        var platforms = [String]()
-        var gameModes = [String]()
-        for genre in genreTagsList.tags {
-            genres.append(genre.text)
+        let platformIdPairs = platformTagsList.tags.map { (tag) -> (String,Int) in
+            guard let platformId = GamePlatformController.shared.possiblePlatforms[tag.text] else {
+                let platformsWithThisName = GamePlatformController.shared.platforms.filter { (gamePlatform) -> Bool in
+                    gamePlatform.name == tag.text
+                }
+                if platformsWithThisName.isEmpty {
+                    // Create a new one
+                    let newPlatform = GamePlatformController.shared.createCustomPlatformNameIdPair(givenTitle: tag.text)
+                    return newPlatform
+                } else {
+                    let existingId = Int(platformsWithThisName[0].id)
+                    return (tag.text, existingId)
+                }
+            }
+            return (tag.text, platformId)
         }
-        for platform in platformTagsList.tags {
-            platforms.append(platform.text)
+        let genreIdPairs = genreTagsList.tags.map { (tag) -> (String,Int) in
+            guard let genreId = GameGenreController.shared.possibleGenres[tag.text] else {
+                let genresWithThisName = GameGenreController.shared.genres.filter { (gameGenre) -> Bool in
+                    gameGenre.name == tag.text
+                }
+                if genresWithThisName.isEmpty {
+                    let newGenre = GameGenreController.shared.createNewGameGenreNameIdPair(givenTitle: tag.text)
+                    return newGenre
+                } else {
+                    let existingId = Int(genresWithThisName[0].id)
+                    return (tag.text, existingId)
+                }
+            }
+            return (tag.text, genreId)
         }
-        for gameMode in gameModeTagsList.tags {
-            gameModes.append(gameMode.text)
+        let playModeIdPairs = gameModeTagsList.tags.map { (tag) -> (String,Int) in
+            guard let playModeId = PlayModeController.shared.possiblePlayModes[tag.text] else {
+                let playModesWithThisName = PlayModeController.shared.playModes.filter { (playMode) -> Bool in
+                    playMode.name == tag.text
+                }
+                if playModesWithThisName.isEmpty {
+                    let newPlayMode = PlayModeController.shared.createCustomPlayModeNameIdPair(givenTitle: tag.text)
+                    return newPlayMode
+                } else {
+                    let existingId = Int(playModesWithThisName[0].id)
+                    return (tag.text, existingId)
+                }
+            }
+            return (tag.text, playModeId)
         }
+        print("Platforms: \(platformIdPairs.description)", "Genres: \(genreIdPairs.description)", "PlayModes: \(playModeIdPairs.description)")
         guard let title = gameTitleTextField.text else { return }
         guard let currentlySavedGame = savedGame else {
             SavedGameController.shared.createSavedGame(title: title,
                                                        image: coverArtImageView.image ?? UIImage(named: "defaultCoverImage")!,
-                                                              platforms: platforms,
-                                                              genres: genres,
-                                                              gameModes: gameModes)
+                                                              platforms: platformIdPairs,
+                                                              genres: genreIdPairs,
+                                                              gameModes: playModeIdPairs)
             self.navigationController?.popViewController(animated: true)
             return
         }
         SavedGameController.shared.updateSavedGame(newTitle: title,
                                                    newImage: coverArtImageView.image ?? UIImage(named: "defaultCoverImage")!,
-                                                   newPlatforms: platforms,
-                                                   newGenres: genres,
-                                                   newPlayModes: gameModes,
+                                                   newPlatforms: platformIdPairs,
+                                                   newGenres: genreIdPairs,
+                                                   newPlayModes: playModeIdPairs,
                                                    gameToUpdate: currentlySavedGame)
         self.navigationController?.popViewController(animated: true)
         }
@@ -256,47 +392,6 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    private func addNotificationObserverForKeyboard() {
-       NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc func keyboardWillHide() {
-        // +60 for iphone 7/8
-        // +90 for iPhone 11
-        // 1/3 of keyboard height
-        guard let keyboardHeight = self.keyboardHeight else { return }
-        if keyboardHeight < 300.0 {
-            self.view.frame.origin.y = 60
-        } else {
-            self.view.frame.origin.y = keyboardHeight * 0.292
-        }
-    }
-    
-    @objc func keyboardWillChange(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            self.keyboardHeight = keyboardSize.height
-            let twoThirdsKeyboardHeight = keyboardSize.height * 0.75
-            print(keyboardSize.height.description, twoThirdsKeyboardHeight.description)
-            if genreTagsList.isFirstResponder || gameModeTagsList.isFirstResponder{
-                // MAYBE SWITCH ON THE KEYBOARD HEIGHT??? IF < 300 use iphone 8 settings, otherwise
-                // -70 for iphone 7/8
-                // -200 for iPhone 11
-                if keyboardSize.height < 300.0 {
-                    self.view.frame.origin.y = -(keyboardSize.height - 70)
-                } else {
-                    self.view.frame.origin.y = -(keyboardSize.height - twoThirdsKeyboardHeight)
-                }
-            }
-        }
-    }
-    
-    private func resignFirstResponderTapRecongnizerSetup() {
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
-        tap.cancelsTouchesInView = false
-        self.view.addGestureRecognizer(tap)
-    }
-    
     private func setupColorsBasedOnDarkMode() {
         switch self.traitCollection.userInterfaceStyle {
         case .dark:
@@ -309,6 +404,40 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate {
             gameModeTagsList.fieldTextColor = .black
         default:
             return
+        }
+    }
+    
+    private func resignFirstResponderTapRecongnizerSetup() {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        suggestedTagTableView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        self.view.addGestureRecognizer(tap)
+   }
+    
+    private func accountForCustomTags() {
+        let uniquePlatformNames = GamePlatformController.shared.platforms.map { (platform) -> String in
+            return platform.name!
+        }.uniques
+        let uniqueGenreNames = GameGenreController.shared.genres.map { (genre) -> String in
+            return genre.name!
+        }.uniques
+        let uniquePlayModeNames = PlayModeController.shared.playModes.map { (playMode) -> String in
+            return playMode.name!
+        }.uniques
+        for platform in uniquePlatformNames {
+            if GamePlatformController.shared.possiblePlatforms[platform] == nil {
+                possiblePlatforms.append(platform)
+            }
+        }
+        for genre in uniqueGenreNames {
+            if GameGenreController.shared.possibleGenres[genre] == nil {
+                possibleGenres.append(genre)
+            }
+        }
+        for playMode in uniquePlayModeNames {
+            if PlayModeController.shared.possiblePlayModes[playMode] == nil {
+                possiblePlayModes.append(playMode)
+            }
         }
     }
 }

@@ -67,9 +67,9 @@ class SavedGameController {
     #warning("FIX INCONSISTENT NAMING OF PLAYMODE AND GAME MODE")
     func createSavedGame(title: String,
                          image: UIImage,
-                         platforms: [String],
-                         genres: [String],
-                         gameModes: [String]) {
+                         platforms: [(String, Int)],
+                         genres: [(String, Int)],
+                         gameModes: [(String, Int)]) {
         let imageData: Data?
         imageData = image.jpegData(compressionQuality: 1.0)
         let savedGame = SavedGame(title: title, image: imageData, isFavorite: false, isBeingCurrentlyPlayed: false, startOfPlaythrough: nil)
@@ -81,9 +81,9 @@ class SavedGameController {
     
     func updateSavedGame(newTitle title: String,
                          newImage image: UIImage,
-                         newPlatforms platforms: [String],
-                         newGenres genres: [String],
-                         newPlayModes playModes: [String],
+                         newPlatforms platforms: [(String, Int)],
+                         newGenres genres: [(String, Int)],
+                         newPlayModes playModes: [(String, Int)],
                          gameToUpdate savedGame: SavedGame) {
         let imageData: Data?
         imageData = image.jpegData(compressionQuality: 1.0)

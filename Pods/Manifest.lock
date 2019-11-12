@@ -1,20 +1,25 @@
 PODS:
+  - IQKeyboardManagerSwift (6.5.2)
   - TagList (0.3.0)
   - WSTagsField (4.0.0)
 
 DEPENDENCIES:
+  - IQKeyboardManagerSwift
   - TagList
   - WSTagsField
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - TagList
     - WSTagsField
+  trunk:
+    - IQKeyboardManagerSwift
 
 SPEC CHECKSUMS:
+  IQKeyboardManagerSwift: c75366f1f19590e8caeae45fcd5815c9289d6099
   TagList: 3b1c8d9a2821027ec3a861e8cf7cdb30f7a6dec5
   WSTagsField: 3a10b75c304999ead6fb2251ddc2844266e7d9f2
 
-PODFILE CHECKSUM: 77cefa3a83cc6b8b3a879c3ed4e63d80f2efd358
+PODFILE CHECKSUM: b5776f12603a01acb21f19ba78ddea929e703c3b
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

@@ -19,6 +19,8 @@ class GameGenreController {
     // MARK: - Game Genres
     
     let possibleGenres: Dictionary = [
+        "Adventure": 0,
+        "Action": 1,
         "Point-and-click": 2,
         "Fighting": 4,
         "Shooter": 5,
@@ -42,6 +44,18 @@ class GameGenreController {
             return result
         } catch {
             return []
+        }
+    }
+    
+    func createNewGameGenreNameIdPair(givenTitle: String) -> (String, Int) {
+        let genreWithMaxId = genres.max { (genreOne, genreTwo) -> Bool in
+            genreOne.id < genreTwo.id
+        }
+        guard let maxId = genreWithMaxId?.id else { return (givenTitle, 20)}
+        if maxId < 20 {
+            return (givenTitle, 20)
+        } else {
+            return (givenTitle, Int(maxId) + 1)
         }
     }
     
@@ -87,15 +101,15 @@ class GameGenreController {
     // This dictionary matches up with the platfrom ids from IGDB
     //let possiblePlatforms: Dictionary = ["Linux":3,"Nintendo 64":4,]
     
-    func createGameGenresFor(savedGame: SavedGame, withGenres genres: [String]) {
-        for genre in genres {
-            let gameGenre = GameGenre(name: genre)
+    func createGameGenresFor(savedGame: SavedGame, withGenres genreIdPairs: [(String,Int)]) {
+        for pair in genreIdPairs {
+            let gameGenre = GameGenre(name: pair.0, id: pair.1)
             savedGame.addToGameGenres(gameGenre)
         }
         saveToPersitentStorage()
     }
     
-    func updateGameGeneresFor(savedGame: SavedGame, withNewGenres genres: [String]) {
+    func updateGameGeneresFor(savedGame: SavedGame, withNewGenres genreIdPairs: [(String,Int)]) {
         var newGenres: [GameGenre] = []
         // Remove old:
         for gameGenre in savedGame.gameGenres!.array {
@@ -103,8 +117,8 @@ class GameGenreController {
             deleteGameGenre(gameGenre: genre)
         }
         // Add New:
-        for genre in genres {
-            let newGenre = GameGenre(name: genre)
+        for pair in genreIdPairs {
+            let newGenre = GameGenre(name: pair.0 ,id: pair.1)
             newGenres.append(newGenre)
         }
         let newGenresOrderedSet = NSOrderedSet(array: newGenres)

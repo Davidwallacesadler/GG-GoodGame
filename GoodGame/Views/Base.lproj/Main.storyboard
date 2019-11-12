@@ -713,6 +713,82 @@
             </objects>
             <point key="canvasLocation" x="75" y="129"/>
         </scene>
+        <!--Add Tag View Controller-->
+        <scene sceneID="Baq-YK-kdg">
+            <objects>
+                <viewController id="FiH-eR-FVM" customClass="AddTagViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Mmi-pJ-OTq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="gaq-vG-fot">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="37.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMF-x0-WJl">
+                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="37.5"/>
+                                        <color key="tintColor" red="1" green="0.0" blue="0.85566986239999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal">
+                                            <color key="titleColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addNewTagPressed:" destination="FiH-eR-FVM" eventType="touchUpInside" id="ffK-Ad-aUR"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4G5-0f-HpS">
+                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="37.5"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="doneButtonPressed:" destination="FiH-eR-FVM" eventType="touchUpInside" id="Av5-AL-4nI"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gaq-vG-fot" secondAttribute="height" multiplier="10:1" id="WfV-Xz-yE2"/>
+                                </constraints>
+                            </stackView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="05I-M8-p27">
+                                <rect key="frame" x="0.0" y="37.5" width="375" height="609.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="i1X-S9-iP7">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ezA-c3-ks3">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="MNp-5f-Lm6">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="qt1-IP-FFk" firstAttribute="trailing" secondItem="gaq-vG-fot" secondAttribute="trailing" id="0kK-gr-i8K"/>
+                            <constraint firstItem="gaq-vG-fot" firstAttribute="top" secondItem="qt1-IP-FFk" secondAttribute="top" id="NaE-Kp-upd"/>
+                            <constraint firstItem="05I-M8-p27" firstAttribute="leading" secondItem="qt1-IP-FFk" secondAttribute="leading" id="ZKI-Mq-2ma"/>
+                            <constraint firstItem="05I-M8-p27" firstAttribute="top" secondItem="gaq-vG-fot" secondAttribute="bottom" id="gR8-rA-ker"/>
+                            <constraint firstItem="gaq-vG-fot" firstAttribute="leading" secondItem="qt1-IP-FFk" secondAttribute="leading" id="gwt-aI-Whh"/>
+                            <constraint firstItem="05I-M8-p27" firstAttribute="trailing" secondItem="qt1-IP-FFk" secondAttribute="trailing" id="sHf-hc-OjF"/>
+                            <constraint firstItem="05I-M8-p27" firstAttribute="bottom" secondItem="qt1-IP-FFk" secondAttribute="bottom" id="ul1-ci-oj2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qt1-IP-FFk"/>
+                    </view>
+                    <connections>
+                        <outlet property="mainCollectionView" destination="05I-M8-p27" id="mHB-Z7-WCy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xyv-mQ-P3G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2864.8000000000002" y="-345.87706146926541"/>
+        </scene>
         <!--Game Detail View Controller-->
         <scene sceneID="X7X-pf-eX3">
             <objects>
@@ -851,10 +927,48 @@
                         <outlet property="genreTagsView" destination="w3c-O0-Y90" id="67c-Be-Z7C"/>
                         <outlet property="platformTagsView" destination="2en-qp-0XH" id="nZa-Ck-9mR"/>
                         <outlet property="playthroughHistoryBarButtonItem" destination="owA-ZW-zsf" id="tNu-MO-1JP"/>
+                        <outlet property="suggestedTagTableView" destination="FKl-xr-QZw" id="aqJ-oe-Vah"/>
+                        <outlet property="toolBarView" destination="Lkf-Y5-bTf" id="7iZ-Nr-28w"/>
                         <segue destination="Yfx-rq-3ek" kind="presentation" identifier="toShowHistory" id="ovp-Ud-iVV"/>
+                        <segue destination="FiH-eR-FVM" kind="presentation" identifier="toShowTagOptions" id="8Px-RC-31w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hdG-x7-JlO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="Lkf-Y5-bTf">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gQb-FO-dYq">
+                            <rect key="frame" x="20" y="10" width="200" height="30"/>
+                            <state key="normal" title="Done"/>
+                            <connections>
+                                <action selector="toolBarDoneButtonPressed:" destination="UGs-Hn-zRK" eventType="touchUpInside" id="7mb-Pr-RtZ"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="b0p-cc-fAV" firstAttribute="trailing" secondItem="gQb-FO-dYq" secondAttribute="trailing" constant="20" id="AGy-2J-giD"/>
+                        <constraint firstItem="gQb-FO-dYq" firstAttribute="centerY" secondItem="Lkf-Y5-bTf" secondAttribute="centerY" id="q0d-76-siH"/>
+                        <constraint firstItem="gQb-FO-dYq" firstAttribute="leading" secondItem="b0p-cc-fAV" secondAttribute="leading" constant="20" id="vTS-Z8-aoH"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="b0p-cc-fAV"/>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="FKl-xr-QZw">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <prototypes>
+                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="oah-sf-8Ac">
+                            <rect key="frame" x="0.0" y="28" width="240" height="43.5"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oah-sf-8Ac" id="pJG-cR-pEO">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </tableViewCellContentView>
+                        </tableViewCell>
+                    </prototypes>
+                </tableView>
             </objects>
             <point key="canvasLocation" x="1834.4000000000001" y="128.18590704647679"/>
         </scene>
@@ -884,7 +998,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ud-Jr-xMg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2653.5999999999999" y="127.28635682158921"/>
+            <point key="canvasLocation" x="2866" y="497"/>
         </scene>
     </scenes>
     <resources>

@@ -37,6 +37,38 @@ class GamePlatformController {
     
     // IDEA: reduce this arry down to most common consoles since 1990 or so. -- allow users to add their own platforms some how.
     
+    let curatedPlatforms: Dictionary = [
+      "Nintendo 64":4,
+      "Wii": 5,
+      "PC (Microsoft Windows)": 6,
+      "PlayStation": 7,
+      "PlayStation 2": 8,
+      "PlayStation 3": 9,
+      "Xbox": 11,
+      "Xbox 360": 12,
+      "Mac": 14,
+      "Nintendo Entertainment System (NES)": 18,
+      "Super Nintendo Entertainment System (SNES)": 19,
+      "Nintendo DS": 20,
+      "Nintendo GameCube": 21,
+      "Game Boy Color": 22,
+      "Dreamcast": 23,
+      "Game Boy Advance": 24,
+      "Game Boy": 33,
+      "Android": 34,
+      "Nintendo 3DS": 37,
+      "PlayStation Portable": 38,
+      "iOS": 39,
+      "Wii U": 41,
+      "PlayStation Network": 45,
+      "PlayStation Vita": 46,
+      "PlayStation 4": 48,
+      "Xbox One": 49,
+      "Nintendo DSi": 159,
+      //"PlayStation VR": 165
+    ]
+    
+    #warning("add in missing ones")
     let possiblePlatforms: Dictionary = [
         "Linux":3,
         "Nintendo 64":4,
@@ -120,13 +152,13 @@ class GamePlatformController {
         "SteamOS": 92,
         "Commodore 16": 93,
         "Commodore Plus/4": 94,
-//        "PDP-1": 95,
-//        "PDP-10": 96,
-//        "PDP-8": 97,
-//        "DEC GT40": 98,
+        "PDP-1": 95,
+        "PDP-10": 96,
+        "PDP-8": 97,
+        "DEC GT40": 98,
         "Family Computer (FAMICOM)": 99,
-//        "Analogue electronics": 100,
-//        "Ferranti Nimrod Computer": 101,
+        "Analogue electronics": 100,
+        "Ferranti Nimrod Computer": 101,
         // UGHHH -- ignoring things i have never heard of from here on
         "onLive Game System": 113,
         "Amiga CD 32": 114,
@@ -146,6 +178,7 @@ class GamePlatformController {
         "SteamVR": 163,
         "PlayStation VR": 165
     ]
+    
     
     func fetchSavedGameFromPlatformPredicateString(predicateString: String) -> [SavedGame] {
         let request: NSFetchRequest<GamePlatform> = GamePlatform.fetchRequest()
@@ -183,16 +216,28 @@ class GamePlatformController {
         }
     }
     
-    func createGamePlatformsFor(savedGame: SavedGame, withPlatforms platforms: [String]) {
-        for platform in platforms {
-            let gamePlatform = GamePlatform(name: platform)
+    func createGamePlatformsFor(savedGame: SavedGame, withPlatforms platformIdPairs: [(String, Int)]) {
+        for pair in platformIdPairs {
+            let gamePlatform = GamePlatform(name: pair.0, id: pair.1)
             savedGame.addToGamePlatforms(gamePlatform)
         }
         saveToPersitentStorage()
     }
     
+    func createCustomPlatformNameIdPair(givenTitle: String) -> (String, Int) {
+        let platformMaxId = platforms.max { (platformOne, platformTwo) -> Bool in
+            platformOne.id < platformTwo.id
+        }
+        guard let maxId = platformMaxId?.id else { return (givenTitle, 200)}
+        if maxId < 200 {
+            return (givenTitle, 200)
+        } else {
+            return (givenTitle, Int(maxId) + 1)
+        }
+    }
+    
     // NEED TO REMOVE OLD PLATFROM OBJECTS
-    func updateGamePlatformsFor(savedGame: SavedGame, withPlatforms platforms: [String]) {
+    func updateGamePlatformsFor(savedGame: SavedGame, withPlatforms platformIdPairs: [(String, Int)]) {
         var newPlatforms: [GamePlatform] = []
         // Delete Old Platforms:
         for gamePlatform in savedGame.gamePlatforms!.array {
@@ -200,8 +245,8 @@ class GamePlatformController {
             deleteGamePlatforms(givenPlatform: platform)
         }
         // Add New Platforms:
-        for platform in platforms {
-            let newGamePlatform = GamePlatform(name: platform)
+        for pair in platformIdPairs {
+            let newGamePlatform = GamePlatform(name: pair.0, id: pair.1)
             newPlatforms.append(newGamePlatform)
         }
         let newPlatformsOrderedSet = NSOrderedSet(array: newPlatforms)

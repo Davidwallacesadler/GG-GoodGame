@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A4C750464F7EF1E897364D1370A858EB"
+               BlueprintIdentifier = "4C29D541F56589C0CB5C10F0BDAF37E0"
+               BuildableName = "WSTagsField.framework"
                BlueprintName = "WSTagsField"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "WSTagsField.framework">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

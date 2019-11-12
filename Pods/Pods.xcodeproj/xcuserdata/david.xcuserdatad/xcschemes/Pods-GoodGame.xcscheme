@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0B55EFA7AEC0B062804B0F9F1F55078E"
+               BlueprintIdentifier = "7C261E19B48BD1B13A95E05E363622A1"
                BuildableName = "Pods_GoodGame.framework"
                BlueprintName = "Pods-GoodGame"
                ReferencedContainer = "container:Pods.xcodeproj">

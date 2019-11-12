@@ -11,8 +11,10 @@ import CoreData
 
 extension GameGenre {
     convenience init(name: String,
+                     id: Int,
                      context: NSManagedObjectContext = CoreDataStack.context) {
         self.init(context: context)
+        self.id = Int16(id)
         self.name = name
     }
 }

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15400" systemVersion="19A583" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="GameGenre" representedClassName="GameGenre" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="savedGame" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavedGame" inverseName="gameGenres" inverseEntity="SavedGame"/>
     </entity>
     <entity name="GamePlatform" representedClassName="GamePlatform" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="savedGame" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavedGame" inverseName="gamePlatforms" inverseEntity="SavedGame"/>
     </entity>
     <entity name="PlayMode" representedClassName="PlayMode" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="savedGame" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavedGame" inverseName="playModes" inverseEntity="SavedGame"/>
     </entity>
@@ -30,10 +33,10 @@
         <relationship name="playthroughs" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="PlaythroughHistory" inverseName="savedGame" inverseEntity="PlaythroughHistory"/>
     </entity>
     <elements>
-        <element name="GameGenre" positionX="222.6328125" positionY="-358.2890625" width="128" height="73"/>
-        <element name="GamePlatform" positionX="365.921875" positionY="-322.4140625" width="128" height="73"/>
-        <element name="PlayMode" positionX="521.22265625" positionY="-293.72265625" width="128" height="73"/>
-        <element name="SavedGame" positionX="4.015625" positionY="-343.56640625" width="128" height="178"/>
+        <element name="GameGenre" positionX="222.6328125" positionY="-358.2890625" width="128" height="88"/>
+        <element name="GamePlatform" positionX="365.921875" positionY="-322.4140625" width="128" height="88"/>
+        <element name="PlayMode" positionX="521.22265625" positionY="-293.72265625" width="128" height="88"/>
         <element name="PlaythroughHistory" positionX="511.22265625" positionY="-178.91015625" width="128" height="103"/>
+        <element name="SavedGame" positionX="4.015625" positionY="-343.56640625" width="128" height="178"/>
     </elements>
 </model>

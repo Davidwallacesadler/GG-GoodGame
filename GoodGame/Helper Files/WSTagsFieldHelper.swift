@@ -42,10 +42,10 @@ struct WSTagsFieldHelper {
             print("DidRemoveTag", tag.text)
         }
 
-        tagsField.onDidChangeText = { _, text in
-            #warning("perform case insensitive search through respective collections")
-            print("DidChangeText")
-        }
+//        tagsField.onDidChangeText = { _, text in
+//            #warning("perform case insensitive search through respective collections")
+//            print("DidChangeText")
+//        }
 
         tagsField.onDidChangeHeightTo = { _, height in
             print("HeightTo", height)
