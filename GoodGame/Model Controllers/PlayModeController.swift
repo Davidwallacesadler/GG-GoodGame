@@ -19,11 +19,11 @@ class PlayModeController {
     // MARK: - GamePlatorms
     
     let possiblePlayModes: Dictionary = [
-        "Single player": 1,
+        "Single Player": 1,
         "Multiplayer": 2,
         "Co-operative": 3,
-        "Split screen": 4,
-        "Massively Multiplayer Online (MMO)": 5
+        "Split Screen": 4,
+        "Massively Multiplayer Online": 5
     ]
     
     

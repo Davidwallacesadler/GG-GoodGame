@@ -829,8 +829,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Sh-nz-8RT">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photoButton" translatesAutoresizingMaskIntoConstraints="NO" id="5Sh-nz-8RT">
                                 <rect key="frame" x="20" y="20" width="81" height="81"/>
+                                <color key="tintColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="81" id="aQM-Fw-sHU"/>
                                     <constraint firstAttribute="height" constant="81" id="rFe-xS-ztr"/>
@@ -848,6 +849,10 @@
                                     <constraint firstAttribute="height" constant="81" id="dyJ-7a-DG2"/>
                                     <constraint firstAttribute="width" constant="81" id="gEk-Cm-36V"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="photoButtonPressed:" destination="UGs-Hn-zRK" eventType="touchUpInside" id="AUG-2H-5wg"/>
                                 </connections>
@@ -920,6 +925,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="addPhotoButton" destination="vtk-Ez-160" id="xRj-3b-6lg"/>
                         <outlet property="coverArtImageView" destination="5Sh-nz-8RT" id="VEj-iC-HfC"/>
                         <outlet property="deleteBarButtonItem" destination="T8S-p1-55e" id="WNs-4F-ajK"/>
                         <outlet property="gameModeTagsView" destination="3br-JO-gI6" id="0o8-8p-rdb"/>
@@ -940,13 +946,14 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gQb-FO-dYq">
                             <rect key="frame" x="20" y="10" width="200" height="30"/>
+                            <color key="tintColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" title="Done"/>
                             <connections>
                                 <action selector="toolBarDoneButtonPressed:" destination="UGs-Hn-zRK" eventType="touchUpInside" id="7mb-Pr-RtZ"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <color key="backgroundColor" red="0.85554806472081224" green="0.85554806472081224" blue="0.85554806472081224" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="b0p-cc-fAV" firstAttribute="trailing" secondItem="gQb-FO-dYq" secondAttribute="trailing" constant="20" id="AGy-2J-giD"/>
                         <constraint firstItem="gQb-FO-dYq" firstAttribute="centerY" secondItem="Lkf-Y5-bTf" secondAttribute="centerY" id="q0d-76-siH"/>
@@ -1011,6 +1018,7 @@
         <image name="gameLibraryTabBarIcon" width="25.5" height="25.5"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="navBarHistoryIcon" width="24.5" height="24.5"/>
+        <image name="photoButton" width="101.5" height="101"/>
         <image name="playIcon" width="63" height="63"/>
         <image name="randomIcon" width="63" height="63"/>
         <image name="sliderFilterIcon" width="63" height="63"/>

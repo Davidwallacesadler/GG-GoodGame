@@ -28,12 +28,12 @@ class GameGenreController {
         "Platform": 8,
         "Puzzle": 9,
         "Racing": 10,
-        "Real Time Strategy (RTS)": 11,
-        "Role-playing (RPG)": 12,
+        "Real Time Strategy": 11,
+        "Role-playing": 12,
         "Simulator": 13,
         "Sport": 14,
         "Strategy": 15,
-        "Turn-based strategy (TBS)": 16
+        "Turn-based Strategy": 16
     ]
     
     var genres: [GameGenre] {

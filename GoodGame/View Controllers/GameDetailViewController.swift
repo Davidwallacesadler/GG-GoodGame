@@ -11,6 +11,7 @@ import WSTagsField
 
 class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
+    
     // MARK: - TableView Delegate / Datasource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -20,12 +21,20 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = tagSuggestions[indexPath.row]
+        if currentlySelectedTagsView == gameModeTagsView {
+            if suggestionTableViewHasBeenFlipped {
+                cell.transform = CGAffineTransform(scaleX: 1, y: -1)
+            }
+        } else {
+            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let selectedTagsList = currentlySelectedTagsList else { return }
         // ADD TO GENRES -- WHICH ADDS TO TAGS
+        #warning("goal is to make a tuple here and create a Genre Object")
         suggestedTagTableView.removeFromSuperview()
         let selectedTagToAdd = tagSuggestions[indexPath.row]
         selectedTagsList.addTag(selectedTagToAdd)
@@ -40,8 +49,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
     fileprivate let genreTagsList = WSTagsField()
     var currentlySelectedTagsView: UIView?
     var currentlySelectedTagsList: WSTagsField?
-    
-    #warning("now just figure out a way to account for new ones as well")
+    var suggestionTableViewHasBeenFlipped: Bool = false
     var possiblePlatforms = GamePlatformController.shared.possiblePlatforms.map { (keyValue) -> String in
         return keyValue.key
     }
@@ -55,7 +63,19 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         didSet {
             DispatchQueue.main.async {
             guard let selectedTagView = self.currentlySelectedTagsView else { return }
-            self.suggestedTagTableView.frame = CGRect(x: selectedTagView.frame.origin.x, y: selectedTagView.frame.origin.y + selectedTagView.bounds.height, width: selectedTagView.frame.width, height: 200.0)
+                if selectedTagView == self.gameModeTagsView {
+                    self.suggestionTableViewHasBeenFlipped = true
+                    self.suggestedTagTableView.frame = CGRect(x: selectedTagView.frame.origin.x, y: selectedTagView.frame.origin.y - (self.view.frame.height * 0.15), width: selectedTagView.frame.width, height: (self.view.frame.height * 0.15))
+                } else {
+                    self.suggestionTableViewHasBeenFlipped = false
+                    self.suggestedTagTableView.frame = CGRect(x: selectedTagView.frame.origin.x, y: selectedTagView.frame.origin.y + selectedTagView.frame.height, width: selectedTagView.frame.width, height: (self.view.frame.height * 0.15))
+                }
+                if self.suggestionTableViewHasBeenFlipped {
+                    self.suggestedTagTableView.transform = CGAffineTransform(scaleX: 1, y: -1)
+                    self.suggestionTableViewHasBeenFlipped = true
+                } else {
+                    self.suggestedTagTableView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                }
                 self.view.addSubview(self.suggestedTagTableView)
                 self.suggestedTagTableView.reloadData()
             }
@@ -146,11 +166,16 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         suggestedTagTableView.dataSource = self
         
         #warning("Instead of adding text")
+        platformTagsList.onDidSelectTagView = { tagList, tagView in
+            print("setting currently selected tags")
+            self.currentlySelectedTagsList = tagList
+            self.currentlySelectedTagsView = tagView
+        }
         platformTagsList.onDidChangeText = {tagsList, text in
             self.currentlySelectedTagsView = self.platformTagsView
             self.currentlySelectedTagsList = tagsList
             let platforms: [String] = self.possiblePlatforms.compactMap { (platform) -> String? in
-                if platform.contains(text!) {
+                if platform.lowercased().contains(text!.lowercased()) {
                     return platform
                 } else {
                     return nil
@@ -167,7 +192,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
             self.currentlySelectedTagsView = self.genreTagsView
             self.currentlySelectedTagsList = tagsList
             let genres: [String] = self.possibleGenres.compactMap { (genre) -> String? in
-                if genre.contains(text!) {
+                if genre.lowercased().contains(text!.lowercased()) {
                     return genre
                 } else {
                     return nil
@@ -183,7 +208,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
             self.currentlySelectedTagsView = self.gameModeTagsView
             self.currentlySelectedTagsList = tagsList
             let gameModes: [String] = self.possiblePlayModes.compactMap { (gameMode) -> String? in
-                if gameMode.contains(text!) {
+                if gameMode.lowercased().contains(text!.lowercased()) {
                     return gameMode
                 } else {
                     return nil
@@ -197,9 +222,12 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         }
         suggestedTagTableView.delegate = self
         suggestedTagTableView.dataSource = self
-        platformTagsList.inputFieldAccessoryView = toolBarView
-        genreTagsList.inputFieldAccessoryView = toolBarView
-        gameModeTagsList.inputFieldAccessoryView = toolBarView
+//        platformTagsList.inputFieldAccessoryView = toolBarView
+//        genreTagsList.inputFieldAccessoryView = toolBarView
+//        gameModeTagsList.inputFieldAccessoryView = toolBarView
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
      }
     
    override func viewDidLayoutSubviews() {
@@ -211,6 +239,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
 
     // MARK: - Outlets
     
+    @IBOutlet weak var addPhotoButton: UIButton!
     @IBOutlet var toolBarView: UIView!
     @IBOutlet var suggestedTagTableView: UITableView!
     @IBOutlet weak var coverArtImageView: UIImageView!
@@ -226,7 +255,12 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
     @IBAction func toolBarDoneButtonPressed(_ sender: Any) {
         suggestedTagTableView.removeFromSuperview()
         guard let selectedTagsList = currentlySelectedTagsList else { return }
+        print("selectedTagsList is firstResponder: \(selectedTagsList.isFirstResponder)")
+        if selectedTagsList.isFirstResponder == false{
+            selectedTagsList.becomeFirstResponder()
+        }
         selectedTagsList.endEditing()
+        selectedTagsList.resignFirstResponder()
     }
     @IBAction func deleteButtonPressed(_ sender: Any) {
         guard let game = savedGame else { return }
@@ -297,7 +331,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
             return (tag.text, playModeId)
         }
         print("Platforms: \(platformIdPairs.description)", "Genres: \(genreIdPairs.description)", "PlayModes: \(playModeIdPairs.description)")
-        guard let title = gameTitleTextField.text else { return }
+        guard let title = gameTitleTextField.text, !gameTitleTextField.text!.isEmpty else { return }
         guard let currentlySavedGame = savedGame else {
             SavedGameController.shared.createSavedGame(title: title,
                                                        image: coverArtImageView.image ?? UIImage(named: "defaultCoverImage")!,
@@ -321,6 +355,45 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
     }
     
     // MARK: - Internal Methods
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardFrame = keyboardSize.cgRectValue
+        if genreTagsList.isFirstResponder || gameModeTagsList.isFirstResponder {
+//              if self.view.frame.origin.y == 0 || self.view.frame.origin.y == 64 || self.view.frame.origin.y == 88 || self.view.frame.origin.y == 74 || self.view.frame.origin.y == 70
+            if self.view.frame.origin.y.isLess(than: 0.0) == false {
+                if self.view.frame.height < 640 {
+                    self.view.frame.origin.y -= keyboardFrame.height - 50.0
+                } else {
+                    self.view.frame.origin.y -= keyboardFrame.height - 88
+                }
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        #warning("keyboard gets dismissed and now origin.y is 64")
+        if self.view.frame.height < 640 {
+            if self.view.frame.origin.y != 0 {
+                self.view.frame.origin.y = 64
+            }
+        } else if self.view.frame.height < 1100 {
+            if self.view.frame.height < 900 {
+                if self.view.frame.origin.y != 0 {
+                    self.view.frame.origin.y = 88
+                }
+            } else {
+                if self.view.frame.origin.y != 0 {
+                    self.view.frame.origin.y = 70
+                }
+            }
+        } else {
+            if self.view.frame.origin.y != 0 {
+                self.view.frame.origin.y = 74
+            }
+        }
+    }
     
     private func addTagViews() {
         WSTagsFieldHelper.addTagsFieldToView(givenView: platformTagsView,
@@ -349,15 +422,39 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
    private func updatePlatformTagsView() {
        if let platforms = gamePlatforms {
            for platform in platforms {
-               platformTagsList.addTag(platform.name)
-           }
-       }
-   }
+                switch platform.id {
+                case 6:
+                    platformTagsList.addTag("PC")
+                case 18:
+                    platformTagsList.addTag("NES")
+                case 19:
+                    platformTagsList.addTag("SNES")
+                case 29:
+                    platformTagsList.addTag("Sega Genesis")
+                case 47:
+                    platformTagsList.addTag(" Virtual Console")
+                case 99:
+                    platformTagsList.addTag("FAMICOM")
+                default:
+                    platformTagsList.addTag(platform.name)
+                }
+            }
+        }
+    }
     
    private func updateGenreTagsView() {
         if let genres = genres {
             for genre in genres {
-                genreTagsList.addTag(genre.name)
+                switch genre.id {
+                case 12:
+                    genreTagsList.addTag("Role-playing")
+                case 11:
+                    genreTagsList.addTag("Real Time Strategy")
+                case 16:
+                    genreTagsList.addTag("Turn-based Strategy")
+                default:
+                    genreTagsList.addTag(genre.name)
+                }
             }
         }
     }
@@ -365,7 +462,16 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
     private func updateGameModeTagsView() {
         if let gameModes = gameModes {
             for mode in gameModes {
-                gameModeTagsList.addTag(mode.name)
+                switch mode.id {
+                case 1:
+                    gameModeTagsList.addTag("Single Player")
+                case 4:
+                    gameModeTagsList.addTag("Split Screen")
+                case 5:
+                    gameModeTagsList.addTag("Massively Multiplayer Online")
+                default:
+                    gameModeTagsList.addTag(mode.name)
+                }
             }
         }
     }
