@@ -133,8 +133,8 @@ class GamePlatformController {
         "Vectrex": 70,
         "Commodore VIC-20": 71,
         "Ouya": 72,
-        "BlackBerry OS": 73,
-        "Windows Phone": 74,
+  //      "BlackBerry OS": 73,
+  //      "Windows Phone": 74,
         "Apple II": 75,
         "Sharp X1": 77,
         "Sega CD": 78,
@@ -201,6 +201,24 @@ class GamePlatformController {
     func loadSavedGamesFromPlatform(platformName: String) -> [SavedGame] {
         let request: NSFetchRequest<GamePlatform> = GamePlatform.fetchRequest()
         filteringPredicate = NSPredicate(format: "name == %@", platformName)
+        request.predicate = filteringPredicate
+        let moc = CoreDataStack.context
+        var gamePlatforms = [GamePlatform]()
+        do {
+            let result = try moc.fetch(request)
+            gamePlatforms = result
+        } catch {
+            print(error,error.localizedDescription)
+            return []
+        }
+        return gamePlatforms.map { (gamePlatform) -> SavedGame in
+            return gamePlatform.savedGame!
+        }
+    }
+    
+    func loadSavedGamesFromPlatformId(platformId: Int) -> [SavedGame] {
+        let request: NSFetchRequest<GamePlatform> = GamePlatform.fetchRequest()
+        filteringPredicate = NSPredicate(format: "name == %@", platformId)
         request.predicate = filteringPredicate
         let moc = CoreDataStack.context
         var gamePlatforms = [GamePlatform]()

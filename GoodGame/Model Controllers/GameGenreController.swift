@@ -25,7 +25,7 @@ class GameGenreController {
         "Fighting": 4,
         "Shooter": 5,
         "Music": 7,
-        "Platform": 8,
+        "Platformer": 8,
         "Puzzle": 9,
         "Racing": 10,
         "Real Time Strategy": 11,
@@ -33,7 +33,13 @@ class GameGenreController {
         "Simulator": 13,
         "Sport": 14,
         "Strategy": 15,
-        "Turn-based Strategy": 16
+        "Turn-based Strategy": 16,
+        "Horror": 17,
+        "Arcade": 18,
+        "Casual": 19,
+        "Fantasy": 20,
+        "Mystery": 21,
+        "Science Fiction": 22
     ]
     
     var genres: [GameGenre] {
@@ -51,9 +57,9 @@ class GameGenreController {
         let genreWithMaxId = genres.max { (genreOne, genreTwo) -> Bool in
             genreOne.id < genreTwo.id
         }
-        guard let maxId = genreWithMaxId?.id else { return (givenTitle, 20)}
-        if maxId < 20 {
-            return (givenTitle, 20)
+        guard let maxId = genreWithMaxId?.id else { return (givenTitle, 25)}
+        if maxId < 25 {
+            return (givenTitle, 25)
         } else {
             return (givenTitle, Int(maxId) + 1)
         }
@@ -80,6 +86,24 @@ class GameGenreController {
     func loadSavedGamesBasedOnGenreName(genreName: String) -> [SavedGame] {
         let request: NSFetchRequest<GameGenre> = GameGenre.fetchRequest()
         filteringPredicate = NSPredicate(format: "name == %@", genreName)
+        request.predicate = filteringPredicate
+        let moc = CoreDataStack.context
+        var genres = [GameGenre]()
+        do {
+            let result = try moc.fetch(request)
+            genres = result
+        } catch {
+            print(error,error.localizedDescription)
+            return []
+        }
+        return genres.map { (gameGenre) -> SavedGame in
+            return gameGenre.savedGame!
+        }
+    }
+    
+    func loadSavedGamesFromGenreId(genreId: Int) -> [SavedGame] {
+        let request: NSFetchRequest<GameGenre> = GameGenre.fetchRequest()
+        filteringPredicate = NSPredicate(format: "name == %@", genreId)
         request.predicate = filteringPredicate
         let moc = CoreDataStack.context
         var genres = [GameGenre]()

@@ -12,12 +12,35 @@ protocol CollectionViewCellLongTouchDelegate {
     func didLongPress(index: IndexPath, sectionKey: String)
 }
 
-class SavedGameCollectionViewCell: UICollectionViewCell {
+protocol CollectionViewCellDoublePressDelegate {
+    func didDoublePress(index: IndexPath, sectionKey: String)
+}
+
+protocol CollectionViewCellSinglePressDelegate {
+    func didTap(index: IndexPath, sectionKey: String)
+}
+
+class SavedGameCollectionViewCell: UICollectionViewCell, UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+             shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+       // Don't recognize a single tap until a double-tap fails.
+       if gestureRecognizer == self.singlePressGesture! &&
+              otherGestureRecognizer == self.doublePressGesture! {
+          return true
+       }
+       return false
+    }
     
     // MARK: - Properties
     var delegate: CollectionViewCellLongTouchDelegate?
+    var doublePressDelegate: CollectionViewCellDoublePressDelegate?
+    var singlePressDelegate: CollectionViewCellSinglePressDelegate?
     var indexPath: IndexPath?
     var sectionKey: String?
+
+    var doublePressGesture: UIGestureRecognizer?
+    var singlePressGesture: UIGestureRecognizer?
     
     // MARK: - View Lifecycle
 
@@ -25,6 +48,8 @@ class SavedGameCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         roundCoverImageViewCorners()
         setupLongPressGesture()
+        setupDoublePressGesture()
+        setupSinglePressGesture()
     }
     
     // MARK: - Outlets
@@ -43,6 +68,34 @@ class SavedGameCollectionViewCell: UICollectionViewCell {
         addGestureRecognizer(longPressGesture)
     }
     
+    private func setupDoublePressGesture() {
+        let doublePressGesture = UITapGestureRecognizer(target: self, action: #selector(doublePress(sender:)))
+        doublePressGesture.numberOfTapsRequired = 2
+        doublePressGesture.numberOfTouchesRequired = 1
+        doublePressGesture.delegate = self
+        self.doublePressGesture = doublePressGesture
+        addGestureRecognizer(self.doublePressGesture!)
+    }
+    private func setupSinglePressGesture() {
+        let singlePressGesture = UITapGestureRecognizer(target: self, action: #selector(singlePress(sender:)))
+        singlePressGesture.numberOfTapsRequired = 1
+        singlePressGesture.numberOfTouchesRequired = 1
+        singlePressGesture.delegate = self
+        self.singlePressGesture = singlePressGesture
+        addGestureRecognizer(self.singlePressGesture!)
+        singlePressGesture.require(toFail: self.doublePressGesture!)
+    }
+    
+    @objc func singlePress(sender: UITapGestureRecognizer) {
+        guard let desiredIndexPath = indexPath, let desiredSection = sectionKey else { return }
+        singlePressDelegate?.didTap(index: desiredIndexPath, sectionKey: desiredSection)
+    }
+    
+    @objc func doublePress(sender: UITapGestureRecognizer) {
+        guard let desiredIndexPath = indexPath, let desiredSection = sectionKey else { return }
+        doublePressDelegate?.didDoublePress(index: desiredIndexPath, sectionKey: desiredSection)
+    }
+    
     @objc func longPress(sender: UILongPressGestureRecognizer) {
         guard let desiredIndexPath = indexPath, let desiredSection = sectionKey else { return }
         if sender.state == .began {
@@ -50,6 +103,8 @@ class SavedGameCollectionViewCell: UICollectionViewCell {
             generator.impactOccurred()
         }
         if sender.state == .ended {
+            let generator = UIImpactFeedbackGenerator(style: .medium)
+            generator.impactOccurred()
             delegate?.didLongPress(index: desiredIndexPath, sectionKey: desiredSection)
         }
     }

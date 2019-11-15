@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,9 +20,9 @@
 		6313FB8F23552C2800BC2FE5 /* GameLibraryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6313FB8E23552C2800BC2FE5 /* GameLibraryCollectionViewController.swift */; };
 		6313FB9423552CFB00BC2FE5 /* SavedGameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6313FB9223552CFB00BC2FE5 /* SavedGameCollectionViewCell.swift */; };
 		6313FB9523552CFB00BC2FE5 /* SavedGameCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6313FB9323552CFB00BC2FE5 /* SavedGameCollectionViewCell.xib */; };
-		632C13B82379F90F00BEE270 /* AddTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632C13B72379F90F00BEE270 /* AddTagViewController.swift */; };
 		632C13BB237A0B4900BEE270 /* SelectableLabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632C13B9237A0B4900BEE270 /* SelectableLabelCollectionViewCell.swift */; };
 		632C13BC237A0B4900BEE270 /* SelectableLabelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 632C13BA237A0B4900BEE270 /* SelectableLabelCollectionViewCell.xib */; };
+		632C13BE237E82A000BEE270 /* LibraryGestureOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632C13BD237E82A000BEE270 /* LibraryGestureOnboardingViewController.swift */; };
 		633175572363781C00AD81AA /* SlideInPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633175562363781C00AD81AA /* SlideInPresentationManager.swift */; };
 		6331755923637DB400AD81AA /* SlideInPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6331755823637DB400AD81AA /* SlideInPresentationController.swift */; };
 		6331755B23638A0B00AD81AA /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6331755A23638A0B00AD81AA /* UIColor.swift */; };
@@ -76,9 +76,9 @@
 		6313FB8E23552C2800BC2FE5 /* GameLibraryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLibraryCollectionViewController.swift; sourceTree = "<group>"; };
 		6313FB9223552CFB00BC2FE5 /* SavedGameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedGameCollectionViewCell.swift; sourceTree = "<group>"; };
 		6313FB9323552CFB00BC2FE5 /* SavedGameCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedGameCollectionViewCell.xib; sourceTree = "<group>"; };
-		632C13B72379F90F00BEE270 /* AddTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagViewController.swift; sourceTree = "<group>"; };
 		632C13B9237A0B4900BEE270 /* SelectableLabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableLabelCollectionViewCell.swift; sourceTree = "<group>"; };
 		632C13BA237A0B4900BEE270 /* SelectableLabelCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectableLabelCollectionViewCell.xib; sourceTree = "<group>"; };
+		632C13BD237E82A000BEE270 /* LibraryGestureOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryGestureOnboardingViewController.swift; sourceTree = "<group>"; };
 		633175562363781C00AD81AA /* SlideInPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationManager.swift; sourceTree = "<group>"; };
 		6331755823637DB400AD81AA /* SlideInPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationController.swift; sourceTree = "<group>"; };
 		6331755A23638A0B00AD81AA /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
@@ -228,7 +228,7 @@
 				63341A57235CE3F7006FD1D3 /* PlayStatusViewController.swift */,
 				637D443B236646BC00899455 /* PlaythroughHistoryListTableViewController.swift */,
 				6375CC332371D9B80040F736 /* FilteredGamesListCollectionViewController.swift */,
-				632C13B72379F90F00BEE270 /* AddTagViewController.swift */,
+				632C13BD237E82A000BEE270 /* LibraryGestureOnboardingViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -398,6 +398,7 @@
 				63341A5D235CF2A8006FD1D3 /* SquareImageCollectionViewCell.swift in Sources */,
 				6313FB7B2354E36E00BC2FE5 /* GoodGame.xcdatamodeld in Sources */,
 				6375CC26236CF45C0040F736 /* LongTextTableViewCell.swift in Sources */,
+				632C13BE237E82A000BEE270 /* LibraryGestureOnboardingViewController.swift in Sources */,
 				6313FB812354E70F00BC2FE5 /* GameGenre+convenience.swift in Sources */,
 				6331755F2363977300AD81AA /* PlaythroughController.swift in Sources */,
 				6313FB7D2354E6E700BC2FE5 /* SavedGame+Convenience.swift in Sources */,
@@ -417,7 +418,6 @@
 				6313FB8B2354EDD400BC2FE5 /* GameGenreController.swift in Sources */,
 				63341A52235CE1BD006FD1D3 /* ReccomendsViewController.swift in Sources */,
 				63B27C14233A853F006D5B03 /* AppDelegate.swift in Sources */,
-				632C13B82379F90F00BEE270 /* AddTagViewController.swift in Sources */,
 				63B27C16233A853F006D5B03 /* SceneDelegate.swift in Sources */,
 				6313FB892354EDC000BC2FE5 /* GamePlatformController.swift in Sources */,
 				6313FB872354ED7000BC2FE5 /* SavedGameController.swift in Sources */,

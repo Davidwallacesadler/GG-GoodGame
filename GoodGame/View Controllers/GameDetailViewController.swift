@@ -82,6 +82,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         }
     }
     
+    var imageHasChanged: Bool = false
      var savedGame: SavedGame?
      var gameModeIds: [Int]?
      var gameModes: [GameMode]? {
@@ -126,6 +127,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
             GameController.shared.getCoverImageByArtworks(artworkArray) { (image) in
                 guard let coverImage = image else { return }
                 self.gameCover = coverImage
+                self.imageHasChanged = true
             }
         }
         #warning("replace the rest of these network calls with keys from my dictionaries -- fixes naming and other issues.")
@@ -174,32 +176,39 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         platformTagsList.onDidChangeText = {tagsList, text in
             self.currentlySelectedTagsView = self.platformTagsView
             self.currentlySelectedTagsList = tagsList
-            let platforms: [String] = self.possiblePlatforms.compactMap { (platform) -> String? in
-                if platform.lowercased().contains(text!.lowercased()) {
-                    return platform
-                } else {
-                    return nil
+            if text!.isEmpty {
+                self.suggestedTagTableView.removeFromSuperview()
+            } else {
+                let platforms: [String] = self.possiblePlatforms.compactMap { (platform) -> String? in
+                    if platform.lowercased().contains(text!.lowercased()) {
+                        return platform
+                    } else {
+                        return nil
+                    }
+                }
+                if platforms.isEmpty == false {
+                    self.tagSuggestions = platforms
                 }
             }
-            if platforms.isEmpty == false {
-                self.tagSuggestions = platforms
-            }
-            
             print("Platform Text Changed")
         }
         
         genreTagsList.onDidChangeText = {tagsList, text in
             self.currentlySelectedTagsView = self.genreTagsView
             self.currentlySelectedTagsList = tagsList
-            let genres: [String] = self.possibleGenres.compactMap { (genre) -> String? in
-                if genre.lowercased().contains(text!.lowercased()) {
-                    return genre
-                } else {
-                    return nil
+            if text!.isEmpty {
+                self.suggestedTagTableView.removeFromSuperview()
+            } else {
+                let genres: [String] = self.possibleGenres.compactMap { (genre) -> String? in
+                    if genre.lowercased().contains(text!.lowercased()) {
+                        return genre
+                    } else {
+                        return nil
+                    }
                 }
-            }
-            if genres.isEmpty == false {
-                self.tagSuggestions = genres
+                if genres.isEmpty == false {
+                    self.tagSuggestions = genres
+                }
             }
             print("Genre Text Changed")
         }
@@ -207,17 +216,20 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         gameModeTagsList.onDidChangeText = {tagsList, text in
             self.currentlySelectedTagsView = self.gameModeTagsView
             self.currentlySelectedTagsList = tagsList
-            let gameModes: [String] = self.possiblePlayModes.compactMap { (gameMode) -> String? in
-                if gameMode.lowercased().contains(text!.lowercased()) {
-                    return gameMode
-                } else {
-                    return nil
+            if text!.isEmpty {
+                self.suggestedTagTableView.removeFromSuperview()
+            } else {
+                let gameModes: [String] = self.possiblePlayModes.compactMap { (gameMode) -> String? in
+                    if gameMode.lowercased().contains(text!.lowercased()) {
+                        return gameMode
+                    } else {
+                        return nil
+                    }
+                }
+                if gameModes.isEmpty == false {
+                    self.tagSuggestions = gameModes
                 }
             }
-            if gameModes.isEmpty == false {
-                self.tagSuggestions = gameModes
-            }
-            
             print("Game Mode Text Changed")
         }
         suggestedTagTableView.delegate = self
@@ -248,7 +260,6 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
     @IBOutlet weak var genreTagsView: UIView!
     @IBOutlet weak var gameModeTagsView: UIView!
     @IBOutlet weak var playthroughHistoryBarButtonItem: UIBarButtonItem!
-    @IBOutlet weak var deleteBarButtonItem: UIBarButtonItem!
     
     // MARK: - Actions
     
@@ -261,16 +272,6 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         }
         selectedTagsList.endEditing()
         selectedTagsList.resignFirstResponder()
-    }
-    @IBAction func deleteButtonPressed(_ sender: Any) {
-        guard let game = savedGame else { return }
-        let deletionAlert = UIAlertController(title: "Confirm Deletion", message: "Are you sure you want to delete this game from your library?", preferredStyle: .alert)
-        deletionAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        deletionAlert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { (alert) in
-            SavedGameController.shared.deleteSavedGame(savedGame: game)
-            self.navigationController?.popViewController(animated: true)
-        }))
-        self.present(deletionAlert, animated: true, completion: nil)
     }
     @IBAction func playthroughHistoryButtonPressed(_ sender: Any) {
         guard let game = savedGame else { return }
@@ -333,16 +334,25 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         print("Platforms: \(platformIdPairs.description)", "Genres: \(genreIdPairs.description)", "PlayModes: \(playModeIdPairs.description)")
         guard let title = gameTitleTextField.text, !gameTitleTextField.text!.isEmpty else { return }
         guard let currentlySavedGame = savedGame else {
-            SavedGameController.shared.createSavedGame(title: title,
-                                                       image: coverArtImageView.image ?? UIImage(named: "defaultCoverImage")!,
-                                                              platforms: platformIdPairs,
-                                                              genres: genreIdPairs,
-                                                              gameModes: playModeIdPairs)
+            if imageHasChanged {
+                SavedGameController.shared.createSavedGame(title: title,
+                                                           image: coverArtImageView.image!,
+                                                           platforms: platformIdPairs,
+                                                           genres: genreIdPairs,
+                                                           gameModes: playModeIdPairs)
+            } else {
+                SavedGameController.shared.createSavedGame(title: title,
+                                                           image: UIImage(named: "defaultCoverImage")!,
+                                                           platforms: platformIdPairs,
+                                                           genres: genreIdPairs,
+                                                           gameModes: playModeIdPairs)
+            }
+            
             self.navigationController?.popViewController(animated: true)
             return
         }
         SavedGameController.shared.updateSavedGame(newTitle: title,
-                                                   newImage: coverArtImageView.image ?? UIImage(named: "defaultCoverImage")!,
+                                                   newImage: coverArtImageView.image!,
                                                    newPlatforms: platformIdPairs,
                                                    newGenres: genreIdPairs,
                                                    newPlayModes: playModeIdPairs,
@@ -361,12 +371,11 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         let keyboardFrame = keyboardSize.cgRectValue
         if genreTagsList.isFirstResponder || gameModeTagsList.isFirstResponder {
-//              if self.view.frame.origin.y == 0 || self.view.frame.origin.y == 64 || self.view.frame.origin.y == 88 || self.view.frame.origin.y == 74 || self.view.frame.origin.y == 70
             if self.view.frame.origin.y.isLess(than: 0.0) == false {
                 if self.view.frame.height < 640 {
                     self.view.frame.origin.y -= keyboardFrame.height - 50.0
                 } else {
-                    self.view.frame.origin.y -= keyboardFrame.height - 88
+                    self.view.frame.origin.y -= keyboardFrame.height - 150.0
                 }
             }
         }
@@ -374,6 +383,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     @objc func keyboardWillHide(notification: NSNotification) {
         #warning("keyboard gets dismissed and now origin.y is 64")
+        suggestedTagTableView.removeFromSuperview()
         if self.view.frame.height < 640 {
             if self.view.frame.origin.y != 0 {
                 self.view.frame.origin.y = 64
@@ -446,6 +456,8 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         if let genres = genres {
             for genre in genres {
                 switch genre.id {
+                case 8:
+                    genreTagsList.addTag("Platformer")
                 case 12:
                     genreTagsList.addTag("Role-playing")
                 case 11:
@@ -478,12 +490,12 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     private func setupViewWithSavedGameIfNeeded() {
         guard let saveGame = savedGame else { return }
-        deleteBarButtonItem.tintColor = .goodGamePinkBright
         if saveGame.playthroughs?.array.isEmpty == false {
             playthroughHistoryBarButtonItem.tintColor = .goodGamePinkBright
         }
         gameTitleTextField.text = saveGame.title!
         coverArtImageView.image = saveGame.photo
+        imageHasChanged = true
         for platform in saveGame.gamePlatforms!.array {
             let gamePlatform = platform as! GamePlatform
             platformTagsList.addTag(gamePlatform.name!)
@@ -592,6 +604,7 @@ extension GameDetailViewController: UIImagePickerControllerDelegate, UINavigatio
            }
         coverArtImageView.image = originalImage
         coverArtImageView.contentMode = .scaleAspectFill
+        imageHasChanged = true
         picker.dismiss(animated: true, completion: nil)
     }
 }

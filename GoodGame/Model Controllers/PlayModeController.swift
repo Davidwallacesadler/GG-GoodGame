@@ -26,7 +26,6 @@ class PlayModeController {
         "Massively Multiplayer Online": 5
     ]
     
-    
     var playModes: [PlayMode] {
         let request: NSFetchRequest<PlayMode> = PlayMode.fetchRequest()
         let moc = CoreDataStack.context
@@ -87,18 +86,6 @@ class PlayModeController {
         }
         saveToPersitentStorage()
     }
-    
-//    func createCustomPlatformNameIdPair(givenTitle: String) -> (String, Int) {
-//           let platformMaxId = platforms.max { (platformOne, platformTwo) -> Bool in
-//               platformOne.id < platformTwo.id
-//           }
-//           guard let maxId = platformMaxId?.id else { return (givenTitle, 200)}
-//           if maxId < 200 {
-//               return (givenTitle, 200)
-//           } else {
-//               return (givenTitle, Int(maxId) + 1)
-//           }
-//       }
     
     func createCustomPlayModeNameIdPair(givenTitle: String) -> (String, Int) {
         let playModeMaxId = playModes.max { (playModeOne, playModeTwo) -> Bool in

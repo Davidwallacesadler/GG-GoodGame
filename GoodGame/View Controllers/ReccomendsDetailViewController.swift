@@ -21,7 +21,6 @@ class ReccomendsDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         roundCornersOfButtons()
-        GamePlatformController.shared.loadSavedGamesFromPlatform(platformName: "Xbox 360")
     }
     
     // MARK: - Outlets

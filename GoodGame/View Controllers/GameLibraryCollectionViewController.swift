@@ -10,7 +10,7 @@ import UIKit
 
 private let reuseIdentifier = "savedGameCell"
 
-class GameLibraryCollectionViewController: UICollectionViewController, CollectionViewCellLongTouchDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class GameLibraryCollectionViewController: UICollectionViewController, CollectionViewCellLongTouchDelegate, CollectionViewCellDoublePressDelegate, CollectionViewCellSinglePressDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     // MARK: - PickerView Delegate / DataSources
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -55,7 +55,27 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
     
     // MARK: - CollectionViewCellLongTouchDelegate
     
+    func didTap(index: IndexPath, sectionKey: String) {
+        guard let gamesBasedOnCharacter = savedGamesOrdered[sectionKey] else { return }
+        let selectedGame = gamesBasedOnCharacter[index.row]
+        selectedSavedGame = selectedGame
+        self.performSegue(withIdentifier: "toShowSavedGame", sender: self)
+    }
+    
     func didLongPress(index: IndexPath, sectionKey: String) {
+        guard let gamesBasedOnCharacter = savedGamesOrdered[sectionKey] else { return }
+        let selectedGame = gamesBasedOnCharacter[index.row]
+        let deletionAlert = UIAlertController(title: "Confirm Deletion", message: "Are you sure you want to delete '\(selectedGame.name)' from your library?", preferredStyle: .alert)
+        deletionAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        deletionAlert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { (alert) in
+            SavedGameController.shared.deleteSavedGame(savedGame: selectedGame)
+            self.collectionView.reloadData()
+            
+        }))
+        self.present(deletionAlert, animated: true, completion: nil)
+    }
+    
+    func didDoublePress(index: IndexPath, sectionKey: String) {
         guard let gamesBasedOnCharacter = savedGamesOrdered[sectionKey] else { return }
         let selectedGame = gamesBasedOnCharacter[index.row]
         selectedSavedGame = selectedGame
@@ -175,6 +195,8 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
             gameCell.coverImageView.image = savedGame.photo
             gameCell.gameTitleLabel.text = savedGame.title
             gameCell.delegate = self
+            gameCell.doublePressDelegate = self
+            gameCell.singlePressDelegate = self
             gameCell.indexPath = indexPath
             gameCell.sectionKey = alphaKey
         }
@@ -183,13 +205,13 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
 
     // MARK: - UICollectionViewDelegate
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let alphaKey = groupingKeys[indexPath.section]
-        guard let gameCollection = savedGamesOrdered[alphaKey] else { return }
-        let saveGame = gameCollection[indexPath.row]
-        selectedSavedGame = saveGame
-        self.performSegue(withIdentifier: "toShowSavedGame", sender: self)
-    }
+//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let alphaKey = groupingKeys[indexPath.section]
+//        guard let gameCollection = savedGamesOrdered[alphaKey] else { return }
+//        let saveGame = gameCollection[indexPath.row]
+//        selectedSavedGame = saveGame
+//        self.performSegue(withIdentifier: "toShowSavedGame", sender: self)
+//    }
     
     // MARK: - Navigation
 

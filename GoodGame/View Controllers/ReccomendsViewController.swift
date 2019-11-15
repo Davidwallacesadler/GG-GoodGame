@@ -12,19 +12,19 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
     
     // MARK: - Internal Properties
     
-    var randomPlatformName: String {
+    var randomPlatformNameIdPair: (String,Int) {
         get {
-            guard let randomPlatform = GamePlatformController.shared.platforms.randomElement() else { return "" }
-            guard let randomPlatformName = randomPlatform.name else { return "" }
-            return randomPlatformName
+            guard let randomPlatform = GamePlatformController.shared.platforms.randomElement() else { return ("",0) }
+            guard let randomPlatformName = randomPlatform.name else { return ("",0) }
+            return (randomPlatformName, Int(randomPlatform.id))
         }
     }
     var platformName: String?
-    var randomGenreName: String {
+    var randomGenreNameIdPair: (String,Int) {
         get {
-            guard let randomGenre = GameGenreController.shared.genres.randomElement() else { return "" }
-            guard let randomGenreName = randomGenre.name else { return "" }
-            return randomGenreName
+            guard let randomGenre = GameGenreController.shared.genres.randomElement() else { return ("",0) }
+            guard let randomGenreName = randomGenre.name else { return ("",0) }
+            return (randomGenreName, Int(randomGenre.id))
         }
     }
     var genreName: String?
@@ -49,11 +49,29 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
         setupCollectionViewDataSourceAndDelegation()
         registerCustomCollectionViewCells()
         setupCollectionViewFlowLayouts()
+       
     }
     
     #warning("need to have an observer to reload this collectionview whenever the view comes back")
     override func viewDidAppear(_ animated: Bool) {
+        #warning("Want to reload the recently played when we come back from the playStatusVC")
         self.recentlyPlayedCollectionView.reloadData()
+        if gamesAssociatedWithRandomPlatform.isEmpty || gamesAssociatedWithRandomGenre.isEmpty {
+            self.prepareRandomGenreAndPlatformData()
+        }
+        let clearView = UIView(frame: recentlyPlayedCollectionView.bounds)
+        clearView.tintColor = .clear
+        if currentlyPlayingGames.isEmpty {
+           let noGamesFoundImageView = UIImageView(image: UIImage(named: "startAGameIcon"))
+           noGamesFoundImageView.contentMode = .scaleAspectFit
+           recentlyPlayedCollectionView.backgroundView = noGamesFoundImageView
+        } else if currentlyPlayingGames.isEmpty == false {
+            recentlyPlayedCollectionView.backgroundView = clearView
+        } else if gamesAssociatedWithRandomGenre.isEmpty == false {
+            randomGenreCollectionView.backgroundView = clearView
+        } else if gamesAssociatedWithRandomPlatform.isEmpty == false {
+            randomPlatformCollectionView.backgroundView = clearView
+        }
     }
     
     // MARK: - Outlets
@@ -127,11 +145,15 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
     // MARK: - Internal Methods
     
     private func getGamesForPlatform() {
-        gamesAssociatedWithRandomPlatform = GamePlatformController.shared.loadSavedGamesFromPlatform(platformName: platformName!)
+        let predicateString = "id == \(randomPlatformNameIdPair.1)"
+        gamesAssociatedWithRandomPlatform = GamePlatformController.shared.fetchSavedGameFromPlatformPredicateString(predicateString: predicateString)
+        randomPlatformCollectionView.reloadData()
     }
     
     private func getGamesForGenre() {
-        gamesAssociatedWithRandomGenre = GameGenreController.shared.loadSavedGamesBasedOnGenreName(genreName: genreName!)
+        let predicateString = "id == \(randomGenreNameIdPair.1)"
+        gamesAssociatedWithRandomGenre = GameGenreController.shared.fetchSavedGameFromGenrePredicateString(predicateString: predicateString)
+        randomGenreCollectionView.reloadData()
     }
     
     private func setupCollectionViewDataSourceAndDelegation() {
@@ -150,12 +172,18 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     private func prepareRandomGenreAndPlatformData() {
-        platformName = randomPlatformName
-        genreName = randomGenreName
+        platformName = randomPlatformNameIdPair.0
+        genreName = randomGenreNameIdPair.0
         if let platform = platformName, let genre = genreName {
             if platform.isEmpty && genre.isEmpty {
-                randomPlatformLabel.text = "Random Platform"
-                randomGenreLabel.text = "Random Genre"
+                randomPlatformLabel.text = "Random Platform Games"
+                randomGenreLabel.text = "Random Genre Games"
+                let noGamesFoundImageView = UIImageView(image: UIImage(named: "noGamesFoundIcon"))
+                let noGamesFoundImageViewTwo = UIImageView(image: UIImage(named: "noGamesFoundIcon"))
+                noGamesFoundImageView.contentMode = .scaleAspectFit
+                noGamesFoundImageViewTwo.contentMode = .scaleAspectFit
+                randomPlatformCollectionView.backgroundView = noGamesFoundImageView
+                randomGenreCollectionView.backgroundView = noGamesFoundImageViewTwo
             } else {
                 randomPlatformLabel.text = "\(platform) Games"
                 randomGenreLabel.text = "\(genre) Games"
