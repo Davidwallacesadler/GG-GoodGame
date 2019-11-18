@@ -17,31 +17,7 @@ class GameGenreController {
     var filteringPredicate: NSPredicate?
     
     // MARK: - Game Genres
-    
-    let possibleGenres: Dictionary = [
-        "Adventure": 0,
-        "Action": 1,
-        "Point-and-click": 2,
-        "Fighting": 4,
-        "Shooter": 5,
-        "Music": 7,
-        "Platformer": 8,
-        "Puzzle": 9,
-        "Racing": 10,
-        "Real Time Strategy": 11,
-        "Role-playing": 12,
-        "Simulator": 13,
-        "Sport": 14,
-        "Strategy": 15,
-        "Turn-based Strategy": 16,
-        "Horror": 17,
-        "Arcade": 18,
-        "Casual": 19,
-        "Fantasy": 20,
-        "Mystery": 21,
-        "Science Fiction": 22
-    ]
-    
+
     var genres: [GameGenre] {
         let request: NSFetchRequest<GameGenre> = GameGenre.fetchRequest()
         let moc = CoreDataStack.context
@@ -53,17 +29,31 @@ class GameGenreController {
         }
     }
     
-    func createNewGameGenreNameIdPair(givenTitle: String) -> (String, Int) {
-        let genreWithMaxId = genres.max { (genreOne, genreTwo) -> Bool in
-            genreOne.id < genreTwo.id
-        }
-        guard let maxId = genreWithMaxId?.id else { return (givenTitle, 25)}
-        if maxId < 25 {
-            return (givenTitle, 25)
-        } else {
-            return (givenTitle, Int(maxId) + 1)
-        }
-    }
+    let defaultGenres: Dictionary = [
+         "Adventure": 0,
+         "Action": 1,
+         "Point-and-click": 2,
+         "Fighting": 4,
+         "Shooter": 5,
+         "Music": 7,
+         "Platformer": 8,
+         "Puzzle": 9,
+         "Racing": 10,
+         "Real Time Strategy": 11,
+         "Role-playing": 12,
+         "Simulator": 13,
+         "Sport": 14,
+         "Strategy": 15,
+         "Turn-based Strategy": 16,
+         "Horror": 17,
+         "Arcade": 18,
+         "Casual": 19,
+         "Fantasy": 20,
+         "Mystery": 21,
+         "Science Fiction": 22
+     ]
+
+    // MARK: - Filtering
     
     func fetchSavedGameFromGenrePredicateString(predicateString: String) -> [SavedGame] {
         let request: NSFetchRequest<GameGenre> = GameGenre.fetchRequest()
@@ -103,7 +93,7 @@ class GameGenreController {
     
     func loadSavedGamesFromGenreId(genreId: Int) -> [SavedGame] {
         let request: NSFetchRequest<GameGenre> = GameGenre.fetchRequest()
-        filteringPredicate = NSPredicate(format: "name == %@", genreId)
+        filteringPredicate = NSPredicate(format: "id == %@", genreId)
         request.predicate = filteringPredicate
         let moc = CoreDataStack.context
         var genres = [GameGenre]()
@@ -120,10 +110,18 @@ class GameGenreController {
     }
     
     // MARK: - CRUD
-    
-    // Use an Dictionary to get an ID for the platform - maybe just save the id from the api?
-    // This dictionary matches up with the platfrom ids from IGDB
-    //let possiblePlatforms: Dictionary = ["Linux":3,"Nintendo 64":4,]
+
+    func createNewGameGenreNameIdPair(givenTitle: String) -> (String, Int) {
+        let genreWithMaxId = genres.max { (genreOne, genreTwo) -> Bool in
+            genreOne.id < genreTwo.id
+        }
+        guard let maxId = genreWithMaxId?.id else { return (givenTitle, 25)}
+        if maxId < 25 {
+            return (givenTitle, 25)
+        } else {
+            return (givenTitle, Int(maxId) + 1)
+        }
+    }
     
     func createGameGenresFor(savedGame: SavedGame, withGenres genreIdPairs: [(String,Int)]) {
         for pair in genreIdPairs {

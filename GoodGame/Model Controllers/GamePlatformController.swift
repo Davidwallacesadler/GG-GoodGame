@@ -29,47 +29,7 @@ class GamePlatformController {
     }
     var filteringPredicate: NSPredicate?
     
-    // MARK: - CRUD
-    
-    // Use an Dictionary to get an ID for the platform - maybe just save the id from the api?
-    // This dictionary matches up with the platfrom ids from IGDB
-    //
-    
-    // IDEA: reduce this arry down to most common consoles since 1990 or so. -- allow users to add their own platforms some how.
-    
-//    let curatedPlatforms: Dictionary = [
-//      "Nintendo 64":4,
-//      "Wii": 5,
-//      "PC (Microsoft Windows)": 6,
-//      "PlayStation": 7,
-//      "PlayStation 2": 8,
-//      "PlayStation 3": 9,
-//      "Xbox": 11,
-//      "Xbox 360": 12,
-//      "Mac": 14,
-//      "Nintendo Entertainment System (NES)": 18,
-//      "Super Nintendo Entertainment System (SNES)": 19,
-//      "Nintendo DS": 20,
-//      "Nintendo GameCube": 21,
-//      "Game Boy Color": 22,
-//      "Dreamcast": 23,
-//      "Game Boy Advance": 24,
-//      "Game Boy": 33,
-//      "Android": 34,
-//      "Nintendo 3DS": 37,
-//      "PlayStation Portable": 38,
-//      "iOS": 39,
-//      "Wii U": 41,
-//      "PlayStation Network": 45,
-//      "PlayStation Vita": 46,
-//      "PlayStation 4": 48,
-//      "Xbox One": 49,
-//      "Nintendo DSi": 159,
-//      //"PlayStation VR": 165
-//    ]
-    
-    #warning("add in missing ones")
-    let possiblePlatforms: Dictionary = [
+    let defaultPlatforms: Dictionary = [
         "Linux":3,
         "Nintendo 64":4,
         "Wii": 5,
@@ -129,38 +89,23 @@ class GamePlatformController {
         "Atari 5200": 66,
         "Intellivision": 67,
         "ColecoVision": 68,
-//        "BBC Microcomputer System": 69,
         "Vectrex": 70,
         "Commodore VIC-20": 71,
-        "Ouya": 72,
-  //      "BlackBerry OS": 73,
-  //      "Windows Phone": 74,
         "Apple II": 75,
         "Sharp X1": 77,
         "Sega CD": 78,
         "Neo Geo MVS": 79,
         "Neo Geo AES": 80,
         "Web browser": 82,
-//        "SG-1000": 84,
-//        "Donner Model 30": 85,
         "TurboGrafx-16": 86,
         "Virtual Boy": 87,
         "Odyssey": 88,
         "Microvision": 89,
         "Commodore PET": 90,
         "Bally Astrocade": 91,
-//        "SteamOS": 92,
         "Commodore 16": 93,
         "Commodore Plus/4": 94,
-//        "PDP-1": 95,
-//        "PDP-10": 96,
-//        "PDP-8": 97,
-//        "DEC GT40": 98,
         "FAMICOM": 99,
-//        "Analogue electronics": 100,
-//        "Ferranti Nimrod Computer": 101,
-        // UGHHH -- ignoring things i have never heard of from here on
-//        "onLive Game System": 113,
         "Amiga CD 32": 114,
         "Apple IIGS": 115,
         "Neo Geo Pocket": 119,
@@ -169,8 +114,6 @@ class GamePlatformController {
         "SwanCrystal": 124,
         "PC Engine SuperGrafx": 128,
         "Nintendo Switch": 130,
-        // WTF -- id = 131 is Nintendo PlayStation haha
-//        "Amazon Fire TV": 132,
         "New Nintendo 3DS": 137,
         "Nintendo DSi": 159,
         "Nintendo eShop": 160,
@@ -179,6 +122,7 @@ class GamePlatformController {
         "PlayStation VR": 165
     ]
     
+    // MARK: - Filtering
     
     func fetchSavedGameFromPlatformPredicateString(predicateString: String) -> [SavedGame] {
         let request: NSFetchRequest<GamePlatform> = GamePlatform.fetchRequest()
@@ -233,6 +177,8 @@ class GamePlatformController {
             return gamePlatform.savedGame!
         }
     }
+    
+    // MARK: - CRUD
     
     func createGamePlatformsFor(savedGame: SavedGame, withPlatforms platformIdPairs: [(String, Int)]) {
         for pair in platformIdPairs {

@@ -70,7 +70,6 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
         deletionAlert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { (alert) in
             SavedGameController.shared.deleteSavedGame(savedGame: selectedGame)
             self.collectionView.reloadData()
-            
         }))
         self.present(deletionAlert, animated: true, completion: nil)
     }
@@ -113,6 +112,7 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
     override func viewDidAppear(_ animated: Bool) {
         refreshAllOrderedSavedGames()
         self.collectionView.reloadData()
+        self.gameFilterPickerView.selectRow(0, inComponent: 0, animated: false)
     }
     
     // MARK: - Internal Properties

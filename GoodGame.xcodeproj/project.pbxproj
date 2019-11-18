@@ -23,6 +23,7 @@
 		632C13BB237A0B4900BEE270 /* SelectableLabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632C13B9237A0B4900BEE270 /* SelectableLabelCollectionViewCell.swift */; };
 		632C13BC237A0B4900BEE270 /* SelectableLabelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 632C13BA237A0B4900BEE270 /* SelectableLabelCollectionViewCell.xib */; };
 		632C13BE237E82A000BEE270 /* LibraryGestureOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632C13BD237E82A000BEE270 /* LibraryGestureOnboardingViewController.swift */; };
+		632C13C0238343DC00BEE270 /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 632C13BF238343DC00BEE270 /* loading.gif */; };
 		633175572363781C00AD81AA /* SlideInPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633175562363781C00AD81AA /* SlideInPresentationManager.swift */; };
 		6331755923637DB400AD81AA /* SlideInPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6331755823637DB400AD81AA /* SlideInPresentationController.swift */; };
 		6331755B23638A0B00AD81AA /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6331755A23638A0B00AD81AA /* UIColor.swift */; };
@@ -79,6 +80,7 @@
 		632C13B9237A0B4900BEE270 /* SelectableLabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableLabelCollectionViewCell.swift; sourceTree = "<group>"; };
 		632C13BA237A0B4900BEE270 /* SelectableLabelCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectableLabelCollectionViewCell.xib; sourceTree = "<group>"; };
 		632C13BD237E82A000BEE270 /* LibraryGestureOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryGestureOnboardingViewController.swift; sourceTree = "<group>"; };
+		632C13BF238343DC00BEE270 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
 		633175562363781C00AD81AA /* SlideInPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationManager.swift; sourceTree = "<group>"; };
 		6331755823637DB400AD81AA /* SlideInPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInPresentationController.swift; sourceTree = "<group>"; };
 		6331755A23638A0B00AD81AA /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 		63B27C07233A853F006D5B03 = {
 			isa = PBXGroup;
 			children = (
+				632C13BF238343DC00BEE270 /* loading.gif */,
 				63B27C12233A853F006D5B03 /* GoodGame */,
 				63B27C11233A853F006D5B03 /* Products */,
 				CBE4FEFAFF546E9262449877 /* Pods */,
@@ -334,6 +337,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				632C13C0238343DC00BEE270 /* loading.gif in Resources */,
 				6375CC32236F79120040F736 /* SectionHeader.xib in Resources */,
 				637D443A2363FD8300899455 /* CheckableTableViewCell.xib in Resources */,
 				6313FB9523552CFB00BC2FE5 /* SavedGameCollectionViewCell.xib in Resources */,

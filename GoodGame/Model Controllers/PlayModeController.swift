@@ -18,14 +18,6 @@ class PlayModeController {
     
     // MARK: - GamePlatorms
     
-    let possiblePlayModes: Dictionary = [
-        "Single Player": 1,
-        "Multiplayer": 2,
-        "Co-operative": 3,
-        "Split Screen": 4,
-        "Massively Multiplayer Online": 5
-    ]
-    
     var playModes: [PlayMode] {
         let request: NSFetchRequest<PlayMode> = PlayMode.fetchRequest()
         let moc = CoreDataStack.context
@@ -36,6 +28,16 @@ class PlayModeController {
             return []
         }
     }
+    
+    let possiblePlayModes: Dictionary = [
+        "Single Player": 1,
+        "Multiplayer": 2,
+        "Co-operative": 3,
+        "Split Screen": 4,
+        "Massively Multiplayer Online": 5
+    ]
+    
+    // MARK: - Filtering
     
     func fetchSavedGameFromPlayModePredicateString(predicateString: String) -> [SavedGame] {
         let request: NSFetchRequest<PlayMode> = PlayMode.fetchRequest()
@@ -74,10 +76,6 @@ class PlayModeController {
     }
     
     // MARK: - CRUD
-    
-    // Use an Dictionary to get an ID for the platform - maybe just save the id from the api?
-    // This dictionary matches up with the platfrom ids from IGDB
-    //let possiblePlatforms: Dictionary = ["Linux":3,"Nintendo 64":4,]
     
     func createPlayModesFor(savedGame: SavedGame, withPlayModes modeIdPairs: [(String,Int)]) {
         for pair in modeIdPairs {

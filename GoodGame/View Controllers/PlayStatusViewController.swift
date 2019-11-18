@@ -41,7 +41,7 @@ class PlayStatusViewController: UIViewController {
             updateInterfaceBasedOnGameState(game: savedGame)
         }
         resignFirstResponderTapRecongnizerSetup()
-        addDoneButtonToKeyboard()
+        //addDoneButtonToKeyboard()
     }
     
     // MARK: - Outlets
@@ -78,23 +78,24 @@ class PlayStatusViewController: UIViewController {
                 let height: CGFloat = 90
 
                 textView.frame = CGRect.init(x: xPos, y: yPos, width: width, height: height)
+                textView.text = "Jot some thoughts down."
             }
         }
     }
     
     // MARK: - Internal Methods
     
-    private func addDoneButtonToKeyboard() {
-        let doneToolBar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50.0))
-        doneToolBar.barStyle = .default
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let done = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))
-        let items = [flexSpace,done]
-        doneToolBar.items = items
-        doneToolBar.sizeToFit()
-        textView.inputAccessoryView = doneToolBar
-        textView.autocorrectionType = .no
-    }
+//    private func addDoneButtonToKeyboard() {
+//        let doneToolBar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50.0))
+//        doneToolBar.barStyle = .default
+//        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+//        let done = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))
+//        let items = [flexSpace,done]
+//        doneToolBar.items = items
+//        doneToolBar.sizeToFit()
+//        textView.inputAccessoryView = doneToolBar
+//        textView.autocorrectionType = .no
+//    }
     
     @objc func doneButtonAction() {
         textView.resignFirstResponder()

@@ -15,6 +15,8 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = gameSearchBar.text, gameSearchBar.text?.isEmpty == false else {
+            self.loadingImageView?.stopAnimating()
+            self.loadingImageView?.removeFromSuperview()
             searchBar.resignFirstResponder()
             return
         }
@@ -23,13 +25,34 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
         }
         searchBar.resignFirstResponder()
     }
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        GameController.shared.searchByGameName(searchText) { (games) in
-            self.retreivedGames = games
-        }
+        self.view.addSubview(loadingImageView!)
+        loadingImageView?.startAnimating()
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.reload(_:)), object: searchBar)
+        self.perform(#selector(self.reload(_:)), with: searchBar, afterDelay: 0.75)
     }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.retreivedGames = []
+        self.searchResultsTableView.reloadData()    
+        searchBar.resignFirstResponder()
+    }
+    
+    @objc func reload(_ searchBar: UISearchBar) {
+        guard let query = searchBar.text else { return }
+        if query.isEmpty {
+            self.loadingImageView?.stopAnimating()
+            self.loadingImageView?.removeFromSuperview()
+            print("Nothing to search")
+            return
+        } else {
+            print("Performing network request with query: \(query)")
+            GameController.shared.searchByGameName(query) { (games) in
+                self.retreivedGames = games
+            }
+        }
+    }
     
     // MARK: - TableView DataSource
     
@@ -61,6 +84,11 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
     
     // MARK: - Internal Properties
     
+    let loadingImages = (1...8).map { (i) -> UIImage in
+        return UIImage(named: "\(i)")!
+    }
+    var loadingImageView: UIImageView?
+    
     var selectedVideoGame: Game? {
         didSet {
             getGameArtwork()
@@ -77,6 +105,8 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
         didSet {
             DispatchQueue.main.async {
                 self.searchResultsTableView.reloadData()
+                self.loadingImageView?.stopAnimating()
+                self.loadingImageView?.removeFromSuperview()
             }
         }
     }
@@ -88,6 +118,9 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
         setupSearchbar()
         setupTableView()
         resignFirstResponderTapRecongnizerSetup()
+        loadingImageView = UIImageView(frame: CGRect(x: (view.bounds.width / 2.0) - ((view.bounds.width / 5.0)) / 2.0, y: (view.bounds.height / 3.0) - ((view.bounds.width / 5.0)) / 2.0, width: view.bounds.width / 5.0, height: view.bounds.width / 5.0))
+        loadingImageView!.animationImages = loadingImages
+        loadingImageView!.animationDuration = 1.0
     }
     
     // MARK: - Outlets

@@ -21,13 +21,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = tagSuggestions[indexPath.row]
-        if currentlySelectedTagsView == gameModeTagsView {
-            if suggestionTableViewHasBeenFlipped {
-                cell.transform = CGAffineTransform(scaleX: 1, y: -1)
-            }
-        } else {
-            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
-        }
+        cell.backgroundColor = .lightGray
         return cell
     }
     
@@ -49,11 +43,10 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
     fileprivate let genreTagsList = WSTagsField()
     var currentlySelectedTagsView: UIView?
     var currentlySelectedTagsList: WSTagsField?
-    var suggestionTableViewHasBeenFlipped: Bool = false
-    var possiblePlatforms = GamePlatformController.shared.possiblePlatforms.map { (keyValue) -> String in
+    var possiblePlatforms = GamePlatformController.shared.defaultPlatforms.map { (keyValue) -> String in
         return keyValue.key
     }
-    var possibleGenres = GameGenreController.shared.possibleGenres.map { (keyValue) -> String in
+    var possibleGenres = GameGenreController.shared.defaultGenres.map { (keyValue) -> String in
         return keyValue.key
     }
     var possiblePlayModes = PlayModeController.shared.possiblePlayModes.map { (keyValue) -> String in
@@ -64,17 +57,9 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
             DispatchQueue.main.async {
             guard let selectedTagView = self.currentlySelectedTagsView else { return }
                 if selectedTagView == self.gameModeTagsView {
-                    self.suggestionTableViewHasBeenFlipped = true
-                    self.suggestedTagTableView.frame = CGRect(x: selectedTagView.frame.origin.x, y: selectedTagView.frame.origin.y - (self.view.frame.height * 0.15), width: selectedTagView.frame.width, height: (self.view.frame.height * 0.15))
+                    self.suggestedTagTableView.frame = CGRect(x: selectedTagView.frame.origin.x, y: selectedTagView.frame.origin.y - (self.view.frame.height * 0.3), width: selectedTagView.frame.width, height: (self.view.frame.height * 0.3))
                 } else {
-                    self.suggestionTableViewHasBeenFlipped = false
-                    self.suggestedTagTableView.frame = CGRect(x: selectedTagView.frame.origin.x, y: selectedTagView.frame.origin.y + selectedTagView.frame.height, width: selectedTagView.frame.width, height: (self.view.frame.height * 0.15))
-                }
-                if self.suggestionTableViewHasBeenFlipped {
-                    self.suggestedTagTableView.transform = CGAffineTransform(scaleX: 1, y: -1)
-                    self.suggestionTableViewHasBeenFlipped = true
-                } else {
-                    self.suggestedTagTableView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    self.suggestedTagTableView.frame = CGRect(x: selectedTagView.frame.origin.x, y: selectedTagView.frame.origin.y + selectedTagView.frame.height, width: selectedTagView.frame.width, height: (self.view.frame.height * 0.19))
                 }
                 self.view.addSubview(self.suggestedTagTableView)
                 self.suggestedTagTableView.reloadData()
@@ -82,7 +67,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         }
     }
     
-    var imageHasChanged: Bool = false
+     var imageHasChanged: Bool = false
      var savedGame: SavedGame?
      var gameModeIds: [Int]?
      var gameModes: [GameMode]? {
@@ -157,6 +142,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         setupTagsViewDelegation()
         setupViewWithSavedGameIfNeeded()
         accountForCustomTags()
+        
         //resignFirstResponderTapRecongnizerSetup()
         if let selectedGame = game {
             gameTitleTextField.text = selectedGame.name
@@ -166,6 +152,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         suggestedTagTableView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         suggestedTagTableView.delegate = self
         suggestedTagTableView.dataSource = self
+        setupSuggestionTableView()
         
         #warning("Instead of adding text")
         platformTagsList.onDidSelectTagView = { tagList, tagView in
@@ -285,86 +272,120 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        let platformIdPairs = platformTagsList.tags.map { (tag) -> (String,Int) in
-            guard let platformId = GamePlatformController.shared.possiblePlatforms[tag.text] else {
-                let platformsWithThisName = GamePlatformController.shared.platforms.filter { (gamePlatform) -> Bool in
-                    gamePlatform.name == tag.text
-                }
-                if platformsWithThisName.isEmpty {
-                    // Create a new one
-                    let newPlatform = GamePlatformController.shared.createCustomPlatformNameIdPair(givenTitle: tag.text)
-                    return newPlatform
-                } else {
-                    let existingId = Int(platformsWithThisName[0].id)
-                    return (tag.text, existingId)
-                }
-            }
-            return (tag.text, platformId)
-        }
-        let genreIdPairs = genreTagsList.tags.map { (tag) -> (String,Int) in
-            guard let genreId = GameGenreController.shared.possibleGenres[tag.text] else {
-                let genresWithThisName = GameGenreController.shared.genres.filter { (gameGenre) -> Bool in
-                    gameGenre.name == tag.text
-                }
-                if genresWithThisName.isEmpty {
-                    let newGenre = GameGenreController.shared.createNewGameGenreNameIdPair(givenTitle: tag.text)
-                    return newGenre
-                } else {
-                    let existingId = Int(genresWithThisName[0].id)
-                    return (tag.text, existingId)
-                }
-            }
-            return (tag.text, genreId)
-        }
-        let playModeIdPairs = gameModeTagsList.tags.map { (tag) -> (String,Int) in
-            guard let playModeId = PlayModeController.shared.possiblePlayModes[tag.text] else {
-                let playModesWithThisName = PlayModeController.shared.playModes.filter { (playMode) -> Bool in
-                    playMode.name == tag.text
-                }
-                if playModesWithThisName.isEmpty {
-                    let newPlayMode = PlayModeController.shared.createCustomPlayModeNameIdPair(givenTitle: tag.text)
-                    return newPlayMode
-                } else {
-                    let existingId = Int(playModesWithThisName[0].id)
-                    return (tag.text, existingId)
-                }
-            }
-            return (tag.text, playModeId)
-        }
-        print("Platforms: \(platformIdPairs.description)", "Genres: \(genreIdPairs.description)", "PlayModes: \(playModeIdPairs.description)")
-        guard let title = gameTitleTextField.text, !gameTitleTextField.text!.isEmpty else { return }
-        guard let currentlySavedGame = savedGame else {
-            if imageHasChanged {
-                SavedGameController.shared.createSavedGame(title: title,
-                                                           image: coverArtImageView.image!,
-                                                           platforms: platformIdPairs,
-                                                           genres: genreIdPairs,
-                                                           gameModes: playModeIdPairs)
-            } else {
-                SavedGameController.shared.createSavedGame(title: title,
-                                                           image: UIImage(named: "defaultCoverImage")!,
-                                                           platforms: platformIdPairs,
-                                                           genres: genreIdPairs,
-                                                           gameModes: playModeIdPairs)
-            }
-            
-            self.navigationController?.popViewController(animated: true)
+        guard let title = gameTitleTextField.text, !gameTitleTextField.text!.isEmpty else {
+            presentAddNameAlert()
             return
         }
-        SavedGameController.shared.updateSavedGame(newTitle: title,
-                                                   newImage: coverArtImageView.image!,
-                                                   newPlatforms: platformIdPairs,
-                                                   newGenres: genreIdPairs,
-                                                   newPlayModes: playModeIdPairs,
-                                                   gameToUpdate: currentlySavedGame)
-        self.navigationController?.popViewController(animated: true)
+        let gamesWithSameTitle = SavedGameController.shared.savedGames.filter({ (savedGame) -> Bool in
+            savedGame.name == title
+        })
+        if !gamesWithSameTitle.isEmpty {
+            let duplicateNameAlert = UIAlertController(title: "This Game Already Exists", message: "You already have this game in your library. Please at least change the title of the game.", preferredStyle: .alert)
+            duplicateNameAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+            self.present(duplicateNameAlert, animated: true, completion: nil)
+            return
         }
+        if platformTagsList.tags.isEmpty && genreTagsList.tags.isEmpty && gameModeTagsList.tags.isEmpty {
+            presentAddTagAlert()
+        } else {
+            let platformIdPairs = platformTagsList.tags.map { (tag) -> (String,Int) in
+                 guard let platformId = GamePlatformController.shared.defaultPlatforms[tag.text] else {
+                     let platformsWithThisName = GamePlatformController.shared.platforms.filter { (gamePlatform) -> Bool in
+                         gamePlatform.name == tag.text
+                     }
+                     if platformsWithThisName.isEmpty {
+                         // Create a new one
+                         let newPlatform = GamePlatformController.shared.createCustomPlatformNameIdPair(givenTitle: tag.text)
+                         return newPlatform
+                     } else {
+                         let existingId = Int(platformsWithThisName[0].id)
+                         return (tag.text, existingId)
+                     }
+                 }
+                 return (tag.text, platformId)
+             }
+             let genreIdPairs = genreTagsList.tags.map { (tag) -> (String,Int) in
+                 guard let genreId = GameGenreController.shared.defaultGenres[tag.text] else {
+                     let genresWithThisName = GameGenreController.shared.genres.filter { (gameGenre) -> Bool in
+                         gameGenre.name == tag.text
+                     }
+                     if genresWithThisName.isEmpty {
+                         let newGenre = GameGenreController.shared.createNewGameGenreNameIdPair(givenTitle: tag.text)
+                         return newGenre
+                     } else {
+                         let existingId = Int(genresWithThisName[0].id)
+                         return (tag.text, existingId)
+                     }
+                 }
+                 return (tag.text, genreId)
+             }
+             let playModeIdPairs = gameModeTagsList.tags.map { (tag) -> (String,Int) in
+                 guard let playModeId = PlayModeController.shared.possiblePlayModes[tag.text] else {
+                     let playModesWithThisName = PlayModeController.shared.playModes.filter { (playMode) -> Bool in
+                         playMode.name == tag.text
+                     }
+                     if playModesWithThisName.isEmpty {
+                         let newPlayMode = PlayModeController.shared.createCustomPlayModeNameIdPair(givenTitle: tag.text)
+                         return newPlayMode
+                     } else {
+                         let existingId = Int(playModesWithThisName[0].id)
+                         return (tag.text, existingId)
+                     }
+                 }
+                 return (tag.text, playModeId)
+             }
+             print("Platforms: \(platformIdPairs.description)", "Genres: \(genreIdPairs.description)", "PlayModes: \(playModeIdPairs.description)")
+            
+             guard let currentlySavedGame = savedGame else {
+                 if imageHasChanged {
+                     SavedGameController.shared.createSavedGame(title: title,
+                                                                image: coverArtImageView.image!,
+                                                                platforms: platformIdPairs,
+                                                                genres: genreIdPairs,
+                                                                gameModes: playModeIdPairs)
+                 } else {
+                     SavedGameController.shared.createSavedGame(title: title,
+                                                                image: UIImage(named: "defaultCoverImage")!,
+                                                                platforms: platformIdPairs,
+                                                                genres: genreIdPairs,
+                                                                gameModes: playModeIdPairs)
+                 }
+                 
+                 self.navigationController?.popViewController(animated: true)
+                 return
+             }
+             SavedGameController.shared.updateSavedGame(newTitle: title,
+                                                        newImage: coverArtImageView.image!,
+                                                        newPlatforms: platformIdPairs,
+                                                        newGenres: genreIdPairs,
+                                                        newPlayModes: playModeIdPairs,
+                                                        gameToUpdate: currentlySavedGame)
+             self.navigationController?.popViewController(animated: true)
+        }
+    }
     
     @IBAction func photoButtonPressed(_ sender: Any) {
         getImage()
     }
     
     // MARK: - Internal Methods
+    
+    private func presentAddNameAlert() {
+        let noNameAlert = UIAlertController(title: "No Title Found", message: "Please add a title for your game.", preferredStyle: .alert)
+        noNameAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+        self.present(noNameAlert, animated: true, completion: nil)
+    }
+    
+    private func presentAddTagAlert() {
+        let noTagAlert = UIAlertController(title: "No Tags Found", message: "Please add at least one Platform, Genre, or Game Mode for your game.", preferredStyle: .alert)
+        noTagAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+        self.present(noTagAlert, animated: true, completion: nil)
+    }
+    
+    private func setupSuggestionTableView() {
+        suggestedTagTableView.backgroundColor = .gray
+        ViewHelper.roundCornersOf(viewLayer: suggestedTagTableView.layer, withRoundingCoefficient: Double(view.bounds.height * 0.15 / 10.0 ))
+    }
     
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
@@ -442,7 +463,7 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
                 case 29:
                     platformTagsList.addTag("Sega Genesis")
                 case 47:
-                    platformTagsList.addTag(" Virtual Console")
+                    platformTagsList.addTag("Virtual Console")
                 case 99:
                     platformTagsList.addTag("FAMICOM")
                 default:
@@ -525,13 +546,6 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         }
     }
     
-    private func resignFirstResponderTapRecongnizerSetup() {
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
-        tap.cancelsTouchesInView = false
-        suggestedTagTableView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-        self.view.addGestureRecognizer(tap)
-   }
-    
     private func accountForCustomTags() {
         let uniquePlatformNames = GamePlatformController.shared.platforms.map { (platform) -> String in
             return platform.name!
@@ -543,12 +557,12 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
             return playMode.name!
         }.uniques
         for platform in uniquePlatformNames {
-            if GamePlatformController.shared.possiblePlatforms[platform] == nil {
+            if GamePlatformController.shared.defaultPlatforms[platform] == nil {
                 possiblePlatforms.append(platform)
             }
         }
         for genre in uniqueGenreNames {
-            if GameGenreController.shared.possibleGenres[genre] == nil {
+            if GameGenreController.shared.defaultGenres[genre] == nil {
                 possibleGenres.append(genre)
             }
         }
