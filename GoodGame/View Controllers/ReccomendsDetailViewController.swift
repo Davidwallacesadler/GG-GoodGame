@@ -21,6 +21,7 @@ class ReccomendsDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         roundCornersOfButtons()
+        randomGameButton.titleLabel?.numberOfLines = 0
     }
     
     // MARK: - Outlets
@@ -38,7 +39,7 @@ class ReccomendsDetailViewController: UIViewController {
         if randomButtonFlipped {
             self.performSegue(withIdentifier: "toShowGamePlayStatus", sender: self)
         } else {
-           getRandomGameAndFlipCard()
+            getRandomGameAndFlipCard()
         }
     }
     
@@ -52,8 +53,8 @@ class ReccomendsDetailViewController: UIViewController {
         randomButtonFlipped = true
         guard let randomGame = SavedGameController.shared.savedGames.randomElement() else { return }
         selectedGame = randomGame
-        let randomGameImage = randomGame.photo
-        randomGameButton.setBackgroundImage(randomGameImage, for: .normal)
+        let defualtCoverImage = UIImage(named: "defaultCoverImage")
+        randomGameButton.setBackgroundImage(defualtCoverImage, for: .normal)
         let backArrowIconView = UIView(frame: CGRect(x: 0, y: 0, width: 50.0, height: 50.0))
         let backArrowIconImage = UIImage(named: "backArrowIcon")
         let backArrowIconImageView = UIImageView(image: backArrowIconImage)

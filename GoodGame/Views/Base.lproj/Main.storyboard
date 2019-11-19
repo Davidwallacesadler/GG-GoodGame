@@ -66,6 +66,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="CYl-xB-BPS"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                 <state key="normal" title="Got it">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -352,11 +353,6 @@
                         <viewLayoutGuide key="safeArea" id="ftd-95-1NY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Recommends" id="WwH-AD-iHX">
-                        <barButtonItem key="leftBarButtonItem" title="onboard" id="ReB-Hg-x8C">
-                            <connections>
-                                <segue destination="gI1-Sl-arO" kind="presentation" id="8AN-it-XqS"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="filter" image="magnifyingglass" catalog="system" id="ZdK-rd-qou">
                             <color key="tintColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -371,19 +367,17 @@
                         <outlet property="randomPlatformLabel" destination="P3p-iI-tYE" id="Qo3-ub-ItM"/>
                         <outlet property="recentlyPlayedCollectionView" destination="rrx-cX-5vP" id="Kff-tm-xhL"/>
                         <segue destination="xaI-35-Rgs" kind="presentation" identifier="toShowPlayStatus" id="Whk-9D-cY9"/>
-                        <segue destination="gI1-Sl-arO" kind="popoverPresentation" identifier="toShowWelcomeView" popoverAnchorView="8FE-zf-ay2" id="gEg-sC-f9j">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                        </segue>
+                        <segue destination="gI1-Sl-arO" kind="presentation" identifier="toShowOnboardingView" id="gEg-sC-f9j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AuG-8S-dLx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="105.79710144927537" y="1656.6964285714284"/>
         </scene>
-        <!--View Controller-->
+        <!--Initial Onboarding View Controller-->
         <scene sceneID="xsc-nR-2NR">
             <objects>
-                <viewController id="gI1-Sl-arO" sceneMemberID="viewController">
+                <viewController id="gI1-Sl-arO" customClass="InitialOnboardingViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ttD-HO-ilJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -410,6 +404,9 @@
                                 <state key="normal" title="Get Started">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="getStartedButtonPressed:" destination="gI1-Sl-arO" eventType="touchUpInside" id="sEq-g0-5RE"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manage the games you are currently playing and filter your collection with ease." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UXf-56-YLW">
                                 <rect key="frame" x="45" y="134" width="285" height="59.5"/>
@@ -531,6 +528,9 @@
                         <viewLayoutGuide key="safeArea" id="V55-Cf-7HD"/>
                     </view>
                     <navigationItem key="navigationItem" id="zyn-YR-dyB"/>
+                    <connections>
+                        <outlet property="GetStartedButton" destination="mP5-K9-Lvf" id="iwb-ac-LHp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8QO-TZ-OUR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -556,9 +556,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hTw-vQ-bPT">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="217"/>
                                         <color key="backgroundColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="27"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="    Random Game" image="randomIcon">
+                                        <state key="normal" title="  Random Game" image="randomIcon">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="bold"/>
                                         </state>
@@ -569,9 +569,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQA-Hk-lnN">
                                         <rect key="frame" x="0.0" y="225" width="335" height="217"/>
                                         <color key="backgroundColor" red="0.66938023458781593" green="0.084355870615291026" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="27"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="   Game by Filter" image="sliderFilterIcon">
+                                        <state key="normal" title="  Game by Filter" image="sliderFilterIcon">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font" scale="large" weight="bold">
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
@@ -739,49 +739,87 @@
                         <outlet property="gameModesTableView" destination="Jgm-Oh-UKW" id="fHC-zw-LRg"/>
                         <outlet property="genresTableView" destination="Mbb-gG-aia" id="BoY-6E-hQz"/>
                         <outlet property="platformsTableView" destination="aOG-6F-zDw" id="Okb-YK-KSg"/>
-                        <segue destination="mae-S0-AXh" kind="presentation" identifier="toShowFilteredGames" id="GGv-TE-if5"/>
+                        <segue destination="XZs-Zj-HML" kind="presentation" identifier="toShowFilteredGames" id="6wC-as-zhV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ZY-j4-hul" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1834" y="1655"/>
         </scene>
-        <!--Filtered Games List Collection View Controller-->
-        <scene sceneID="Xe0-Ov-MoK">
+        <!--Game Grouping View Controller-->
+        <scene sceneID="sRp-FJ-Jhb">
             <objects>
-                <collectionViewController id="mae-S0-AXh" customClass="FilteredGamesListCollectionViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="r5A-Nb-aEm">
+                <viewController id="XZs-Zj-HML" customClass="GameGroupingViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8QE-zZ-2Bb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="n8a-TD-9sr">
-                            <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="savedGameCell" id="CCz-aP-ZGl" customClass="SavedGameCollectionViewCell" customModule="GoodGame" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="NqV-YJ-wTM">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </collectionViewCellContentView>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="mae-S0-AXh" id="Lzb-cX-VaK"/>
-                            <outlet property="delegate" destination="mae-S0-AXh" id="UA5-4z-rcd"/>
-                        </connections>
-                    </collectionView>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6It-Oa-Sak">
+                                <rect key="frame" x="0.0" y="25" width="375" height="622"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="IXI-gI-tJL">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="iDe-5c-WpP">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="o0z-Nn-Vi8">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XhV-c4-7lZ">
+                                <rect key="frame" x="45" y="552" width="285" height="45"/>
+                                <color key="backgroundColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="uq8-KQ-fFM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneButtonPressed:" destination="XZs-Zj-HML" eventType="touchUpInside" id="fAY-a9-nIS"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Games Found Count Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U1C-hr-WCs">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="25"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="21"/>
+                                <color key="textColor" red="0.49589546319796951" green="0.49589546319796951" blue="0.49589546319796951" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6It-Oa-Sak" firstAttribute="trailing" secondItem="mGY-cK-9ms" secondAttribute="trailing" id="5f2-Uh-8uH"/>
+                            <constraint firstItem="6It-Oa-Sak" firstAttribute="top" secondItem="U1C-hr-WCs" secondAttribute="bottom" id="GOy-zc-15e"/>
+                            <constraint firstItem="mGY-cK-9ms" firstAttribute="bottom" secondItem="XhV-c4-7lZ" secondAttribute="bottom" constant="50" id="Ogl-xw-omh"/>
+                            <constraint firstItem="mGY-cK-9ms" firstAttribute="trailing" secondItem="U1C-hr-WCs" secondAttribute="trailing" id="RV0-86-3k5"/>
+                            <constraint firstItem="6It-Oa-Sak" firstAttribute="bottom" secondItem="mGY-cK-9ms" secondAttribute="bottom" id="YLH-mo-nFx"/>
+                            <constraint firstItem="U1C-hr-WCs" firstAttribute="leading" secondItem="mGY-cK-9ms" secondAttribute="leading" id="Yi0-x8-oVd"/>
+                            <constraint firstItem="U1C-hr-WCs" firstAttribute="top" secondItem="mGY-cK-9ms" secondAttribute="top" id="Z11-te-nhV"/>
+                            <constraint firstItem="mGY-cK-9ms" firstAttribute="trailing" secondItem="XhV-c4-7lZ" secondAttribute="trailing" constant="45" id="fbW-aW-a00"/>
+                            <constraint firstItem="XhV-c4-7lZ" firstAttribute="leading" secondItem="mGY-cK-9ms" secondAttribute="leading" constant="45" id="gDr-AH-13d"/>
+                            <constraint firstItem="6It-Oa-Sak" firstAttribute="leading" secondItem="mGY-cK-9ms" secondAttribute="leading" id="vDY-Rz-Q0w"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="mGY-cK-9ms"/>
+                    </view>
                     <connections>
-                        <segue destination="xaI-35-Rgs" kind="presentation" identifier="toShowFilteredSavedGame" id="wqt-VG-ugL"/>
+                        <outlet property="collectionView" destination="6It-Oa-Sak" id="NIk-aP-e2a"/>
+                        <outlet property="doneButton" destination="XhV-c4-7lZ" id="Ilo-xi-knC"/>
+                        <outlet property="gamesFoundLabel" destination="U1C-hr-WCs" id="l16-kp-2vP"/>
+                        <segue destination="xaI-35-Rgs" kind="presentation" identifier="toShowFilteredSavedGame" id="Iuu-34-13g"/>
                     </connections>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IDW-fY-ZTb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XGR-w7-5cr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2654" y="1657"/>
+            <point key="canvasLocation" x="2710" y="1655"/>
         </scene>
         <!--Now Playing-->
         <scene sceneID="Hln-GO-CSg">
@@ -1102,7 +1140,7 @@
                         <outlet property="playthroughHistoryBarButtonItem" destination="owA-ZW-zsf" id="tNu-MO-1JP"/>
                         <outlet property="suggestedTagTableView" destination="FKl-xr-QZw" id="aqJ-oe-Vah"/>
                         <outlet property="toolBarView" destination="Lkf-Y5-bTf" id="7iZ-Nr-28w"/>
-                        <segue destination="Yfx-rq-3ek" kind="presentation" identifier="toShowHistory" id="ovp-Ud-iVV"/>
+                        <segue destination="E7U-R3-ZVA" kind="presentation" identifier="toShowHistory" id="CYW-w3-8ZH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hdG-x7-JlO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1145,33 +1183,62 @@
             </objects>
             <point key="canvasLocation" x="1834.4000000000001" y="128.18590704647679"/>
         </scene>
-        <!--Playthrough History List Table View Controller-->
-        <scene sceneID="umP-qG-bTU">
+        <!--Playthrough List View Controller-->
+        <scene sceneID="SgC-I7-ERf">
             <objects>
-                <tableViewController id="Yfx-rq-3ek" customClass="PlaythroughHistoryListTableViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="xfk-d7-yV3">
+                <viewController id="E7U-R3-ZVA" customClass="PlaythroughListViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Xaj-1R-qBq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gcP-vU-gan">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="jMJ-uS-qxX">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jMJ-uS-qxX" id="4Q0-bB-2u0">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MW2-Gk-fVo">
+                                <rect key="frame" x="45" y="502" width="285" height="45"/>
+                                <color key="backgroundColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Qci-4q-3SQ"/>
+                                </constraints>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneButtonPressed:" destination="E7U-R3-ZVA" eventType="touchUpInside" id="qaa-pW-DHh"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" rowHeight="120" id="eW5-at-3C6">
-                                <rect key="frame" x="0.0" y="28" width="375" height="120"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eW5-at-3C6" id="WTJ-Ub-CCD">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Yfx-rq-3ek" id="bag-D8-DCo"/>
-                            <outlet property="delegate" destination="Yfx-rq-3ek" id="zX4-IQ-3jR"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3ud-Jr-xMg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                        <constraints>
+                            <constraint firstItem="EIJ-w8-MpM" firstAttribute="bottom" secondItem="MW2-Gk-fVo" secondAttribute="bottom" constant="100" id="9Oh-hD-rXI"/>
+                            <constraint firstItem="EIJ-w8-MpM" firstAttribute="trailing" secondItem="MW2-Gk-fVo" secondAttribute="trailing" constant="45" id="Aci-kj-pL3"/>
+                            <constraint firstItem="MW2-Gk-fVo" firstAttribute="leading" secondItem="EIJ-w8-MpM" secondAttribute="leading" constant="45" id="UUC-09-04x"/>
+                            <constraint firstItem="gcP-vU-gan" firstAttribute="top" secondItem="EIJ-w8-MpM" secondAttribute="top" id="cqZ-qa-nEh"/>
+                            <constraint firstItem="gcP-vU-gan" firstAttribute="leading" secondItem="EIJ-w8-MpM" secondAttribute="leading" id="e1D-h9-qa4"/>
+                            <constraint firstItem="gcP-vU-gan" firstAttribute="trailing" secondItem="EIJ-w8-MpM" secondAttribute="trailing" id="mAB-pV-lKC"/>
+                            <constraint firstItem="gcP-vU-gan" firstAttribute="bottom" secondItem="EIJ-w8-MpM" secondAttribute="bottom" id="tWh-gB-IpB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="EIJ-w8-MpM"/>
+                    </view>
+                    <connections>
+                        <outlet property="doneButton" destination="MW2-Gk-fVo" id="LUb-PD-VK2"/>
+                        <outlet property="tableView" destination="gcP-vU-gan" id="ZNx-K5-exP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nbh-he-oAd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2577" y="128"/>
+            <point key="canvasLocation" x="2650" y="128"/>
         </scene>
     </scenes>
     <resources>
@@ -1195,7 +1262,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="3rC-pf-oUp"/>
-        <segue reference="Whk-9D-cY9"/>
-        <segue reference="8AN-it-XqS"/>
+        <segue reference="Iuu-34-13g"/>
     </inferredMetricsTieBreakers>
 </document>

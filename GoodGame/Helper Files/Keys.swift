@@ -14,4 +14,6 @@ enum Keys {
     static let defaultPlatforms = "platforms"
     static let defaultGenres = "genres"
     static let defaultPlayModes = "modes"
+    static let onboardingKey = "onboard"
+    static let FirstLaunchKey = "FirstLaunch"
 }

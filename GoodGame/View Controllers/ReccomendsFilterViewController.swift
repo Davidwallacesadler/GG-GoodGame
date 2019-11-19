@@ -297,7 +297,7 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
             playStatusVC.modalPresentationStyle = .custom
             playStatusVC.selectedGame = selectedGame
         } else if segue.identifier == "toShowFilteredGames" {
-            guard let filteredGamesVC = segue.destination as? FilteredGamesListCollectionViewController, let selectedGames = filteredGames else { return }
+            guard let filteredGamesVC = segue.destination as? GameGroupingViewController, let selectedGames = filteredGames else { return }
             filteredGamesVC.savedGames = selectedGames
         }
     }

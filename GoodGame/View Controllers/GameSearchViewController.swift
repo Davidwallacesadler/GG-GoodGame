@@ -45,6 +45,7 @@ class GameSearchViewController: UIViewController, UISearchBarDelegate, UITableVi
             self.loadingImageView?.stopAnimating()
             self.loadingImageView?.removeFromSuperview()
             print("Nothing to search")
+            retreivedGames = []
             return
         } else {
             print("Performing network request with query: \(query)")

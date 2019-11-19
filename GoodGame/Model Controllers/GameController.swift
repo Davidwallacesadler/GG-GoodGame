@@ -101,24 +101,28 @@ struct GameController {
     
     func getCoverImageByArtworks(_ artworks: [Artwork],
                                   completion: @escaping(_ coverArt: UIImage?) -> Void) {
-               guard let imageUrlString = artworks[0].url else { return }
-               guard let imageUrl = URL(string:"https:" + imageUrlString) else { return }
-               NetworkController.performRequest(for: imageUrl,
-                                                httpMethod: .get,
-                                                urlParameters: nil,
-                                                body: nil) { (data, error) in
-                   if error != nil {
-                       print(error?.localizedDescription, error)
-                       completion(nil)
-                   } else {
-                       guard let recievedData = data else {
-                           completion(nil)
-                           return
-                       }
-                       completion(UIImage(data: recievedData as Data))
-               }
-           }
-       }
+        if artworks.count < 1 {
+            return
+        } else {
+            guard let imageUrlString = artworks[0].url else { return }
+            guard let imageUrl = URL(string:"https:" + imageUrlString) else { return }
+            NetworkController.performRequest(for: imageUrl,
+                                                 httpMethod: .get,
+                                                 urlParameters: nil,
+                                                 body: nil) { (data, error) in
+                if error != nil {
+                    print(error?.localizedDescription as Any, error as Any)
+                    completion(nil)
+                } else {
+                    guard let recievedData = data else {
+                        completion(nil)
+                        return
+                    }
+                    completion(UIImage(data: recievedData as Data))
+                }
+            }
+        }
+    }
     
     // MARK: - Get Genre Data
     

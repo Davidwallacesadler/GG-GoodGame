@@ -8,70 +8,64 @@
 
 import UIKit
 
-class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+protocol PlayStatusDelegate {
+    func updateCurrentlyPlaying()
+}
+
+class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, PlayStatusDelegate {
+    
+    func updateCurrentlyPlaying() {
+        needToRefreshCurrentGames = true
+        updateCurrentlyPlayingCollectionView()
+    }
+    
     
     // MARK: - Internal Properties
     
-    var randomPlatformNameIdPair: (String,Int) {
+    var needToRefreshCurrentGames: Bool = false
+    var firstViewing: Bool {
         get {
-            guard let randomPlatform = GamePlatformController.shared.platforms.randomElement() else { return ("",0) }
-            guard let randomPlatformName = randomPlatform.name else { return ("",0) }
-            return (randomPlatformName, Int(randomPlatform.id))
+            return UserDefaults.standard.bool(forKey: Keys.onboardingKey)
         }
     }
+    var platformId: Int?
     var platformName: String?
-    var randomGenreNameIdPair: (String,Int) {
-        get {
-            guard let randomGenre = GameGenreController.shared.genres.randomElement() else { return ("",0) }
-            guard let randomGenreName = randomGenre.name else { return ("",0) }
-            return (randomGenreName, Int(randomGenre.id))
-        }
-    }
+    var genreId: Int?
     var genreName: String?
     var gamesAssociatedWithRandomPlatform: [SavedGame] = []
     var gamesAssociatedWithRandomGenre: [SavedGame] = []
     var currentlyPlayingGames: [SavedGame] {
         return SavedGameController.shared.loadCurrentlyPlayingGames()
     }
-    private let spacing: CGFloat = 16.0
     var selectedSavedGame: SavedGame? {
         didSet {
             self.performSegue(withIdentifier: "toShowPlayStatus", sender: self)
         }
     }
     lazy var slideInTransitioningDelegate = SlideInPresentationManager()
+    private let spacing: CGFloat = 16.0
+    let noPlatformGamesFoundImageView = UIImageView(image: UIImage(named: "noGamesFoundIcon"))
+    let noGenreGamesFoundImageView = UIImageView(image: UIImage(named: "noGamesFoundIcon"))
+    let noCurrentGamesFoundImageView = UIImageView(image: UIImage(named: "startAGameIcon"))
     
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupContentModesForEmptyCollectionViewImageViews()
+        getRandomPlatformNameAndId()
+        getRandomGenreNameAndId()
         prepareRandomGenreAndPlatformData()
         setupCollectionViewDataSourceAndDelegation()
         registerCustomCollectionViewCells()
         setupCollectionViewFlowLayouts()
-       
+        checkForFirstViewing()
     }
     
-    #warning("need to have an observer to reload this collectionview whenever the view comes back")
+    #warning("need to have an observer to reload currentlyPlaying collectionview whenever the view comes back")
     override func viewDidAppear(_ animated: Bool) {
-        #warning("Want to reload the recently played when we come back from the playStatusVC")
         self.recentlyPlayedCollectionView.reloadData()
-        if gamesAssociatedWithRandomPlatform.isEmpty || gamesAssociatedWithRandomGenre.isEmpty {
-            self.prepareRandomGenreAndPlatformData()
-        }
-        let clearView = UIView(frame: recentlyPlayedCollectionView.bounds)
-        clearView.tintColor = .clear
-        if currentlyPlayingGames.isEmpty {
-           let noGamesFoundImageView = UIImageView(image: UIImage(named: "startAGameIcon"))
-           noGamesFoundImageView.contentMode = .scaleAspectFit
-           recentlyPlayedCollectionView.backgroundView = noGamesFoundImageView
-        } else if currentlyPlayingGames.isEmpty == false {
-            recentlyPlayedCollectionView.backgroundView = clearView
-        } else if gamesAssociatedWithRandomGenre.isEmpty == false {
-            randomGenreCollectionView.backgroundView = clearView
-        } else if gamesAssociatedWithRandomPlatform.isEmpty == false {
-            randomPlatformCollectionView.backgroundView = clearView
-        }
+        adjustCollectionViewsForNewData()
     }
     
     // MARK: - Outlets
@@ -144,14 +138,58 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
     
     // MARK: - Internal Methods
     
+    private func updateCurrentlyPlayingCollectionView() {
+        if needToRefreshCurrentGames {
+            self.recentlyPlayedCollectionView.reloadData()
+            if currentlyPlayingGames.isEmpty == false {
+                let clearView = UIView(frame: recentlyPlayedCollectionView.bounds)
+                clearView.tintColor = .clear
+                recentlyPlayedCollectionView.backgroundView = clearView
+            } else {
+                recentlyPlayedCollectionView.backgroundView = noCurrentGamesFoundImageView
+            }
+            
+        }
+    }
+    
+    private func setupContentModesForEmptyCollectionViewImageViews() {
+        noPlatformGamesFoundImageView.contentMode = .scaleAspectFit
+        noGenreGamesFoundImageView.contentMode = .scaleAspectFit
+        noCurrentGamesFoundImageView.contentMode = .scaleAspectFit
+    }
+    
+    private func checkForFirstViewing() {
+        if firstViewing {
+            self.performSegue(withIdentifier: "toShowOnboardingView", sender: self)
+            UserDefaults.standard.set(false, forKey: Keys.onboardingKey)
+            print("onboarding userDefault set to: \(UserDefaults.standard.bool(forKey: Keys.onboardingKey))")
+        }
+    }
+    
+    private func getRandomPlatformNameAndId() {
+        guard let randomPlatform = GamePlatformController.shared.platforms.randomElement() else { return }
+        guard let randomPlatformName = randomPlatform.name else { return }
+        self.platformName = randomPlatformName
+        self.platformId = Int(randomPlatform.id)
+    }
+    
+    private func getRandomGenreNameAndId() {
+        guard let randomGenre = GameGenreController.shared.genres.randomElement() else { return }
+        guard let randomGenreName = randomGenre.name else { return }
+        self.genreName = randomGenreName
+        self.genreId = Int(randomGenre.id)
+    }
+    
     private func getGamesForPlatform() {
-        let predicateString = "id == \(randomPlatformNameIdPair.1)"
+        guard let platformId = platformId else { return }
+        let predicateString = "(id == \(platformId))"
         gamesAssociatedWithRandomPlatform = GamePlatformController.shared.fetchSavedGameFromPlatformPredicateString(predicateString: predicateString)
         randomPlatformCollectionView.reloadData()
     }
     
     private func getGamesForGenre() {
-        let predicateString = "id == \(randomGenreNameIdPair.1)"
+        guard let genreId = genreId else { return }
+        let predicateString = "(id == \(genreId))"
         gamesAssociatedWithRandomGenre = GameGenreController.shared.fetchSavedGameFromGenrePredicateString(predicateString: predicateString)
         randomGenreCollectionView.reloadData()
     }
@@ -172,18 +210,12 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     private func prepareRandomGenreAndPlatformData() {
-        platformName = randomPlatformNameIdPair.0
-        genreName = randomGenreNameIdPair.0
         if let platform = platformName, let genre = genreName {
             if platform.isEmpty && genre.isEmpty {
                 randomPlatformLabel.text = "Random Platform Games"
                 randomGenreLabel.text = "Random Genre Games"
-                let noGamesFoundImageView = UIImageView(image: UIImage(named: "noGamesFoundIcon"))
-                let noGamesFoundImageViewTwo = UIImageView(image: UIImage(named: "noGamesFoundIcon"))
-                noGamesFoundImageView.contentMode = .scaleAspectFit
-                noGamesFoundImageViewTwo.contentMode = .scaleAspectFit
-                randomPlatformCollectionView.backgroundView = noGamesFoundImageView
-                randomGenreCollectionView.backgroundView = noGamesFoundImageViewTwo
+                randomPlatformCollectionView.backgroundView = noPlatformGamesFoundImageView
+                randomGenreCollectionView.backgroundView = noGenreGamesFoundImageView
             } else {
                 randomPlatformLabel.text = "\(platform) Games"
                 randomGenreLabel.text = "\(genre) Games"
@@ -193,7 +225,24 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
     
+    private func adjustCollectionViewsForNewData() {
+        if gamesAssociatedWithRandomPlatform.isEmpty || gamesAssociatedWithRandomGenre.isEmpty {
+            self.prepareRandomGenreAndPlatformData()
+        }
+
+        if currentlyPlayingGames.isEmpty {
+           recentlyPlayedCollectionView.backgroundView = noCurrentGamesFoundImageView
+        } else if currentlyPlayingGames.isEmpty == false {
+            noCurrentGamesFoundImageView.removeFromSuperview()
+        } else if gamesAssociatedWithRandomGenre.isEmpty == false {
+            noGenreGamesFoundImageView.removeFromSuperview()
+        } else if gamesAssociatedWithRandomPlatform.isEmpty == false {
+            noPlatformGamesFoundImageView.removeFromSuperview()
+        }
+    }
+    
     private func setupCollectionViewFlowLayouts() {
+        #warning("is there a better way to do this? I have to use separate layouts because i get weird behavior otherwise.")
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: self.recentlyPlayedCollectionView.frame.width / 1.5, height: self.recentlyPlayedCollectionView.frame.height)
         //layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
@@ -214,8 +263,7 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
         layoutThree.minimumLineSpacing = spacing
         layoutThree.minimumInteritemSpacing = spacing
         layoutThree.scrollDirection = .horizontal
-        
-        
+    
         self.recentlyPlayedCollectionView.collectionViewLayout = layout
         self.randomPlatformCollectionView.collectionViewLayout = layoutTwo
         self.randomGenreCollectionView.collectionViewLayout = layoutThree
@@ -230,6 +278,7 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
             playStatusVC.transitioningDelegate = slideInTransitioningDelegate
             playStatusVC.modalPresentationStyle = .custom
             playStatusVC.selectedGame = savedGame
+            playStatusVC.playStatusDelegate = self
         }
     }
 }

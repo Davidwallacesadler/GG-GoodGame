@@ -11,15 +11,26 @@ import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
+    let defaults = UserDefaults()
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.shared.enable = true
+        onFirstLaunch()
         return true
     }
+    
+    private func onFirstLaunch() {
+           let firstLaunch = FirstLaunch(userDefaults: .standard, key: Keys.FirstLaunchKey)
+           if firstLaunch.isFirstLaunch {
+            UserDefaults.standard.set(true, forKey: Keys.onboardingKey)
+           }
+       }
 
-    // MARK: UISceneSession Lifecycle
+    
+    // MARK: - UISceneSession Lifecycle
+    
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.

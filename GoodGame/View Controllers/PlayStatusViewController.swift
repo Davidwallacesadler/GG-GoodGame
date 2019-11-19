@@ -12,6 +12,7 @@ class PlayStatusViewController: UIViewController {
     
     // MARK: - Internal Properties
     
+    var playStatusDelegate: PlayStatusDelegate?
     enum images: Int {
         case playIcon = 0
         case pauseIcon = 1
@@ -41,7 +42,13 @@ class PlayStatusViewController: UIViewController {
             updateInterfaceBasedOnGameState(game: savedGame)
         }
         resignFirstResponderTapRecongnizerSetup()
-        //addDoneButtonToKeyboard()
+        addDoneButtonToKeyboard()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
     }
     
     // MARK: - Outlets
@@ -55,15 +62,21 @@ class PlayStatusViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func favoriteStatusButtonPressed(_ sender: Any) {
-       updateFavoriteStatus()
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+        updateFavoriteStatus()
     }
     
     @IBAction func finishButtonPressed(_ sender: Any) {
-       displayPlaythroughAlert()
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+        displayPlaythroughAlert()
     }
     
     @IBAction func playPauseButtonPressed(_ sender: Any) {
-       updatePlayStatus()
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+        updatePlayStatus()
     }
     
     // MARK: - Playthrough Alert TextView Bounds
@@ -85,17 +98,17 @@ class PlayStatusViewController: UIViewController {
     
     // MARK: - Internal Methods
     
-//    private func addDoneButtonToKeyboard() {
-//        let doneToolBar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50.0))
-//        doneToolBar.barStyle = .default
-//        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-//        let done = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))
-//        let items = [flexSpace,done]
-//        doneToolBar.items = items
-//        doneToolBar.sizeToFit()
-//        textView.inputAccessoryView = doneToolBar
-//        textView.autocorrectionType = .no
-//    }
+    private func addDoneButtonToKeyboard() {
+        let doneToolBar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50.0))
+        doneToolBar.barStyle = .default
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))
+        let items = [flexSpace,done]
+        doneToolBar.items = items
+        doneToolBar.sizeToFit()
+        textView.inputAccessoryView = doneToolBar
+        textView.autocorrectionType = .no
+    }
     
     @objc func doneButtonAction() {
         textView.resignFirstResponder()
@@ -110,10 +123,11 @@ class PlayStatusViewController: UIViewController {
     private func updatePlayStatus() {
         if let game = selectedGame {
            if game.isBeingCurrentlyPlayed == false {
-               SavedGameController.shared.setBeginningOfPlaythroughDate(forSavedGame: game)
+            SavedGameController.shared.setBeginningOfPlaythroughDate(forSavedGame: game)
            }
-           SavedGameController.shared.invertPlayingStatus(savedGame: game)
-           updateInterfaceBasedOnGameState(game: game)
+        SavedGameController.shared.invertPlayingStatus(savedGame: game)
+        updateInterfaceBasedOnGameState(game: game)
+        playStatusDelegate?.updateCurrentlyPlaying()
        }
     }
     
@@ -133,11 +147,13 @@ class PlayStatusViewController: UIViewController {
             favoriteStatusButton.setImage(playStatusViewImages[favoriteIconUnselectedIndex], for: .normal)
         }
         if game.isBeingCurrentlyPlayed {
+            playStatusDelegate?.updateCurrentlyPlaying()
             let pauseIconIndex = images.pauseIcon.rawValue
             let finishIconIndex = images.finishIcon.rawValue
             playPauseButton.setImage(playStatusViewImages[pauseIconIndex], for: .normal)
             finishPlaythroughButton.setImage(playStatusViewImages[finishIconIndex], for: .normal)
         } else {
+            playStatusDelegate?.updateCurrentlyPlaying()
             let playIconIndex = images.playIcon.rawValue
             let finishDeniedIconIndex = images.finishDeniedIcon.rawValue
             playPauseButton.setImage(playStatusViewImages[playIconIndex], for: .normal)
@@ -148,23 +164,23 @@ class PlayStatusViewController: UIViewController {
     private func displayPlaythroughAlert() {
         if let game = selectedGame {
             if game.isBeingCurrentlyPlayed {
-              let finishPlaythroughAlert = UIAlertController(title: "How Was Your Playthrough? \n\n\n\n\n", message: nil, preferredStyle: .alert)
+               let finishPlaythroughAlert = UIAlertController(title: "How Was Your Playthrough? \n\n\n\n\n", message: nil, preferredStyle: .alert)
                 
-              let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { (action) in
-                  finishPlaythroughAlert.view.removeObserver(self, forKeyPath: "bounds")
-              }
-              finishPlaythroughAlert.addAction(cancelAction)
-
-              let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
+               let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { (action) in
+                finishPlaythroughAlert.view.removeObserver(self, forKeyPath: "bounds")
+               }
+               finishPlaythroughAlert.addAction(cancelAction)
+               let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
                 let enteredText = self.textView.text
                 SavedGameController.shared.createPlaythroughHistory(savedGame: game, withComment: enteredText!)
                 SavedGameController.shared.invertPlayingStatus(savedGame: game)
                 finishPlaythroughAlert.view.removeObserver(self, forKeyPath: "bounds")
                 self.updateInterfaceBasedOnGameState(game: game)
-              }
-                
+                let generator = UIImpactFeedbackGenerator(style: .medium)
+                generator.impactOccurred()
+                self.dismiss(animated: true, completion: nil)
+                }
                 finishPlaythroughAlert.addAction(saveAction)
-              
                 finishPlaythroughAlert.view.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions.new, context: nil)
                 switch self.traitCollection.userInterfaceStyle {
                 case .dark:
