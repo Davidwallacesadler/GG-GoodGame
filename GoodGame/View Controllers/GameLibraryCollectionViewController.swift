@@ -34,15 +34,21 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
             refreshAllOrderedSavedGames()
         case filterTitles[1]:
             // Favorites
-            let favoriteGames = SavedGameController.shared.loadFavoriteGames()
+            let favoriteGames = SavedGameController.shared.loadFavoriteGames().sorted { (gameOne, gameTwo) -> Bool in
+                return gameOne.name < gameTwo.name
+            }
             savedGamesOrdered = favoriteGames.groupedByFirstTitleLetterString()
         case filterTitles[2]:
             // Currently Playing
-            let currentlyPlayingGames = SavedGameController.shared.loadCurrentlyPlayingGames()
+            let currentlyPlayingGames = SavedGameController.shared.loadCurrentlyPlayingGames().sorted { (gameOne, gameTwo) -> Bool in
+                return gameOne.name < gameTwo.name
+            }
             savedGamesOrdered = currentlyPlayingGames.groupedByFirstTitleLetterString()
         case filterTitles[3]:
             // Games Beaten
-            let gamesWithPlaythroughs = PlaythroughController.shared.loadBeatenGames()
+            let gamesWithPlaythroughs = PlaythroughController.shared.loadBeatenGames().sorted { (gameOne, gameTwo) -> Bool in
+                return gameOne.name < gameTwo.name
+            }
             savedGamesOrdered = gamesWithPlaythroughs.groupedByFirstTitleLetterString()
         default:
             return
@@ -69,6 +75,7 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
         deletionAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         deletionAlert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { (alert) in
             SavedGameController.shared.deleteSavedGame(savedGame: selectedGame)
+            self.refreshAllOrderedSavedGames()
             self.collectionView.reloadData()
         }))
         self.present(deletionAlert, animated: true, completion: nil)
@@ -91,11 +98,8 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
         if gameFilterPickerView.superview != nil {
             return
         }
-        let temporaryInput = UITextField(frame: CGRect.zero)
-        temporaryInput.inputView = self.gameFilterPickerView
-        self.view.addSubview(temporaryInput)
+        guard let temporaryInput = tempInput else { return }
         temporaryInput.becomeFirstResponder()
-        tempInput = temporaryInput
     }
     
     // MARK: - View Lifecycle
@@ -107,6 +111,7 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
         setupPickerViewDelegation()
         registerCustomCells()
         resignFirstResponderTapRecongnizerSetup()
+        setupTempInputTextView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -120,7 +125,11 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
     lazy var slideInTransitioningDelegate = SlideInPresentationManager()
     private let spacing: CGFloat = 16.0
     var selectedSavedGame: SavedGame?
-    var savedGamesOrdered: [String : [SavedGame]] = SavedGameController.shared.savedGames.groupedByFirstTitleLetterString()
+    
+    var savedGamesOrdered: [String : [SavedGame]] = SavedGameController.shared.savedGames.sorted { (gameOne, gameTwo) -> Bool in
+        return gameOne.name < gameTwo.name
+    }.groupedByFirstTitleLetterString()
+    
     var groupingKeys: [String] {
         var grouping = [String]()
         for key in savedGamesOrdered.keys {
@@ -129,12 +138,21 @@ class GameLibraryCollectionViewController: UICollectionViewController, Collectio
         return grouping.sorted(by: <)
     }
     let filterTitles = ["All Games", "Favorites", "Currently Playing", "Games Beaten"]
-    var tempInput: UITextField?
+    var tempInput: UITextView?
     // MARK: - Internal Methods
     
+    private func setupTempInputTextView() {
+        let temporaryInput = UITextView(frame: CGRect.zero)
+        temporaryInput.inputView = self.gameFilterPickerView
+        self.view.addSubview(temporaryInput)
+        tempInput = temporaryInput
+    }
+    
     private func refreshAllOrderedSavedGames() {
-        let currentSavedGamesOrdered = SavedGameController.shared.savedGames.groupedByFirstTitleLetterString()
-        savedGamesOrdered = currentSavedGamesOrdered
+        let sortedSavedGames = SavedGameController.shared.savedGames.sorted { (gameOne, gameTwo) -> Bool in
+            return gameOne.name < gameTwo.name
+        }
+        savedGamesOrdered = sortedSavedGames.groupedByFirstTitleLetterString()
     }
     
     private func setupCollectionViewInsets() {

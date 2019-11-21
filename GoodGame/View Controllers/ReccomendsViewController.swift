@@ -55,7 +55,8 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
         setupContentModesForEmptyCollectionViewImageViews()
         getRandomPlatformNameAndId()
         getRandomGenreNameAndId()
-        prepareRandomGenreAndPlatformData()
+        prepareRandomGenreData()
+        prepareRandomPlatformData()
         setupCollectionViewDataSourceAndDelegation()
         registerCustomCollectionViewCells()
         setupCollectionViewFlowLayouts()
@@ -65,6 +66,8 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
     #warning("need to have an observer to reload currentlyPlaying collectionview whenever the view comes back")
     override func viewDidAppear(_ animated: Bool) {
         self.recentlyPlayedCollectionView.reloadData()
+        self.randomGenreCollectionView.reloadData()
+        self.randomPlatformCollectionView.reloadData()
         adjustCollectionViewsForNewData()
     }
     
@@ -209,56 +212,91 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
         self.randomGenreCollectionView.register(UINib(nibName: "SquareImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "squareImageCell")
     }
     
-    private func prepareRandomGenreAndPlatformData() {
-        if let platform = platformName, let genre = genreName {
-            if platform.isEmpty && genre.isEmpty {
-                randomPlatformLabel.text = "Random Platform Games"
+    private func prepareRandomGenreData() {
+        if let genre = genreName {
+            if genre.isEmpty {
                 randomGenreLabel.text = "Random Genre Games"
-                randomPlatformCollectionView.backgroundView = noPlatformGamesFoundImageView
+                noGenreGamesFoundImageView.isHidden = false
                 randomGenreCollectionView.backgroundView = noGenreGamesFoundImageView
             } else {
-                randomPlatformLabel.text = "\(platform) Games"
                 randomGenreLabel.text = "\(genre) Games"
                 getGamesForGenre()
-                getGamesForPlatform()
+                if gamesAssociatedWithRandomGenre.isEmpty, genre.isEmpty == false {
+                    randomGenreLabel.text = "Random Genre Games"
+                    noGenreGamesFoundImageView.isHidden = false
+                    randomGenreCollectionView.backgroundView = noGenreGamesFoundImageView
+                }
             }
+        } else {
+            randomGenreLabel.text = "Random Genre Games"
+            randomGenreCollectionView.backgroundView = noGenreGamesFoundImageView
+        }
+    }
+    
+    private func prepareRandomPlatformData() {
+        if let platform = platformName {
+            if platform.isEmpty {
+                randomPlatformLabel.text = "Random Platform Games"
+                noPlatformGamesFoundImageView.isHidden = false
+                randomPlatformCollectionView.backgroundView = noPlatformGamesFoundImageView
+            } else {
+                randomPlatformLabel.text = "\(platform) Games"
+                getGamesForPlatform()
+                if gamesAssociatedWithRandomPlatform.isEmpty, platform.isEmpty == false {
+                    randomPlatformLabel.text = "Random Platform Games"
+                    noPlatformGamesFoundImageView.isHidden = false
+                    randomPlatformCollectionView.backgroundView = noPlatformGamesFoundImageView
+                }
+            }
+        } else {
+            randomPlatformLabel.text = "Random Platform Games"
+            randomPlatformCollectionView.backgroundView = noPlatformGamesFoundImageView
         }
     }
     
     private func adjustCollectionViewsForNewData() {
-        if gamesAssociatedWithRandomPlatform.isEmpty || gamesAssociatedWithRandomGenre.isEmpty {
-            self.prepareRandomGenreAndPlatformData()
+        getGamesForPlatform()
+        getGamesForGenre()
+        if gamesAssociatedWithRandomPlatform.isEmpty {
+            getRandomPlatformNameAndId()
+            prepareRandomPlatformData()
         }
-
+        if gamesAssociatedWithRandomGenre.isEmpty {
+            getRandomGenreNameAndId()
+            prepareRandomGenreData()
+        } 
         if currentlyPlayingGames.isEmpty {
            recentlyPlayedCollectionView.backgroundView = noCurrentGamesFoundImageView
-        } else if currentlyPlayingGames.isEmpty == false {
-            noCurrentGamesFoundImageView.removeFromSuperview()
-        } else if gamesAssociatedWithRandomGenre.isEmpty == false {
-            noGenreGamesFoundImageView.removeFromSuperview()
-        } else if gamesAssociatedWithRandomPlatform.isEmpty == false {
-            noPlatformGamesFoundImageView.removeFromSuperview()
+        }
+        if currentlyPlayingGames.isEmpty == false {
+            noCurrentGamesFoundImageView.isHidden = true
+        }
+        if gamesAssociatedWithRandomGenre.isEmpty == false {
+            noGenreGamesFoundImageView.isHidden = true
+        }
+        if gamesAssociatedWithRandomPlatform.isEmpty == false {
+            noPlatformGamesFoundImageView.isHidden = true
         }
     }
     
     private func setupCollectionViewFlowLayouts() {
         #warning("is there a better way to do this? I have to use separate layouts because i get weird behavior otherwise.")
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: self.recentlyPlayedCollectionView.frame.width / 1.5, height: self.recentlyPlayedCollectionView.frame.height)
+        //layout.itemSize = CGSize(width: self.recentlyPlayedCollectionView.bounds.width / 1.5, height: self.recentlyPlayedCollectionView.bounds.height * 0.9)
         //layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
         layout.minimumLineSpacing = spacing
         layout.minimumInteritemSpacing = spacing
         layout.scrollDirection = .horizontal
         
         let layoutTwo = UICollectionViewFlowLayout()
-        layoutTwo.itemSize = CGSize(width: self.randomPlatformCollectionView.frame.width / 1.5, height: self.randomPlatformCollectionView.frame.height)
+       // layoutTwo.itemSize = CGSize(width: self.randomPlatformCollectionView.bounds.width / 1.5, height: self.randomPlatformCollectionView.frame.height * 0.9)
         //layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
         layoutTwo.minimumLineSpacing = spacing
         layoutTwo.minimumInteritemSpacing = spacing
         layoutTwo.scrollDirection = .horizontal
         
         let layoutThree = UICollectionViewFlowLayout()
-        layoutThree.itemSize = CGSize(width: self.randomGenreCollectionView.frame.width / 1.5, height: self.randomGenreCollectionView.frame.height)
+       // layoutThree.itemSize = CGSize(width: self.randomGenreCollectionView.bounds.width / 1.5, height: self.randomGenreCollectionView.bounds.height * 0.9)
         //layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
         layoutThree.minimumLineSpacing = spacing
         layoutThree.minimumInteritemSpacing = spacing
@@ -287,10 +325,7 @@ class ReccomendsViewController: UIViewController, UICollectionViewDelegate, UICo
 
 extension ReccomendsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numberOfItemsPerRow: CGFloat = 2
-        let spacingBetweenCells: CGFloat = 16
-        let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
-        let width = (collectionView.bounds.width - totalSpacing)/numberOfItemsPerRow
+        let width = collectionView.bounds.height
         let height = collectionView.bounds.height
         return CGSize(width: height, height: width)
     }

@@ -16,7 +16,7 @@ class LibraryGestureOnboardingViewController: UIViewController {
         tapIconImageView.image = UIImage(named: "tapIcon")
         mainLabel.text = "To edit your game or view your playthrough history simply tap the cover image."
         tipNumberLabel.text = "Tip 1 of 3"
-        ViewHelper.roundCornersOf(viewLayer: gotItButton.layer, withRoundingCoefficient: 15.0)
+        ViewHelper.roundCornersOf(viewLayer: gotItButton.layer, withRoundingCoefficient: Double(gotItButton.bounds.height / 3.0 ))
     }
     var viewHasBeenTappedTimes: Int = 0 {
         didSet {

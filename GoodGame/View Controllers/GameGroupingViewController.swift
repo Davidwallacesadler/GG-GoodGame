@@ -91,7 +91,7 @@ class GameGroupingViewController: UIViewController, UICollectionViewDataSource, 
         self.collectionView.collectionViewLayout = layout
     }
     private func roundButtonCorners() {
-        ViewHelper.roundCornersOf(viewLayer: doneButton.layer, withRoundingCoefficient: Double(doneButton.bounds.height / 5.0))
+        ViewHelper.roundCornersOf(viewLayer: doneButton.layer, withRoundingCoefficient: Double(doneButton.bounds.height / 3.0))
     }
     private func updateGamesCountLabel() {
         guard let games = savedGames else { return }

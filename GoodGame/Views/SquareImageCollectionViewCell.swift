@@ -9,6 +9,7 @@
 import UIKit
 
 class SquareImageCollectionViewCell: UICollectionViewCell {
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()

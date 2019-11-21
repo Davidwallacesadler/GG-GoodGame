@@ -57,6 +57,19 @@ class PlaythroughController {
         saveToPersitentStorage()
     }
     
+    func updatePlaythroughComment(playthrough: PlaythroughHistory,
+                                  newComment: String) {
+        playthrough.userComment = newComment
+        saveToPersitentStorage()
+    }
+    
+    func deletePlaythroughFor(savedGame: SavedGame,
+                              playthrough: PlaythroughHistory) {
+        savedGame.removeFromPlaythroughs(playthrough)
+        saveToPersitentStorage()
+    }
+    
+    
     // MARK: - Persistence
     
     func saveToPersitentStorage() {
