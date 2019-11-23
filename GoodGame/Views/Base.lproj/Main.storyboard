@@ -13,7 +13,7 @@
             <objects>
                 <navigationController id="jdp-36-lUH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Add Games" image="addGameTabBarIcon" id="SRE-XG-SfC">
-                        <color key="badgeColor" red="1" green="0.0" blue="0.85566986239999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="badgeColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="05D-oV-9Py">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -114,7 +114,7 @@
             <objects>
                 <navigationController id="Pzx-FK-vDy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Library" image="gameLibraryTabBarIcon" id="Fdz-fU-qwW">
-                        <color key="badgeColor" red="1" green="0.0" blue="0.85566986239999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="badgeColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="zc4-Ac-byT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -213,7 +213,7 @@
             <objects>
                 <navigationController id="5P7-us-iZ3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Recommends" image="discoverTabBarIcon" id="Gl8-zH-8i1">
-                        <color key="badgeColor" red="1" green="0.0" blue="0.85566986239999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="badgeColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="Dl7-I5-ZcW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -356,10 +356,10 @@
                         <viewLayoutGuide key="safeArea" id="ftd-95-1NY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Recommends" id="WwH-AD-iHX">
-                        <barButtonItem key="rightBarButtonItem" title="filter" image="magnifyingglass" catalog="system" id="ZdK-rd-qou">
+                        <barButtonItem key="rightBarButtonItem" title="filter" image="navBarFilterSlidersIcon" id="ZdK-rd-qou">
                             <color key="tintColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="RWm-j1-Iav" kind="show" id="Iob-DR-w3h"/>
+                                <segue destination="5Zn-Fg-Jrz" kind="show" id="Zsa-18-a5D"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -544,7 +544,7 @@
             <objects>
                 <viewController id="RWm-j1-Iav" customClass="ReccomendsDetailViewController" customModule="GoodGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cEJ-Ri-tGB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How Would You Like To Find a Game?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jcv-hD-ecP">
@@ -554,10 +554,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="81O-kD-TW9">
-                                <rect key="frame" x="20" y="112" width="335" height="442"/>
+                                <rect key="frame" x="20" y="112" width="335" height="535"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hTw-vQ-bPT">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="217"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="263.5"/>
                                         <color key="backgroundColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="27"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -570,7 +570,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQA-Hk-lnN">
-                                        <rect key="frame" x="0.0" y="225" width="335" height="217"/>
+                                        <rect key="frame" x="0.0" y="271.5" width="335" height="263.5"/>
                                         <color key="backgroundColor" red="0.66938023458781593" green="0.084355870615291026" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="27"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -580,9 +580,6 @@
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                             </preferredSymbolConfiguration>
                                         </state>
-                                        <connections>
-                                            <segue destination="5Zn-Fg-Jrz" kind="show" id="cR5-x3-WBc"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -610,12 +607,11 @@
                     <connections>
                         <outlet property="randomGameButton" destination="hTw-vQ-bPT" id="u66-6J-FoE"/>
                         <outlet property="reccomendByFilterButton" destination="ZQA-Hk-lnN" id="A1N-RK-5YH"/>
-                        <segue destination="xaI-35-Rgs" kind="presentation" identifier="toShowGamePlayStatus" modalPresentationStyle="formSheet" id="ilK-cI-WQR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BLg-VQ-q27" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="980" y="1655"/>
+            <point key="canvasLocation" x="1855" y="2755"/>
         </scene>
         <!--Reccomends Filter View Controller-->
         <scene sceneID="xHN-HE-fLR">
@@ -629,16 +625,16 @@
                                 <rect key="frame" x="20" y="16" width="335" height="542"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Gt9-l5-KBF">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="206"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="208.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Platforms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8wP-MI-fS0">
-                                                <rect key="frame" x="0.0" y="0.0" width="139" height="32.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="139" height="8"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aOG-6F-zDw">
-                                                <rect key="frame" x="0.0" y="32.5" width="335" height="173.5"/>
+                                                <rect key="frame" x="0.0" y="8" width="335" height="200.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="checkableCell" rowHeight="43.666667938232422" id="45f-Nn-pMr">
@@ -657,16 +653,16 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="9AC-4H-9uz">
-                                        <rect key="frame" x="0.0" y="206" width="335" height="159"/>
+                                        <rect key="frame" x="0.0" y="208.5" width="335" height="154.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genres" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBs-Gc-F7E">
-                                                <rect key="frame" x="0.0" y="0.0" width="102.5" height="36"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="102.5" height="15"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Mbb-gG-aia">
-                                                <rect key="frame" x="0.0" y="36" width="335" height="123"/>
+                                                <rect key="frame" x="0.0" y="15" width="335" height="139.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="checkableCell" rowHeight="43.666667938232422" id="taz-QH-WsR">
@@ -685,16 +681,16 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="8JL-OE-wpQ">
-                                        <rect key="frame" x="0.0" y="365" width="335" height="177"/>
+                                        <rect key="frame" x="0.0" y="363" width="335" height="179"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Modes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAW-3f-UWm">
-                                                <rect key="frame" x="0.0" y="0.0" width="190" height="33"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="190" height="12"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jgm-Oh-UKW">
-                                                <rect key="frame" x="0.0" y="33" width="335" height="144"/>
+                                                <rect key="frame" x="0.0" y="12" width="335" height="167"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="checkableCell" rowHeight="43.666667938232422" id="zNL-vn-n5U">
@@ -731,23 +727,32 @@
                                 <action selector="backButtonPressed:" destination="5Zn-Fg-Jrz" id="8xf-Pz-Etg"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Find Game" image="discoverTabBarIcon" id="OER-X7-AlG">
-                            <color key="tintColor" red="1" green="0.0" blue="0.85566986239999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="filterButtonPressed:" destination="5Zn-Fg-Jrz" id="xVc-kW-sg3"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Find Game" image="discoverTabBarIcon" id="OER-X7-AlG">
+                                <color key="tintColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="filterButtonPressed:" destination="5Zn-Fg-Jrz" id="xVc-kW-sg3"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="navBarRandomIcon" id="Nif-XR-wUS">
+                                <color key="tintColor" red="1" green="0.01256880047" blue="0.61983363319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="randomButtonPressed:" destination="5Zn-Fg-Jrz" id="I3i-oM-wnd"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="gameModesTableView" destination="Jgm-Oh-UKW" id="fHC-zw-LRg"/>
                         <outlet property="genresTableView" destination="Mbb-gG-aia" id="BoY-6E-hQz"/>
                         <outlet property="platformsTableView" destination="aOG-6F-zDw" id="Okb-YK-KSg"/>
                         <segue destination="XZs-Zj-HML" kind="presentation" identifier="toShowFilteredGames" id="6wC-as-zhV"/>
+                        <segue destination="xaI-35-Rgs" kind="presentation" identifier="toShowFilteredGame" id="jRZ-qW-9la"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ZY-j4-hul" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1834" y="1655"/>
+            <point key="canvasLocation" x="972" y="1655"/>
         </scene>
         <!--Game Grouping View Controller-->
         <scene sceneID="sRp-FJ-Jhb">
@@ -822,7 +827,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XGR-w7-5cr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2709.5999999999999" y="1654.7226386806599"/>
+            <point key="canvasLocation" x="1854" y="1655"/>
         </scene>
         <!--Now Playing-->
         <scene sceneID="Hln-GO-CSg">
@@ -1256,15 +1261,16 @@
         <image name="gameLibraryTabBarIcon" width="25.5" height="25.5"/>
         <image name="info.circle" catalog="system" width="64" height="60"/>
         <image name="libraryIcon" width="63" height="63"/>
-        <image name="magnifyingglass" catalog="system" width="64" height="56"/>
+        <image name="navBarFilterSlidersIcon" width="24.5" height="24.5"/>
         <image name="navBarHistoryIcon" width="24.5" height="24.5"/>
+        <image name="navBarRandomIcon" width="22" height="22"/>
         <image name="photoButton" width="101.5" height="101"/>
         <image name="playIcon" width="63" height="63"/>
         <image name="randomIcon" width="63" height="63"/>
         <image name="sliderFilterIcon" width="63" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3rC-pf-oUp"/>
+        <segue reference="crk-hi-3dY"/>
         <segue reference="Whk-9D-cY9"/>
     </inferredMetricsTieBreakers>
 </document>

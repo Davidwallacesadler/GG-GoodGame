@@ -95,39 +95,25 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
     
     // MARK: - Actions
     
+    @IBAction func randomButtonPressed(_ sender: Any) {
+        // Apply Filter and get a random element from the collection
+        let commonSavedGames = filterSavedGamesCollection()
+        if commonSavedGames.isEmpty {
+            presentNoGamesFoundAlert()
+        } else {
+            guard let randomSavedGame = commonSavedGames.randomElement() else { return }
+            self.filteredGame = randomSavedGame
+        }
+
+        
+        
+    }
     @IBAction func backButtonPressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func filterButtonPressed(_ sender: Any) {
-        // Apply Filter and get a random element from the collection
-        var platformSavedGames = [SavedGame]()
-        var genreSavedGames = [SavedGame]()
-        var playModeSavedGames = [SavedGame]()
-        if selectedPlatformIds.isEmpty && selectedGenreIds.isEmpty && selectedPlayModeIds.isEmpty {
-            let noGamesFoundAlert = UIAlertController(title: "No Games Found", message: "Please select at least one name from the filter lists to get results.", preferredStyle: .alert)
-            noGamesFoundAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            self.present(noGamesFoundAlert, animated: true, completion: nil)
-        }
-        if selectedPlatformIds.isEmpty {
-            platformSavedGames = SavedGameController.shared.savedGames
-        } else {
-            let platformPredicateString = createPredicateString(givenIdArray: selectedPlatformIds)
-            platformSavedGames = GamePlatformController.shared.fetchSavedGameFromPlatformPredicateString(predicateString: platformPredicateString)
-        }
-        if selectedGenreIds.isEmpty {
-            genreSavedGames = SavedGameController.shared.savedGames
-        } else {
-            let genrePredicateString = createPredicateString(givenIdArray: selectedGenreIds)
-            genreSavedGames = GameGenreController.shared.fetchSavedGameFromGenrePredicateString(predicateString: genrePredicateString)
-        }
-        if selectedPlayModeIds.isEmpty {
-            playModeSavedGames = SavedGameController.shared.savedGames
-        } else {
-            let playModePredicateString = createPredicateString(givenIdArray: selectedPlayModeIds)
-            playModeSavedGames = PlayModeController.shared.fetchSavedGameFromPlayModePredicateString(predicateString: playModePredicateString)
-        }
-        let commonSavedGames = Array(Set(platformSavedGames).intersection(Set(genreSavedGames)).intersection(Set(playModeSavedGames)))
+        let commonSavedGames = filterSavedGamesCollection()
         if commonSavedGames.isEmpty {
             presentNoGamesFoundAlert()
         } else {
@@ -218,6 +204,38 @@ class ReccomendsFilterViewController: UIViewController, UITableViewDataSource, U
     }
     
     // MARK: - Internal Methods
+    
+    private func filterSavedGamesCollection() -> [SavedGame] {
+        var platformSavedGames = [SavedGame]()
+        var genreSavedGames = [SavedGame]()
+        var playModeSavedGames = [SavedGame]()
+        if selectedPlatformIds.isEmpty && selectedGenreIds.isEmpty && selectedPlayModeIds.isEmpty {
+            let noGamesFoundAlert = UIAlertController(title: "No Games Found", message: "Please select at least one name from the filter lists to get results.", preferredStyle: .alert)
+            noGamesFoundAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(noGamesFoundAlert, animated: true, completion: nil)
+            return []
+        }
+        if selectedPlatformIds.isEmpty {
+            platformSavedGames = SavedGameController.shared.savedGames
+        } else {
+            let platformPredicateString = createPredicateString(givenIdArray: selectedPlatformIds)
+            platformSavedGames = GamePlatformController.shared.fetchSavedGameFromPlatformPredicateString(predicateString: platformPredicateString)
+        }
+        if selectedGenreIds.isEmpty {
+            genreSavedGames = SavedGameController.shared.savedGames
+        } else {
+            let genrePredicateString = createPredicateString(givenIdArray: selectedGenreIds)
+            genreSavedGames = GameGenreController.shared.fetchSavedGameFromGenrePredicateString(predicateString: genrePredicateString)
+        }
+        if selectedPlayModeIds.isEmpty {
+            playModeSavedGames = SavedGameController.shared.savedGames
+        } else {
+            let playModePredicateString = createPredicateString(givenIdArray: selectedPlayModeIds)
+            playModeSavedGames = PlayModeController.shared.fetchSavedGameFromPlayModePredicateString(predicateString: playModePredicateString)
+        }
+        let commonSavedGames = Array(Set(platformSavedGames).intersection(Set(genreSavedGames)).intersection(Set(playModeSavedGames)))
+        return commonSavedGames
+    }
     
     private func setupTableViewDelegation() {
         platformsTableView.dataSource = self

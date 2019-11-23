@@ -102,6 +102,7 @@ struct GameController {
     func getCoverImageByArtworks(_ artworks: [Artwork],
                                   completion: @escaping(_ coverArt: UIImage?) -> Void) {
         if artworks.count < 1 {
+            completion(nil)
             return
         } else {
             guard let imageUrlString = artworks[0].url else { return }
@@ -127,7 +128,7 @@ struct GameController {
     // MARK: - Get Genre Data
     
     func getGenreByGenreId(_ genreId: Int,
-                          completion: @escaping(_ genres: [Genre]) -> Void) {
+                           completion: @escaping(_ genres: [Genre]) -> Void) {
         let requestBodyString = "fields name; where id = \(genreId);"
         guard let requestUrl = URL(string: Keys.baseURL + "genres"), let requestBody = requestBodyString.data(using: .utf8, allowLossyConversion: false) else { return }
         NetworkController.performRequest(for: requestUrl,

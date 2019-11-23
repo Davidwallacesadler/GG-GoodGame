@@ -38,6 +38,10 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
     // MARK: - Internal Properties
     
      // TagFields
+    var coverImageCallCompleted = false
+    var platformTagsCallCompleted = false
+    var genreTagsCallCompleted = false
+    var gameModeTagsCallCompleted = false
     fileprivate let gameModeTagsList = WSTagsField()
     fileprivate let platformTagsList = WSTagsField()
     fileprivate let genreTagsList = WSTagsField()
@@ -78,7 +82,6 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         didSet {
             DispatchQueue.main.async {
                 self.updateGameModeTagsView()
-                self.loadingImageView?.stopAnimating()
             }
         }
     }
@@ -113,8 +116,21 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
     // GAME:
     var game: Game? {
        didSet {
+        if artworks == nil {
+            coverImageCallCompleted = true
+        }
+        if gamePlaftormIds == nil {
+            platformTagsCallCompleted = true
+        }
+        if genreIds == nil {
+            genreTagsCallCompleted = true
+        }
+        if gameModeIds == nil {
+            gameModeTagsCallCompleted = true
+        }
         if let artworkArray = artworks {
             GameController.shared.getCoverImageByArtworks(artworkArray) { (image) in
+                self.coverImageCallCompleted = true
                 guard let coverImage = image else { return }
                 self.gameCover = coverImage
                 self.imageHasChanged = true
@@ -122,16 +138,19 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         }
         if let platformIds = gamePlaftormIds {
             GameController.shared.getPlatformsByPlatformIds(platformIds) { (gamePlatforms) in
+                self.platformTagsCallCompleted = true
                 self.gamePlatforms = gamePlatforms
             }
         }
         if let genres = genreIds {
             GameController.shared.getGenresByGenreIds(genres) { (genres) in
+                self.genreTagsCallCompleted = true
                 self.genres = genres
             }
         }
         if let modeIds = gameModeIds {
             GameController.shared.getGameModesByModeIds(modeIds) { (gameModes) in
+                self.gameModeTagsCallCompleted = true
                 self.gameModes = gameModes
                 }
             }
@@ -155,8 +174,8 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
      }
     
    override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    setupTagListFrames()
+        super.viewDidLayoutSubviews()
+        setupTagListFrames()
     }
 
     // MARK: - Outlets
@@ -293,19 +312,19 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     private func startAnimatingIfNetworkGameWasPassed() {
         if let selectedGame = game {
-            
             gameTitleTextField.text = selectedGame.name
             self.view.addSubview(loadingImageView!)
             loadingImageView!.startAnimating()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                print("stopping animation if it is still running")
-                guard let loadingView = self.loadingImageView else { return }
-                if loadingView.isAnimating {
-                    self.loadingImageView?.stopAnimating()
+            let loadingTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
+                if self.coverImageCallCompleted && self.platformTagsCallCompleted && self.genreTagsCallCompleted && self.gameModeTagsCallCompleted {
+                    self.loadingImageView!.stopAnimating()
+                    self.loadingImageView!.removeFromSuperview()
+                    timer.invalidate()
                 }
             }
+            loadingTimer.tolerance = 0.25
+            loadingTimer.fire()
         }
-
     }
     
     private func setupSuggestionTableView() {
