@@ -135,7 +135,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="shd-XW-o8x">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="IEr-9t-zpa">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="50" height="30"/>
@@ -164,7 +164,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.87416719543147203" green="0.87416719543147203" blue="0.87416719543147203" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="4yC-0D-LJz" firstAttribute="top" secondItem="gIt-NI-aaL" secondAttribute="top" constant="5" id="AcF-45-PuI"/>
                                 <constraint firstAttribute="trailing" secondItem="4yC-0D-LJz" secondAttribute="trailing" constant="20" id="DjL-br-yX9"/>
@@ -1270,7 +1270,7 @@
         <image name="sliderFilterIcon" width="63" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="crk-hi-3dY"/>
-        <segue reference="Whk-9D-cY9"/>
+        <segue reference="3rC-pf-oUp"/>
+        <segue reference="ceH-WA-yhA"/>
     </inferredMetricsTieBreakers>
 </document>

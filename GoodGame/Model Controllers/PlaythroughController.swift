@@ -66,6 +66,8 @@ class PlaythroughController {
     func deletePlaythroughFor(savedGame: SavedGame,
                               playthrough: PlaythroughHistory) {
         savedGame.removeFromPlaythroughs(playthrough)
+        let moc = playthrough.managedObjectContext
+        moc?.delete(playthrough)
         saveToPersitentStorage()
     }
     

@@ -9,8 +9,19 @@
 import UIKit
 import WSTagsField
 
-class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+protocol PlaythroughHistoryDelegate {
+    func updatePlaythroughButton()
+}
+
+class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, PlaythroughHistoryDelegate {
     
+    func updatePlaythroughButton() {
+        if let savedGamePlaythroughs = savedGame?.playthroughs?.array {
+            if savedGamePlaythroughs.isEmpty {
+                playthroughHistoryBarButtonItem.tintColor = .clear
+            }
+        }
+    }
     
     // MARK: - TableView Delegate / Datasource
     
@@ -172,6 +183,14 @@ class GameDetailViewController: UIViewController, UITextFieldDelegate, UITableVi
         setupTagListCallBacks()
         setupKeyboardObservers()
      }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        if let savedGamePlaythroughs = savedGame?.playthroughs?.array {
+//            if savedGamePlaythroughs.isEmpty {
+//                playthroughHistoryBarButtonItem.tintColor = .clear
+//            }
+//        }
+//    }
     
    override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -684,6 +703,7 @@ extension GameDetailViewController {
         if segue.identifier == "toShowHistory" {
             guard let historyVC = segue.destination as? PlaythroughListViewController, let selectedGame = savedGame else { return }
             historyVC.savedGame = selectedGame
+            historyVC.historyButtonDelegate = self
         }
     }
 }

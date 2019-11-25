@@ -50,6 +50,12 @@ class PlaythroughListViewController: UIViewController, UITableViewDelegate, UITa
             PlaythroughController.shared.deletePlaythroughFor(savedGame: game, playthrough: selectedHistory)
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.reloadData()
+            guard let playthroughs = game.playthroughs?.array else { return }
+            if playthroughs.isEmpty {
+                guard let gameDetailDelegate = historyButtonDelegate else { return }
+                gameDetailDelegate.updatePlaythroughButton()
+                self.dismiss(animated: true, completion: nil)
+            }
         }
     }
     
@@ -59,6 +65,7 @@ class PlaythroughListViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     // MARK: - Internal Properties
+    var historyButtonDelegate: PlaythroughHistoryDelegate?
     let textView = UITextView(frame: CGRect.zero)
     var selectedHistory: PlaythroughHistory?
     var savedGame: SavedGame?
